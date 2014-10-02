@@ -1,13 +1,10 @@
 var express = require('express'),
-    config = require('./src/config');
+    config = require('./src/config'),
+    middleware = require('./src/bootstrapMiddleware');
 
 var app = express();
 
-
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
-
-app.use(express.static(__dirname + '/public'));
+middleware(app);
 
 app.get('/', function (req, res) {
     res.render('index',
@@ -15,4 +12,4 @@ app.get('/', function (req, res) {
     );
 });
 
-app.listen(3000);
+app.listen(config.port);

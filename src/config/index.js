@@ -16,6 +16,4 @@ if (_.isEmpty(defaultConfig)){
 
 config = _.extend(defaultConfig, localConfig);
 
-console.log(config);
-
 module.export = config;
