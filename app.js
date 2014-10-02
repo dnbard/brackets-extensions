@@ -1,15 +1,11 @@
 var express = require('express'),
     config = require('./src/config'),
-    middleware = require('./src/bootstrapMiddleware');
+    middleware = require('./src/bootstrapMiddleware'),
+    routing = require('./src/routing');
 
 var app = express();
 
 middleware(app);
-
-app.get('/', function (req, res) {
-    res.render('index',
-        { title : 'Home' }
-    );
-});
+routing(app);
 
 app.listen(config.port);
