@@ -3,11 +3,9 @@ function Routing(app){
         throw new Error('Invalid argument');
     }
 
-    app.get('/', function (req, res) {
-        res.render('index',
-            { title : 'Home' }
-        );
-    });
+    var index = require('./controllers/index');
+
+    app.get('/', index.default);
 }
 
 module.exports = Routing;

@@ -1,7 +1,8 @@
 var _ = require('lodash'),
     defaultConfig = {
-        port: 3000,
-        abc: 'lorem'
+        port: process.env.PORT || 3000,
+        database: process.env.MONGO_URL,
+        env: process.env.STAGING || 'dev'
 }, config, localConfig;
 
 try{
