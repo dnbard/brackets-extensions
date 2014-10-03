@@ -1,7 +1,5 @@
 var mongoose = require('mongoose'),
     Extension = mongoose.model('Extension'),
-    cache = require('../services/cache'),
-    Q = require('q'),
     baseDAL = require('./base');
 
 function ExtensionDAL(){}

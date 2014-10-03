@@ -1,9 +1,7 @@
 var Q = require('q'),
     cache = require('../services/cache');
 
-function BaseDAL(){
-
-}
+function BaseDAL(){}
 
 BaseDAL.prototype.cached = function(key, handler){
     if (typeof key !== 'string' || typeof handler !== 'function'){
