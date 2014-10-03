@@ -1,22 +1,26 @@
 extend layout
 
 block content
-  p
-    | Vivamus hendrerit arcu sed erat molestie
-    | vehicula. Sed auctor neque eu tellus
-    | rhoncus ut eleifend nibh porttitor. Ut in.
-    
-  p
-    | Donec congue lacinia dui, a porttitor
-    | lectus condimentum laoreet. Nunc eu
-    | ullamcorper orci. Quisque eget odio ac
-    | lectus vestibulum faucibus eget in metus.
-    | In pellentesque faucibus vestibulum. Nulla
-    | at nulla justo, eget luctus tortor.
+    div.center 1
 
-block sidebar
-  .widget
-    h1 Extensions
-    p
-      | In registry: #{count} extensions
+    div.center
+        div.widget
+            h1.center Most Popular Extensions
+            each extension in downloadsExtensionList
+                p.extension
+                    a(href="/extension/#{extension._id}") #{extension._id}
+                    span.downloads &nbsp; #{extension.totalDownloads}
 
+        div.widget
+            h1.center Extensions
+            p In registry: #{count} extensions
+            p.bold Newest extension:
+                div
+                    a(href="/extension/#{newestExtension._id}") #{newestExtension._id}
+                    span &nbsp;by&nbsp;
+                    a(href="/author/#{newestExtension.author}") #{newestExtension.author}
+            p.bold Extension with most downloads:
+                div
+                    a(href="/extension/#{downloadsExtension._id}") #{downloadsExtension._id}
+                    span &nbsp;by&nbsp;
+                    a(href="/author/#{downloadsExtension.author}") #{downloadsExtension.author}

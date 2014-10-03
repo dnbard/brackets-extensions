@@ -19,6 +19,11 @@ caption,th,td {
   font-weight: normal;
   vertical-align: middle;
 }
+
+a{
+    color: darken(skyblue, 30%);
+}
+
 a img {
   border: none;
 }
@@ -44,27 +49,31 @@ header {
   overflow: hidden;
 }
 .main-content {
-  float: left;
-  width: 690px;
-}
-.main-content p {
-  margin-bottom: 20px;
+  font-size: 13px;
 }
 .sidebar {
   float: left;
-  width: 300px;
+  width: 350px;
 }
 
-.sidebar .widget {
+.widget {
   -webkit-border-radius: 3px;
   border-radius: 3px;
   border: 1px solid #ccc;
-  margin-left: 20px;
+  margin: 5px 10px;
   background-color: #faf9f0;
   -webkit-box-shadow: inset 0px 0px 0px 3px rgba(255,255,255,0.8), 0px 3px 0px -2px rgba(0,0,0,0.1);
   box-shadow: inset 0px 0px 0px 3px rgba(255,255,255,0.8), 0px 3px 0px -2px rgba(0,0,0,0.1);
+  width: 310px;
+  display: inline-block;
+
+  padding: 7px;
+  box-sizing: border-box;
+  vertical-align: top;
+
+    text-align: left;
 }
-.sidebar .widget h1 {
+.widget h1 {
   font-family: 'Quicksand';
   margin: 13px 10px 4px;
   padding-bottom: 10px;
@@ -72,14 +81,18 @@ header {
   -webkit-border-radius: 2px 2px 0px 0px;
   border-radius: 2px 2px 0px 0px;
   margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
-.sidebar .widget p {
+.widget{
   font-size: 13px;
   padding: 0px 10px;
   margin-bottom: 10px;
-}
-p {
   line-height: 1.8;
+}
+
+p {
+  line-height: 1.5;
 }
 footer {
   width: 500px;
@@ -89,3 +102,10 @@ footer {
   font-size: 13px;
 }
 
+.bold{
+    font-weight: bold;
+}
+
+.center{
+    text-align: center;
+}
