@@ -1,7 +1,10 @@
 extend layout
 
 block content
-    div.center 1
+    div.center
+        span The extension that let you know most popular and trending extensions for Brackets IDE
+        span.install Install
+
 
     div.center
         div.widget
@@ -14,7 +17,7 @@ block content
                     span.downloads &nbsp; #{extension.totalDownloads}
 
         div.widget
-            h1.center Extensions
+            h1.center Stats
             div.separator
             p In registry: #{count} extensions
             p.bold Newest extension:
