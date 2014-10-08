@@ -8,6 +8,11 @@ function BootstrapMiddleware(app){
     app.set('views', __dirname + '/../views');
     app.set('view engine', 'jade');
 
+    app.use(function(req, res, next){
+        console.log(req.path);
+
+        next();
+    });
     app.use(express.static(__dirname + '/../public'));
 }
 

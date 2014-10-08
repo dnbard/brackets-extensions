@@ -1,9 +1,9 @@
 extend layout
 
 block content
-    div.center
+    div.extension-adv
         span The extension that let you know most popular and trending extensions for Brackets IDE
-        span.install Install
+        a.install(href="https://github.com/dnbard/brackets-extension-rating") Learn more
 
 
     div.center
@@ -13,7 +13,9 @@ block content
             div.separator
             each extension in downloadsExtensionList
                 p.extension
-                    a(href="/extension/#{extension._id}") #{extension._id}
+                    a(href="/extension/#{extension._id}")
+                        span.position #{extension.position}
+                        span.name #{extension._id}
                     span.downloads &nbsp; #{extension.totalDownloads}
 
         div.widget
