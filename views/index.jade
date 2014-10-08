@@ -15,7 +15,7 @@ block content
                 p.extension
                     a(href="/extension/#{extension._id}")
                         span.position #{extension.position}
-                        span.name #{extension._id}
+                        span.name #{extension.title || extension._id}
                     span.downloads &nbsp; #{extension.totalDownloads}
 
         div.widget
@@ -24,11 +24,11 @@ block content
             p In registry: #{count} extensions
             p.bold Newest extension:
                 div
-                    a(href="/extension/#{newestExtension._id}") #{newestExtension._id}
+                    a(href="/extension/#{newestExtension._id}") #{newestExtension.title}
                     span &nbsp;by&nbsp;
                     a(href="/author/#{newestExtension.author}") #{newestExtension.author}
             p.bold Extension with most downloads:
                 div
-                    a(href="/extension/#{downloadsExtension._id}") #{downloadsExtension._id}
+                    a(href="/extension/#{downloadsExtension._id}") #{downloadsExtension.title}
                     span &nbsp;by&nbsp;
                     a(href="/author/#{downloadsExtension.author}") #{downloadsExtension.author}
