@@ -5,30 +5,33 @@ block content
         span The extension that let you know most popular and trending extensions for Brackets IDE
         a.install(href="https://github.com/dnbard/brackets-extension-rating") Learn more
 
+    div.search
+        input(placeholder="Search for extension")
+
 
     div.center
         div.widget
-            h1.center Most Popular Extensions
+            h2.center Most Popular Extensions
             p.center Randomly selected from the top 100
             div.separator
             each extension in downloadsExtensionList
                 p.extension
-                    a(href="/extension/#{extension._id}")
+                    a(href="/extension/#{extension._id}", title="#{extension.description}")
                         span.position #{extension.position}
                         span.name #{extension.title || extension._id}
                     span.downloads &nbsp; #{extension.totalDownloads}
 
         div.widget
-            h1.center Stats
+            h2.center Stats
             div.separator
             p In registry: #{count} extensions
             p.bold Newest extension:
                 div
-                    a(href="/extension/#{newestExtension._id}") #{newestExtension.title}
+                    a(href="/extension/#{newestExtension._id}", title="#{newestExtension.description}") #{newestExtension.title}
                     span &nbsp;by&nbsp;
                     a(href="/author/#{newestExtension.author}") #{newestExtension.author}
             p.bold Extension with most downloads:
                 div
-                    a(href="/extension/#{downloadsExtension._id}") #{downloadsExtension.title}
+                    a(href="/extension/#{downloadsExtension._id}", title="#{downloadsExtension.description}") #{downloadsExtension.title}
                     span &nbsp;by&nbsp;
                     a(href="/author/#{downloadsExtension.author}") #{downloadsExtension.author}
