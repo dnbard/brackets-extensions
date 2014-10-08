@@ -22,7 +22,9 @@ IndexController.prototype.default = function(req, res, next){
             count: count,
             newestExtension: newestExtension,
             downloadsExtension: downloadsExtension,
-            downloadsExtensionList: downloadsExtensionList
+            downloadsExtensionList: _.sortBy(_.sample(_.shuffle(downloadsExtensionList), 12), function(el){
+                return -el.totalDownloads;
+            })
         });
     }, this), function(){
         res.status(500).send();

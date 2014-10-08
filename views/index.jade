@@ -6,6 +6,8 @@ block content
     div.center
         div.widget
             h1.center Most Popular Extensions
+            p.center Randomly selected from the top 100
+            div.separator
             each extension in downloadsExtensionList
                 p.extension
                     a(href="/extension/#{extension._id}") #{extension._id}
@@ -13,6 +15,7 @@ block content
 
         div.widget
             h1.center Extensions
+            div.separator
             p In registry: #{count} extensions
             p.bold Newest extension:
                 div

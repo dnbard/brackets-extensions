@@ -3,8 +3,9 @@
 
 body {
     line-height: 1;
-    color: #000;
-    background: #fff;
+    font-family: 'Open Sans', Helvetica, Arial, Verdana, sans-serif;
+    background-color: #faf9f0;
+    color: #444;
 }
 ol,ul {
     list-style: none;
@@ -22,16 +23,18 @@ caption,th,td {
 
 a{
     color: darken(skyblue, 30%);
+    font-family: 'Open Sans', Helvetica, Arial, Verdana, sans-serif;
+    text-decoration: none;
+    transition: 0.25s all;
 
     img{
         border: none;
     }
-}
 
-body {
-    font-family: 'Georgia';
-    background-color: #faf9f0;
-    color: #444;
+    &:hover{
+        color: black;
+        text-decoration: underline;
+    }
 }
 
 header {
@@ -60,6 +63,10 @@ header {
             &:hover{
                 background: darken(@main-color, 30%);
             }
+        }
+        a{
+            color: white;
+            font-family: 'Quicksand';
         }
     }
 }
@@ -100,13 +107,17 @@ header {
     h1 {
         font-family: 'Quicksand';
         margin: 13px 10px 4px;
-        padding-bottom: 10px;
-        border-bottom: 1px dotted #ddd;
-        -webkit-border-radius: 2px 2px 0px 0px;
-        border-radius: 2px 2px 0px 0px;
         margin-bottom: 5px;
         font-size: 20px;
         font-weight: bold;
+        -webkit-border-radius: 2px 2px 0px 0px;
+        border-radius: 2px 2px 0px 0px;
+    }
+
+    .separator{
+        padding-bottom: 5px;
+        border-bottom: 1px dotted #aaa;
+        margin-bottom: 5px;
     }
 }
 

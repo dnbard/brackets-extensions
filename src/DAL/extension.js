@@ -26,7 +26,7 @@ ExtensionDAL.prototype.getMostDownloadsExtension = function(){
 
 ExtensionDAL.prototype.getMostDownloadsExtensionList = function(){
     return this.cached('extensionDownloadsLIst', function(){
-        return Extension.find({}).sort({totalDownloads: -1}).limit(12).lean().exec();
+        return Extension.find({}).sort({totalDownloads: -1}).limit(100).lean().exec();
     });
 }
 
