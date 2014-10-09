@@ -13,15 +13,11 @@ UserDirectory.prototype.add = function(id, user){
         user: user,
         token: id
     };
-
-    console.log('User directory updated. Storage size %s', _.size(this.storage));
 }
 
 UserDirectory.prototype.clean = function(){
     var now = new Date().getTime(),
         self = this;
-
-    console.log('Clean procedure started. Storage size %s', _.size(this.storage));
 
     _.each(this.storage, function(userInfo){
         if (now - userInfo.timestamp >= timeout){
@@ -29,9 +25,13 @@ UserDirectory.prototype.clean = function(){
         }
     });
 
-    console.log('Clean procedure finished. Storage size %s', _.size(this.storage));
-
     setTimeout(_.bind(this.clean, this), timeout);
+}
+
+UserDirectory.prototype.get = function(id){
+    var user = this.storage[id] || null;
+
+    return user;
 }
 
 module.exports = new UserDirectory();
