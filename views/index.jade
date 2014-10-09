@@ -42,7 +42,9 @@ block content
         div.widget
             h2.center Stats
             div.separator
-            p In registry: #{count} extensions
+            p
+                span.bold In registry:
+                span &nbsp;#{count} extensions, #{authorsCount} authors
             p.bold Newest extension:
                 div
                     a(href="/extension/#{newestExtension._id}", title="#{newestExtension.description}") #{newestExtension.title}

@@ -135,6 +135,37 @@ RegistryDAL.prototype.getAuthors = function(){
     });
 }
 
+RegistryDAL.prototype.getAuthorsCount = function(){
+    var self = this;
+
+    return this.cached('extensionAuthorsCount', function(){
+        var defer = Q.defer(),
+            authors = {};
+
+        self.getRegistry().then(function(registry){
+            _.each(registry, function(ext){
+                if (!ext.metadata || !ext.metadata.author || !ext.metadata.author.name){
+                    return true;
+                }
+
+                var author = ext.metadata.author.name;
+                if (authors[author]){
+                    authors[author].count ++;
+                } else {
+                    authors[author] = {
+                        name:  author,
+                        count: 1
+                    };
+                }
+            });
+
+            defer.resolve(_.size(authors));
+        });
+
+        return defer.promise;
+    });
+}
+
 RegistryDAL.prototype.init = function(){
     var registryPath = config.registryPath;
 

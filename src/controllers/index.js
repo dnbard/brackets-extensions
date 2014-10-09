@@ -13,14 +13,16 @@ IndexController.prototype.default = function(req, res, next){
         ExtensionDAL.getMostDownloadsExtension(),
         ExtensionDAL.getMostDownloadsExtensionList(),
         RegistryDAL.getTags(),
-        RegistryDAL.getAuthors()
+        RegistryDAL.getAuthors(),
+        RegistryDAL.getAuthorsCount()
     ]).then(_.bind(function(result){
         var count = result[0],
             newestExtension = result[1],
             downloadsExtension = result[2],
             downloadsExtensionList = result[3],
             tags = result[4],
-            authors = result[5];
+            authors = result[5],
+            authorsCount = result[6];
 
         res.render('index', {
             title : 'Home',
@@ -31,7 +33,8 @@ IndexController.prototype.default = function(req, res, next){
                 return -el.totalDownloads;
             }),
             tags: _.first(tags, 12),
-            authors: _.first(authors, 12)
+            authors: _.first(authors, 12),
+            authorsCount: authorsCount
         });
     }, this), function(){
         res.status(500).send();
