@@ -12,13 +12,15 @@ IndexController.prototype.default = function(req, res, next){
         ExtensionDAL.getNewestExtension(),
         ExtensionDAL.getMostDownloadsExtension(),
         ExtensionDAL.getMostDownloadsExtensionList(),
-        RegistryDAL.getTags()
+        RegistryDAL.getTags(),
+        RegistryDAL.getAuthors()
     ]).then(_.bind(function(result){
         var count = result[0],
             newestExtension = result[1],
             downloadsExtension = result[2],
             downloadsExtensionList = result[3],
-            tags = result[4];
+            tags = result[4],
+            authors = result[5];
 
         res.render('index', {
             title : 'Home',
@@ -28,7 +30,8 @@ IndexController.prototype.default = function(req, res, next){
             downloadsExtensionList: _.sortBy(_.sample(_.shuffle(downloadsExtensionList), 12), function(el){
                 return -el.totalDownloads;
             }),
-            tags: _.first(tags, 12)
+            tags: _.first(tags, 12),
+            authors: _.first(authors, 12)
         });
     }, this), function(){
         res.status(500).send();

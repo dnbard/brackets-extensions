@@ -8,7 +8,7 @@ var baseDAL = require('./base'),
     body;
 
 function RegistryDAL(){
-    this.storage = null;
+    this.registry = null;
     this.defers = [];
 
     this.init();
@@ -22,6 +22,8 @@ RegistryDAL.prototype.setRegistry = function(registry){
     _.each(this.defers, function(defer){
         defer.resolve(this.registry);
     });
+
+    this.defers = [];
 }
 
 RegistryDAL.prototype.getRegistry = function(){
@@ -60,11 +62,9 @@ RegistryDAL.prototype.getTags = function(){
             tags = {};
 
         self.getRegistry().then(function(registry){
-            extensionsWithTags = _.filter(self.registry, function(ext){
+            extensionsWithTags = _.filter(registry, function(ext){
                 return ext.metadata.keywords;
             });
-
-            console.log('%s extensions with tags', _.size(extensionsWithTags));
 
             _.each(extensionsWithTags, function(ext){
                 _.each(ext.metadata.keywords, function(tag){
@@ -88,6 +88,47 @@ RegistryDAL.prototype.getTags = function(){
             tags = _.first(tags, 25);
 
             defer.resolve(tags);
+        });
+
+        return defer.promise;
+    });
+}
+
+RegistryDAL.prototype.getAuthors = function(){
+    var self = this;
+
+    return this.cached('extensionAuthors', function(){
+        var defer = Q.defer(),
+            authors = {};
+
+        //TODO: add `id` field to author model and calculate it's value
+        //TODO: remove mail adress from author name
+        self.getRegistry().then(function(registry){
+            _.each(registry, function(ext){
+                if (!ext.metadata || !ext.metadata.author || !ext.metadata.author.name){
+                    return true;
+                }
+
+                var author = ext.metadata.author.name;
+                if (authors[author]){
+                    authors[author].count ++;
+                } else {
+                    authors[author] = {
+                        name:  author,
+                        count: 1
+                    };
+                }
+            });
+
+            authors = _.sortBy(authors, function(author){
+                return -author.count;
+            });
+
+            authors = _.toArray(authors);
+
+            authors = _.first(authors, 25);
+
+            defer.resolve(authors);
         });
 
         return defer.promise;

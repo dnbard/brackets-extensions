@@ -1,6 +1,7 @@
 var express = require('express'),
     authorization = require('./middleware/authorization'),
-    cookieParser = require('cookie-parser');
+    cookieParser = require('cookie-parser'),
+    ready = require('./middleware/ready');
 
 function BootstrapMiddleware(app){
     if (!app){
@@ -12,6 +13,7 @@ function BootstrapMiddleware(app){
 
     app.use(express.static(__dirname + '/../public'));
 
+    app.use(ready);
     app.use(cookieParser());
     app.use(authorization);
 }

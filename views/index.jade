@@ -31,6 +31,15 @@ block content
                     span.downloads &nbsp; #{tag.count}
 
         div.widget
+            h2.center Authors
+            p.center Authors
+            div.separator
+            each author in authors
+                p.author
+                    a(href="/author/#{author.name}", title="#{author.name}") #{author.name}
+                    span.downloads &nbsp; #{author.count}
+
+        div.widget
             h2.center Stats
             div.separator
             p In registry: #{count} extensions
