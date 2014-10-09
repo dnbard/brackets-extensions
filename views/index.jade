@@ -22,6 +22,15 @@ block content
                     span.downloads &nbsp; #{extension.totalDownloads}
 
         div.widget
+            h2.center Keywords
+            p.center Keywords with the biggest selection
+            div.separator
+            each tag in tags
+                p.tag
+                    a(href="/tag/#{tag.name}", title="#{tag.name}") #{tag.name}
+                    span.downloads &nbsp; #{tag.count}
+
+        div.widget
             h2.center Stats
             div.separator
             p In registry: #{count} extensions

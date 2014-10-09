@@ -1,6 +1,7 @@
 var winston = require('winston'),
     _ = require('lodash'),
     ExtensionDAL = require('../DAL/extension'),
+    RegistryDAL = require('../DAL/registry'),
     Q = require('q');
 
 function IndexController(){}
@@ -10,12 +11,14 @@ IndexController.prototype.default = function(req, res, next){
         ExtensionDAL.getExtensionsCount(),
         ExtensionDAL.getNewestExtension(),
         ExtensionDAL.getMostDownloadsExtension(),
-        ExtensionDAL.getMostDownloadsExtensionList()
+        ExtensionDAL.getMostDownloadsExtensionList(),
+        RegistryDAL.getTags()
     ]).then(_.bind(function(result){
         var count = result[0],
             newestExtension = result[1],
             downloadsExtension = result[2],
-            downloadsExtensionList = result[3];
+            downloadsExtensionList = result[3],
+            tags = result[4];
 
         res.render('index', {
             title : 'Home',
@@ -24,7 +27,8 @@ IndexController.prototype.default = function(req, res, next){
             downloadsExtension: downloadsExtension,
             downloadsExtensionList: _.sortBy(_.sample(_.shuffle(downloadsExtensionList), 12), function(el){
                 return -el.totalDownloads;
-            })
+            }),
+            tags: _.first(tags, 12)
         });
     }, this), function(){
         res.status(500).send();

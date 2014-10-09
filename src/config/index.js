@@ -2,7 +2,8 @@ var _ = require('lodash'),
     defaultConfig = {
         port: process.env.PORT || 3000,
         database: process.env.MONGO_URL,
-        env: process.env.STAGING || 'dev'
+        env: process.env.STAGING || 'dev',
+        registryPath: 'http://s3.amazonaws.com/extend.brackets/registry.json'
 }, config, localConfig;
 
 try{
