@@ -1,7 +1,8 @@
 var express = require('express'),
     authorization = require('./middleware/authorization'),
     cookieParser = require('cookie-parser'),
-    ready = require('./middleware/ready');
+    ready = require('./middleware/ready'),
+    morgan = require('morgan');
 
 function BootstrapMiddleware(app){
     if (!app){
@@ -11,6 +12,7 @@ function BootstrapMiddleware(app){
     app.set('views', __dirname + '/../views');
     app.set('view engine', 'jade');
 
+    app.use(morgan('dev'));
     app.use(express.static(__dirname + '/../public'));
 
     app.use(ready);
