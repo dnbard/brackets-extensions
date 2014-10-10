@@ -46,7 +46,7 @@ RegistryDAL.prototype.getPiper = function(){
         once: function(){},
         write: function(src){ body += src; },
         end: function(){
-            self.setRegistry(JSON.parse(body.replace('undefined', '')));
+            self.setRegistry(JSON.parse(body.replace('undefined', '').replace('null', '')));
             body = null;
         },
         emit: function(){}
