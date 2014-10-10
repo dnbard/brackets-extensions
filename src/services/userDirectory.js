@@ -34,4 +34,8 @@ UserDirectory.prototype.get = function(id){
     return user;
 }
 
+UserDirectory.prototype.size = function(){
+    return _.size(this.storage);
+}
+
 module.exports = new UserDirectory();

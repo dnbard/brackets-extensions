@@ -3,8 +3,22 @@ var Q = require('q'),
 
 function BaseDAL(){}
 
-BaseDAL.prototype.cached = function(key, handler, afterHandler){
-    if (typeof key !== 'string' || typeof handler !== 'function' || afterHandler && typeof afterHandler !== 'function'){
+BaseDAL.prototype.cached = function(){
+    var key, handler, afterHandler, invalidate;
+
+    if (arguments.length === 1){
+        key = arguments[0].key;
+        handler = arguments[0].handler;
+        afterHandler = arguments[0].afterHandler;
+        invalidate = arguments[0].invalidate || null;
+    } else {
+        key = arguments[0];
+        handler = arguments[1];
+        afterHandler = arguments[2];
+        invalidate = arguments[3] || null;
+    }
+
+    if (typeof key !== 'string' || typeof handler !== 'function'){
         throw new Error('Invalid argument');
     }
 
