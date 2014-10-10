@@ -19,7 +19,7 @@ ExtensionController.prototype.default = function(req, res, next){
         RegistryDAL.getExtension(extensionId)
     ]).then(function(result){
         var extension = result[0],
-            registryEntry = result[1]
+            registryEntry = result[1];
 
         res.render('extension', {
             title : extension.title || extension.name,
@@ -41,7 +41,8 @@ ExtensionController.prototype.default = function(req, res, next){
             homepage: extension.homepage,
             repository: extension.homepage || extension.repository,
             license: registryEntry.metadata.license,
-            engines: registryEntry.metadata.engines || null
+            engines: registryEntry.metadata.engines || null,
+            keywords: registryEntry.metadata.keywords || null
         });
     }, function(){
         res.status(500).send();
