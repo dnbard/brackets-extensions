@@ -1,0 +1,50 @@
+extend layout
+
+block content
+    div.extension-single
+        h1.name #{title}
+
+        div.author
+            span by&nbsp;
+            span.name
+                a(href="/author/#{author.name}", title="#{author.name}") #{author.name}
+            span &nbsp;for&nbsp;
+            each version, engine in engines
+                span.engine #{engine} #{version}&nbsp;
+
+        div.description #{description}
+
+        if keywords
+            div.keywords
+                each keyword in keywords
+                    span.keyword #{keyword}
+
+        div.details
+            div.caption Details
+            div.row
+                div.label version
+                div.content #{version}
+            if homepage
+                div.row
+                    div.label homepage
+                    div.content
+                        a(href="#{homepage}", title="#{title} homepage") #{homepage}
+            if created !== latest
+                div.row
+                    div.label modified
+                    div.content.date #{latest}
+            div.row
+                div.label created
+                div.content.date #{created}
+            if repository !== homepage
+                div.row
+                    div.label repository
+                    div.content #{repository}
+
+        div.downloads
+            div.caption Downloads
+
+
+
+block scripts
+    script(type='text/javascript', src='../js/extension.js')

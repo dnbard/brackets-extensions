@@ -1,4 +1,4 @@
-var baseDAL = require('./base'),
+var BaseDAL = require('./base'),
     _ = require('lodash'),
     config = require('../config'),
     request = require('request'),
@@ -14,7 +14,7 @@ function RegistryDAL(){
     this.init();
 }
 
-RegistryDAL.prototype = baseDAL;
+RegistryDAL.prototype = new BaseDAL();
 
 RegistryDAL.prototype.setRegistry = function(registry){
     this.registry = registry;
@@ -174,6 +174,18 @@ RegistryDAL.prototype.init = function(){
         .pipe(this.getPiper());
 
     setTimeout(_.bind(this.init, this), halfHour);
+}
+
+RegistryDAL.prototype.getExtension = function(id){
+    var defer = Q.defer();
+
+    this.getRegistry().then(function(registry){
+        defer.resolve(_.find(registry, function(ext){
+            return ext.metadata.name === id;
+        }));
+    });
+
+    return defer.promise;
 }
 
 module.exports = new RegistryDAL();

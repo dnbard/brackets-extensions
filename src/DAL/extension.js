@@ -1,11 +1,11 @@
 var mongoose = require('mongoose'),
     Extension = mongoose.model('Extension'),
-    baseDAL = require('./base'),
+    BaseDAL = require('./base'),
     _ = require('lodash');
 
 function ExtensionDAL(){}
 
-ExtensionDAL.prototype = baseDAL;
+ExtensionDAL.prototype = new BaseDAL();
 
 ExtensionDAL.prototype.getExtensionsCount = function(){
     return this.cached('extensionsCount', function(){
@@ -35,6 +35,10 @@ ExtensionDAL.prototype.getMostDownloadsExtensionList = function(){
             extension.position = ++i;
         });
     });
+}
+
+ExtensionDAL.prototype.getExtension = function(id){
+    return Extension.findOne({_id: id}).lean().exec();
 }
 
 module.exports = new ExtensionDAL();

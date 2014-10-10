@@ -29,4 +29,4 @@ BaseDAL.prototype.cached = function(key, handler, afterHandler){
     return defer.promise;
 }
 
-module.exports = new BaseDAL();
+module.exports = BaseDAL;
