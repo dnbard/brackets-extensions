@@ -8,9 +8,10 @@ block content
             span by&nbsp;
             span.name
                 a(href="/author/#{author.name}", title="#{author.name}") #{author.name}
-            span &nbsp;for&nbsp;
-            each version, engine in engines
-                span.engine #{engine} #{version}&nbsp;
+            if engines
+                span &nbsp;for&nbsp;
+                each version, engine in engines
+                    span.engine #{engine} #{version}&nbsp;
 
         div.description #{description}
 

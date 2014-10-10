@@ -41,7 +41,7 @@ ExtensionController.prototype.default = function(req, res, next){
             homepage: extension.homepage,
             repository: extension.homepage || extension.repository,
             license: registryEntry.metadata.license,
-            engines: registryEntry.metadata.engines || []
+            engines: registryEntry.metadata.engines || null
         });
     }, function(){
         res.status(500).send();
