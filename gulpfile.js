@@ -1,7 +1,8 @@
 var gulp = require('gulp'),
     less = require('gulp-less'),
     rename = require('gulp-rename'),
-    minifyCSS = require('gulp-minify-css');
+    minifyCSS = require('gulp-minify-css'),
+    del = require('del');
 
 gulp.task('build-less', function(){
     gulp.src('less/style.less')
@@ -20,4 +21,23 @@ gulp.task('default', function(){
     var lessWatcher = gulp.watch('less/**/*.less', ['build-less']);
 
     lessWatcher.on('change', onChange);
+});
+
+gulp.task('build', ['build-less'], function(){
+    del([
+    'build/**',
+    '!build/.git'
+  ], function(){
+        gulp.src('public/**/*')
+        .pipe(gulp.dest('build/public'));
+
+        gulp.src('src/**/*')
+            .pipe(gulp.dest('build/src'));
+
+        gulp.src('app.js')
+            .pipe(gulp.dest('build/'));
+
+        gulp.src('package.json')
+            .pipe(gulp.dest('build/'));
+    });
 });

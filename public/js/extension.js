@@ -51,7 +51,7 @@ ExtensionPageViewModel.prototype.initReadme = function(element){
         readmePathBase = repository.replace('https://github.com/', 'https://api.github.com/repos/');
 
         if (readmePathBase[readmePathBase.length - 1] === '/'){
-            readmePathBase = readmePathBase.substring(0, str.length - 1);
+            readmePathBase = readmePathBase.substring(0, readmePathBase.length - 1);
         }
 
         makeAjax(readmePathBase + readmePathEndings[endingIndex]);
@@ -63,7 +63,3 @@ ExtensionPageViewModel.prototype.initReadme = function(element){
 $(document).ready(function(){
     var viewmodel = new ExtensionPageViewModel('.extension-single');
 });
-
-//https://raw.githubusercontent.com/ github/markup /master/README.md
-//https://github.com/                github/markup
-//https://api.github.com/repos/      :owner/:repo  /contents/readme.md
