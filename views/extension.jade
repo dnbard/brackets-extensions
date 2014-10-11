@@ -7,6 +7,7 @@ block content
         div.author
             span by&nbsp;
             span.name
+                span.icon-torso
                 a(href="/author/#{author.name}", title="#{author.name}") #{author.name}
             if engines
                 span &nbsp;for&nbsp;
@@ -21,7 +22,7 @@ block content
                     a.keyword(href="/tag/#{keyword}", title="#{keyword} tag") #{keyword}
 
         div.details
-            div.caption Details
+            div.caption.icon-search &nbsp;Details
             div.row
                 div.label version
                 div.content #{version}
@@ -58,10 +59,10 @@ block content
                     div.content #{license}
 
         div.downloads
-            div.caption Downloads
+            div.caption.icon-download &nbsp;Downloads
 
         div.readme
-            div.caption Readme
+            div.caption.icon-markdown &nbsp;Readme
             input#repository(type="hidden", value="#{repository}")
             div.content.markdown-body
 

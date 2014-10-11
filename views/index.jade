@@ -11,7 +11,7 @@ block content
 
     div.center
         div.widget
-            h2.center Most Popular Extensions
+            h2.center.icon-graph-trend &nbsp;Most Popular Extensions
             p.center Randomly selected from the top 100
             div.separator
             each extension in downloadsExtensionList
@@ -22,7 +22,7 @@ block content
                     span.downloads &nbsp; #{extension.totalDownloads}
 
         div.widget
-            h2.center Keywords
+            h2.center.icon-tag-2 &nbsp;Keywords
             p.center Keywords with the biggest selection
             div.separator
             each tag in tags
@@ -31,7 +31,7 @@ block content
                     span.downloads &nbsp; #{tag.count}
 
         div.widget
-            h2.center Authors
+            h2.center.icon-torso &nbsp;Authors
             p.center Authors
             div.separator
             each author in authors
@@ -40,7 +40,7 @@ block content
                     span.downloads &nbsp; #{author.count}
 
         div.widget
-            h2.center Stats
+            h2.center.icon-chart-line &nbsp;Stats
             div.separator
             p
                 span.bold In registry:
