@@ -39,7 +39,7 @@ ExtensionController.prototype.default = function(req, res, next){
             totalDownloads: extension.totalDownloads,
             version: extension.version,
             homepage: extension.homepage,
-            repository: extension.homepage || extension.repository,
+            repository: extension.repository || extension.homepage,
             license: registryEntry.metadata.license,
             engines: registryEntry.metadata.engines || null,
             keywords: registryEntry.metadata.keywords || null
