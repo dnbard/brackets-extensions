@@ -31,17 +31,18 @@ block content
                     div.label homepage
                     div.content
                         a(href="#{homepage}", title="#{title} homepage", target="_blank") #{homepage}
-            if created !== latest
-                div.row
-                    div.label updated
-                    div.content.date #{latest}
-            div.row
-                div.label created
-                div.content.date #{created}
             if repository !== homepage
                 div.row
                     div.label repository
-                    div.content #{repository}
+                    div.content
+                        a(href="#{repository}", title="#{title} repository", target="_blank") #{repository}
+            if created !== latest
+                div.row
+                    div.label modified
+                    div.content.date #{latest}
+            div.row
+                div.label first seen
+                div.content.date #{created}
             if github.stars
                 div.row
                     div.label stars

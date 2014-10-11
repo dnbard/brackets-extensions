@@ -19,7 +19,7 @@ block content
                     a(href="/extension/#{extension._id}", title="#{extension.description}")
                         span.position #{extension.position}
                         span.name #{extension.title || extension._id}
-                    span.downloads &nbsp; #{extension.totalDownloads}
+                    span.downloads.number &nbsp; #{extension.totalDownloads}
 
         div.widget
             h2.center.icon-tag-2 &nbsp;Keywords
@@ -58,3 +58,6 @@ block content
             p
                 span.bold Users online:
                 span &nbsp;#{online}
+
+block scripts
+    script(type='text/javascript', src='../js/index.js')
