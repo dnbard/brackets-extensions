@@ -17,11 +17,60 @@ ExtensionPageViewModel.prototype.initDates = function(element){
     });
 }
 
+ExtensionPageViewModel.prototype.prependAll = function(matches, prepend){
+    return _.map(matches, function(match){
+        return prepend + match;
+    });
+}
+
+ExtensionPageViewModel.prototype.replaceAll = function(content, before, after){
+    if (!_.isArray(before) || !_.isArray(after) || before.length !== after.length){
+        throw new Error('Invalid argument');
+    }
+
+    for(var i = 0, max = before.length; i < max; i ++){
+        content = content.replace(before[i], after[i]);
+    }
+
+    return content;
+}
+
+ExtensionPageViewModel.prototype.getAllMatches = function(content, reg){
+    var matches = [],
+        found;
+
+    while (found = reg.exec(content)){
+        matches.push(found[1]);
+    }
+
+    return matches;
+}
+
+ExtensionPageViewModel.prototype.formatMarkdown = function(content, element){
+    var markdown = Markdown.toHTML(content),
+        repository = element.find('input#repository').val(),
+        before, after;
+
+    //src="screenshots/main.jpg"
+    before = this.getAllMatches(markdown, /src="(.*?)"/g);
+    _.remove(before, function(url){
+        return url.indexOf('http') !== -1;
+    });
+    after = this.prependAll(before, repository + '/raw/master/');
+    markdown = this.replaceAll(markdown, before, after);
+
+    //https://github.com/zaggino/brackets-git/raw/master/
+
+    return markdown;
+}
+
 ExtensionPageViewModel.prototype.initReadme = function(element){
+    var self = this;
+
     function makeAjax(url){
         $.ajax(url).success(function(data){
             var content = atob(data.content),
-                markdown = Markdown.toHTML(content);
+                markdown = self.formatMarkdown(content, element);
 
             element.find('.readme .content').html(markdown);
 
