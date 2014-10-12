@@ -26,10 +26,9 @@ ExtensionController.prototype.default = function(req, res, next){
         res.render('extension', {
             title : extension.title || extension.name,
             author: {
-                name: extension.author,
+                name: extension.author.replace(/\b(\w)+\@(\w)+\.(\w)+\b/g, '').replace(',', '').trim(),
                 avatar: extension.authorAvatar || null,
-                homepage: registryEntry.metadata.author.url || null,
-                email: registryEntry.metadata.author.email || null
+                homepage: registryEntry.metadata.author.url || null
             },
             description: extension.description,
             github: {

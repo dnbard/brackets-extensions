@@ -36,7 +36,10 @@ IndexController.prototype.default = function(req, res, next){
                 return -el.totalDownloads;
             }),
             tags: _.first(tags, 12),
-            authors: _.first(authors, 12),
+            authors: _.map(_.first(authors, 12),function(author){
+                author.name = author.name.replace(/\b(\w)+\@(\w)+\.(\w)+\b/g, '').replace(',', '').trim();
+                return author;
+            }),
             authorsCount: authorsCount,
             online: online
         });
