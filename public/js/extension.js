@@ -8,6 +8,29 @@ ExtensionPageViewModel.prototype.init = function(element){
     this.initDates(element);
     this.initReadme(element);
     this.initNumbers(element);
+    this.initVersions(element);
+}
+
+ExtensionPageViewModel.prototype.initVersions = function(element){
+    var counter = 0,
+        isInject = false,
+        roundPoint = 2;
+
+    element.find('.version').each(function(index, version){
+        var $version = $(version);
+
+        if (counter === roundPoint){
+            $version.after('<a class="showMoreVersions">Show more versions</a>');
+            element.find('.showMoreVersions').on('click', function(event){
+                $(event.target).remove();
+                element.find('.version').show();
+            });
+        } else if (counter > roundPoint) {
+            $version.hide();
+        }
+
+        counter ++;
+    });
 }
 
 ExtensionPageViewModel.prototype.initDates = function(element){
