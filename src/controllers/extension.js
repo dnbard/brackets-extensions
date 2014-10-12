@@ -21,6 +21,8 @@ ExtensionController.prototype.default = function(req, res, next){
         var extension = result[0],
             registryEntry = result[1];
 
+        console.log(registryEntry.versions);
+
         res.render('extension', {
             title : extension.title || extension.name,
             author: {
@@ -42,7 +44,8 @@ ExtensionController.prototype.default = function(req, res, next){
             repository: extension.repository || extension.homepage,
             license: registryEntry.metadata.license,
             engines: registryEntry.metadata.engines || null,
-            keywords: registryEntry.metadata.keywords || null
+            keywords: registryEntry.metadata.keywords || null,
+            versions: registryEntry.versions ? _.clone(registryEntry.versions).reverse() : null
         });
     }, function(){
         res.status(500).send();

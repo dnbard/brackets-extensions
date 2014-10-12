@@ -62,6 +62,15 @@ block content
         div.downloads
             div.caption.icon-download &nbsp;Downloads
 
+        if versions
+            div.versions
+                div.caption.icon-versions &nbsp;Versions
+                each release in versions
+                    div.version
+                        div.name #{release.version}
+                        div.date #{release.published}
+                        div.number #{release.downloads}
+
         div.readme
             div.caption.icon-markdown &nbsp;Readme
             input#repository(type="hidden", value="#{repository}")
