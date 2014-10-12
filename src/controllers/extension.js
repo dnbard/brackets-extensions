@@ -21,8 +21,6 @@ ExtensionController.prototype.default = function(req, res, next){
         var extension = result[0],
             registryEntry = result[1];
 
-        console.log(registryEntry.versions);
-
         res.render('extension', {
             title : extension.title || extension.name,
             author: {
