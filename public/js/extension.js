@@ -7,6 +7,7 @@ function ExtensionPageViewModel(elementSelector){
 ExtensionPageViewModel.prototype.init = function(element){
     this.initDates(element);
     this.initReadme(element);
+    this.initNumbers(element);
 }
 
 ExtensionPageViewModel.prototype.initDates = function(element){
@@ -62,6 +63,18 @@ ExtensionPageViewModel.prototype.formatMarkdown = function(content, element){
     //https://github.com/zaggino/brackets-git/raw/master/
 
     return markdown;
+}
+
+ExtensionPageViewModel.prototype.initNumbers = function(element){
+    element.find('.number').text(function(index, initial){
+        var result = initial;
+
+        if (initial > 1000){
+            result = Math.floor(parseInt(initial) / 1000) + 'k';
+        }
+
+        return result;
+    });
 }
 
 ExtensionPageViewModel.prototype.initReadme = function(element){

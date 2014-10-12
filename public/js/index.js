@@ -12,7 +12,7 @@ IndexPageViewModel.prototype.initNumbers = function(element){
         var result = initial;
 
         if (initial > 1000){
-            result = Math.ceil(parseInt(initial) / 1000) + 'k';
+            result = Math.floor(parseInt(initial) / 1000) + 'k';
         }
 
         return result;
