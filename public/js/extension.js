@@ -13,13 +13,14 @@ ExtensionPageViewModel.prototype.init = function(element){
 
 ExtensionPageViewModel.prototype.initVersions = function(element){
     var counter = 0,
-        isInject = false,
-        roundPoint = 2;
+        roundPoint = 2,
+        elements = element.find('.version'),
+        numberOfElements = elements.length || 0;
 
-    element.find('.version').each(function(index, version){
+    elements.each(function(index, version){
         var $version = $(version);
 
-        if (counter === roundPoint){
+        if (counter === roundPoint && counter !== numberOfElements - 1){
             $version.after('<a class="showMoreVersions">Show more versions</a>');
             element.find('.showMoreVersions').on('click', function(event){
                 $(event.target).remove();
