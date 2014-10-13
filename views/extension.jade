@@ -70,6 +70,7 @@ block content
                         div.name #{release.version}
                         div.date #{release.published}
                         div.number #{release.downloads}
+                        div.bar(current="#{release.downloads}")
 
         div.readme
             div.caption.icon-markdown &nbsp;Readme

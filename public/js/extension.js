@@ -9,6 +9,30 @@ ExtensionPageViewModel.prototype.init = function(element){
     this.initReadme(element);
     this.initNumbers(element);
     this.initVersions(element);
+    this.initBars(element);
+}
+
+ExtensionPageViewModel.prototype.initBars = function(element){
+    var bars = element.find('.bar');
+
+    if (bars.length === 0){
+        return;
+    }
+
+    var totalDownloads = $(_.max(bars, function(bar){
+        var $bar = $(bar);
+        return parseInt($bar.attr('current'));
+    })).attr('current');
+
+    _.each(bars, function(bar){
+        var $bar = $(bar),
+            currentDownloads = $bar.attr('current'),
+            proportion = parseInt(currentDownloads / totalDownloads * 100) || 1,
+            barInner = $('<div class="bar-inner"></div>');
+
+        $bar.append(barInner);
+        barInner.css('width', proportion + '%');
+    });
 }
 
 ExtensionPageViewModel.prototype.initVersions = function(element){
