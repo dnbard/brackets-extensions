@@ -44,6 +44,30 @@ ExtensionPageViewModel.prototype.getDownloads = function(element){
             }
         }
 
+        var data = _.first(extension.sorted, 30).reverse(),
+            dates = [];
+
+        var graph = new Rickshaw.Graph({
+                element: document.querySelector("#chart"),
+                renderer: 'bar',
+                series: [{
+                        data: _.map(data, function(download, index){
+                            dates.push(download.timestamp);
+                            return { x: index, y: download.inc }
+                        }),
+                        color: '#a8bacf',
+                        name: 'Downloads'
+                }]
+        });
+
+        graph.render();
+
+        var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+            graph: graph,
+            xFormatter: function(x) { return new Date(dates[x]).toLocaleDateString(); },
+            yFormatter: function(y) { return y; }
+        });
+
         console.log(extension);
     });
 }
