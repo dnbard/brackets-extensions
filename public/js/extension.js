@@ -10,6 +10,42 @@ ExtensionPageViewModel.prototype.init = function(element){
     this.initNumbers(element);
     this.initVersions(element);
     this.initBars(element);
+
+    this.getDownloads(element);
+}
+
+ExtensionPageViewModel.prototype.getDownloads = function(element){
+    var endpointUrl = 'http://' + location.host + location.pathname + '/downloads';
+
+    $.ajax(endpointUrl).success(function(extension){
+        var previous = null,
+            current = null,
+            download, i, max;
+
+        extension.downloads = _.sortBy(extension.downloads, 'timestamp');
+        extension.sorted = [];
+
+        for(i = extension.downloads.length - 1; i>=0; i--){
+            download = extension.downloads[i];
+            current = new Date(download.timestamp).getDate();
+
+            if (!previous || previous !== current){
+                extension.sorted.push(download);
+            }
+
+            previous = current;
+        }
+
+        for(i = 0, max = extension.sorted.length; i < max; i ++){
+            if (extension.sorted[i+1]){
+                extension.sorted[i].inc = extension.sorted[i].count - extension.sorted[i+1].count;
+            } else {
+                extension.sorted[i].inc = 0;
+            }
+        }
+
+        console.log(extension);
+    });
 }
 
 ExtensionPageViewModel.prototype.initBars = function(element){
