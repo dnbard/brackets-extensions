@@ -34,7 +34,13 @@ gulp.task('build', ['build-less'], function(){
         gulp.src('src/**/*')
             .pipe(gulp.dest('build/src'));
 
+        gulp.src('views/**/*')
+            .pipe(gulp.dest('build/views'));
+
         gulp.src('app.js')
+            .pipe(gulp.dest('build/'));
+
+        gulp.src('Procfile')
             .pipe(gulp.dest('build/'));
 
         gulp.src('package.json')
