@@ -1,7 +1,12 @@
-var RegistryDAL = require('../DAL/registry');
+var RegistryDAL = require('../DAL/registry'),
+    OnlineDAL;
 
 function isReady(req, res, next){
-    if (RegistryDAL.registry){
+    if (!OnlineDAL){
+        OnlineDAL = require('../DAL/online');
+    }
+
+    if (RegistryDAL.registry && OnlineDAL.registry){
         next();
     } else {
         //TODO: change this message for cute placeholder

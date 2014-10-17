@@ -2,6 +2,7 @@ var winston = require('winston'),
     _ = require('lodash'),
     ExtensionDAL = require('../DAL/extension'),
     RegistryDAL = require('../DAL/registry'),
+    OnlineDAL = require('../DAL/online'),
     ApplicationDAL = require('../DAL/application')
     Q = require('q');
 
@@ -16,7 +17,8 @@ IndexController.prototype.default = function(req, res, next){
         RegistryDAL.getTags(),
         RegistryDAL.getAuthors(),
         RegistryDAL.getAuthorsCount(),
-        ApplicationDAL.usersCount()
+        ApplicationDAL.usersCount(),
+        OnlineDAL.get()
     ]).then(_.bind(function(result){
         var count = result[0],
             newestExtension = result[1],
@@ -25,7 +27,9 @@ IndexController.prototype.default = function(req, res, next){
             tags = result[4],
             authors = result[5],
             authorsCount = result[6],
-            online = result[7];
+            usersOnline = result[7],
+            extensionsOnline = result[8],
+            themeOfDay = result[9];
 
         res.render('index', {
             title : 'Home',
@@ -41,7 +45,8 @@ IndexController.prototype.default = function(req, res, next){
                 return author;
             }),
             authorsCount: authorsCount,
-            online: online
+            online: usersOnline,
+            extensionsOnline: _.first(extensionsOnline, 12)
         });
     }, this), function(){
         res.status(500).send();

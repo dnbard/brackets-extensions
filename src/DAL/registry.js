@@ -17,10 +17,14 @@ function RegistryDAL(){
 RegistryDAL.prototype = new BaseDAL();
 
 RegistryDAL.prototype.setRegistry = function(registry){
+    if (!registry){
+        return;
+    }
+
     this.registry = registry;
 
     _.each(this.defers, function(defer){
-        defer.resolve(this.registry);
+        defer.resolve(registry);
     });
 
     this.defers = [];
@@ -183,6 +187,18 @@ RegistryDAL.prototype.getExtension = function(id){
         defer.resolve(_.find(registry, function(ext){
             return ext.metadata.name === id;
         }));
+    });
+
+    return defer.promise;
+}
+
+RegistryDAL.prototype.getThemeOfDay = function(){
+     var defer = Q.defer();
+
+    this.getRegistry().then(function(registry){
+        defer.resolve(_.sample(_.filter(registry, function(extension){
+            return extension.metadata && extension.metadata.theme;
+        })));
     });
 
     return defer.promise;

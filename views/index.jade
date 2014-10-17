@@ -12,7 +12,7 @@ block content
     div.center
         div.widget
             h2.center.icon-graph-trend &nbsp;Most Popular Extensions
-            p.center Randomly selected from the top 100
+            p.center randomly selected from the top 100
             div.separator
             each extension in downloadsExtensionList
                 p.extension
@@ -22,17 +22,20 @@ block content
                     span.downloads.number &nbsp; #{extension.totalDownloads}
 
         div.widget
-            h2.center.icon-tag-2 &nbsp;Keywords
-            p.center Keywords with the biggest selection
+            h2.center.icon-graph-trend &nbsp;Extensions
+            p.center by number of online users
             div.separator
-            each tag in tags
-                p.tag
-                    a(href="/tag/#{tag.name}", title="#{tag.name}") #{tag.name}
-                    span.downloads &nbsp; #{tag.count}
+            each extension in extensionsOnline
+                p.extension
+                    a(href="/extension/#{extension.name}")
+                        span.name #{extension.title}
+                    span.downloads &nbsp;
+                        span(title="Online users of #{extension.title}") #{extension.online}
+                        span.muted(title="Overall number of users for #{extension.title}") &nbsp/&nbsp#{extension.maxUsers}
 
         div.widget
             h2.center.icon-torso &nbsp;Authors
-            p.center Authors
+            p.center authors
             div.separator
             each author in authors
                 p.author
@@ -58,6 +61,15 @@ block content
             p
                 span.bold Users online:
                 span &nbsp;#{online}
+
+        div.widget
+            h2.center.icon-tag-2 &nbsp;Keywords
+            p.center keywords with the biggest selection
+            div.separator
+            each tag in tags
+                p.tag
+                    a(href="/tag/#{tag.name}", title="#{tag.name}") #{tag.name}
+                    span.downloads &nbsp; #{tag.count}
 
 block scripts
     script(type='text/javascript', src='../js/index.js')
