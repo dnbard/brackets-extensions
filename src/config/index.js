@@ -3,7 +3,8 @@ var _ = require('lodash'),
         port: process.env.PORT || 3000,
         database: process.env.MONGO_URL,
         env: process.env.STAGING || 'dev',
-        registryPath: 'http://s3.amazonaws.com/extend.brackets/registry.json'
+        registryPath: 'http://s3.amazonaws.com/extend.brackets/registry.json',
+        herokuDeploy: 'http://brackets-extensions.herokuapp.com'
 }, config, localConfig;
 
 try{
