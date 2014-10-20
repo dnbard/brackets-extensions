@@ -2,7 +2,7 @@ extend layout
 
 block content
     div.extension-adv
-        span The extension that let you know most popular and trending extensions for Brackets IDE
+        span The extension that let you know about most popular and trending extensions for Brackets IDE
         a.install(href="https://github.com/dnbard/brackets-extension-rating") Learn more
 
     div.search
@@ -31,7 +31,9 @@ block content
                         span.name #{extension.title}
                     span.downloads &nbsp;
                         span(title="Online users of #{extension.title}") #{extension.online}
-                        span.muted(title="Overall number of users for #{extension.title}") &nbsp/&nbsp#{extension.maxUsers}
+                        span.muted(title="Overall number of users for #{extension.title}")
+                            span &nbsp/&nbsp
+                            span.number #{extension.maxUsers}
 
         div.widget
             h2.center.icon-torso &nbsp;Authors
