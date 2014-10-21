@@ -9,17 +9,11 @@ function ApplicationDAL(){}
 ApplicationDAL.prototype = new BaseDAL();
 
 ApplicationDAL.prototype.usersCount = function(){
-    return this.cached({
-        key:'usersCount',
-        handler: function(){
-            var defer = Q.defer();
+    var defer = Q.defer();
 
-            defer.resolve(userDirectory.size());
+    defer.resolve(userDirectory.size());
 
-            return defer.promise;
-        },
-        invalidate: 1000 * 60 * 5
-    });
+    return defer.promise;
 }
 
 module.exports = new ApplicationDAL();

@@ -28,8 +28,7 @@ IndexController.prototype.default = function(req, res, next){
             authors = result[5],
             authorsCount = result[6],
             usersOnline = result[7],
-            extensionsOnline = result[8],
-            themeOfDay = result[9];
+            extensionsOnline = result[8];
 
         res.render('index', {
             title : 'Home',
