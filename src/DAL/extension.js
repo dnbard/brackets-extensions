@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
     Extension = mongoose.model('Extension'),
     BaseDAL = require('./base'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    Q = require('q');
 
 function ExtensionDAL(){}
 
@@ -38,7 +39,17 @@ ExtensionDAL.prototype.getMostDownloadsExtensionList = function(){
 }
 
 ExtensionDAL.prototype.getExtension = function(id){
-    return Extension.findOne({_id: id}).lean().exec();
+    var defer = Q.defer();
+
+    Extension.findOne({_id: id}).lean().exec().then(function(extension){
+        if (extension){
+            defer.resolve(extension);
+        } else {
+            defer.reject();
+        }
+    });
+
+    return defer.promise;
 }
 
 module.exports = new ExtensionDAL();

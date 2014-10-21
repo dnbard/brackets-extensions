@@ -45,7 +45,10 @@ ExtensionController.prototype.default = function(req, res, next){
             versions: registryEntry.versions ? _.clone(registryEntry.versions).reverse() : null
         });
     }, function(){
-        res.status(500).send();
+        res.render('extension__not-found',{
+            title: 'Extension not found',
+            id: extensionId
+        });
     });
 }
 
