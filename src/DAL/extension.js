@@ -52,4 +52,22 @@ ExtensionDAL.prototype.getExtension = function(id){
     return defer.promise;
 }
 
+ExtensionDAL.prototype.getExtensionsByAuthor = function(id){
+    var defer = Q.defer();
+
+    if (typeof id !== 'string' || id.length === 0){
+        defer.reject();
+    } else {
+        Extension.find({author:id}).sort({totalDownloads: -1}).lean().exec().then(function(extensions){
+            if (!_.isArray(extensions) || extensions.length === 0){
+                defer.reject();
+            } else {
+                defer.resolve(extensions);
+            }
+        });
+    }
+
+    return defer.promise;
+}
+
 module.exports = new ExtensionDAL();

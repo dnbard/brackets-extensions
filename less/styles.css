@@ -74,9 +74,15 @@
 .icon-tag:before {
   content: "l";
 }
-.icon-tag-2:before {
+.icon-tag-2chart-line:before {
   content: "m";
 }
 .icon-chart-line:before {
   content: "n";
+}
+.icon-star-two:before {
+  content: "o";
+}
+.icon-code-fork:before {
+  content: "p";
 }
