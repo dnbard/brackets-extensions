@@ -25,8 +25,9 @@ gulp.task('default', function(){
 
 gulp.task('build', ['build-less'], function(){
     del([
-    'build/**',
-    '!build/.git'
+        'build/public/**',
+        'build/src/**',
+        'build/views/**'
   ], function(){
         gulp.src('public/**/*')
         .pipe(gulp.dest('build/public'));
