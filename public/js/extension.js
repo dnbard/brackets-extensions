@@ -67,8 +67,6 @@ ExtensionPageViewModel.prototype.getDownloads = function(element){
             xFormatter: function(x) { return new Date(dates[x]).toLocaleDateString(); },
             yFormatter: function(y) { return y; }
         });
-
-        console.log(extension);
     });
 }
 
@@ -167,8 +165,6 @@ ExtensionPageViewModel.prototype.formatMarkdown = function(content, element){
     });
     after = this.prependAll(before, repository + '/raw/master/');
     markdown = this.replaceAll(markdown, before, after);
-
-    //https://github.com/zaggino/brackets-git/raw/master/
 
     return markdown;
 }

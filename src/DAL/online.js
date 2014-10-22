@@ -5,7 +5,7 @@ var BaseDAL = require('./base'),
     Q = require('q'),
     mongoose = require('mongoose'),
     Service = null,
-    mins15 = 1000 * 60 * 15,
+    mins15 = 1000 * 60 * 30,
     RegistryDAL = require('./registry');
 
 function OnlineDAL(){
@@ -22,15 +22,22 @@ OnlineDAL.prototype.set = function(registry){
         return ext.name;
     });
 
+    //console.log('New registry size - ', _.size(registry));
+    //console.log('Online size before removing - %s', _.size(this.registry));
+
     _.remove(this.registry, function(ext){
-        return _.contain(registryIds, ext.name);
+        return _.contains(registryIds, ext.name);
     });
 
-    this.registry = _(this.registry)
-        .extend(registry)
+    //console.log('Online size after removing - %s', _.size(this.registry));
+
+    this.registry = _(registry)
+        .extend(this.registry)
         .sortBy(function(ext){
         return - ext.online;
     }).value();
+
+    //console.log('Online size after concatenating - %s', _.size(this.registry));
 
     _.each(this.registry, function(extensionOnlineInfo){
         if (!extensionOnlineInfo.title){
