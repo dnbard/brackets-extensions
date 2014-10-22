@@ -40,6 +40,9 @@ gulp.task('build', ['build-less'], function(){
         gulp.src('app.js')
             .pipe(gulp.dest('build/'));
 
+        gulp.src('newrelic.js')
+            .pipe(gulp.dest('build/'));
+
         gulp.src('Procfile')
             .pipe(gulp.dest('build/'));
 

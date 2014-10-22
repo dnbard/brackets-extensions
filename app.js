@@ -1,5 +1,10 @@
+var config = require('./src/config');
+
+if (config.env === 'prod'){
+    require('newrelic');
+}
+
 var express = require('express'),
-    config = require('./src/config'),
     middleware = require('./src/bootstrapMiddleware'),
     models = require('./src/bootstrapModels'),
     routing = require('./src/routing'),
