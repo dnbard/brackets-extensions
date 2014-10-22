@@ -21,6 +21,8 @@ block content
                 each keyword in keywords
                     a.keyword(href="/tag/#{keyword}", title="#{keyword} tag") #{keyword}
 
+        div.share.addthis_sharing_toolbox
+
         div.details
             div.caption.icon-search &nbsp;Details
             div.row
@@ -85,3 +87,10 @@ block scripts
     script(type='text/javascript', src='../js/d3.layout.js')
     script(type='text/javascript', src='../js/markdown.js')
     script(type='text/javascript', src='../js/extension.js')
+
+block head
+    meta(property="og:title",content="#{title} - Brackets Extension")
+    meta(property="og:type",content="article")
+    meta(property="og:url",content="http://brackets.dnbard.com/extension/#{id}")
+    meta(property="og:description",content="#{description}")
+    meta(property="og:image",content="http://icons.iconarchive.com/icons/alecive/flatwoken/512/Apps-Brackets-B-icon.png")

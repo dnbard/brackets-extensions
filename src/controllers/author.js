@@ -18,8 +18,6 @@ AuthorController.prototype.default = function(req, res){
     ]).then(function(results){
         var extensions = results[0];
 
-        console.log(_.first(extensions));
-
         res.render('author',{
             author: authorId,
             extensions: extensions

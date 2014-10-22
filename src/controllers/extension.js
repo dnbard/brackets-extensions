@@ -22,6 +22,7 @@ ExtensionController.prototype.default = function(req, res, next){
             registryEntry = result[1];
 
         res.render('extension', {
+            id: extension._id,
             title : extension.title || extension.name,
             author: {
                 name: extension.author.replace(/\b(\w)+\@(\w)+\.(\w)+\b/g, '').replace(',', '').trim(),

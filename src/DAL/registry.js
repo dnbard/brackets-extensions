@@ -50,6 +50,7 @@ RegistryDAL.prototype.getPiper = function(){
         once: function(){},
         write: function(src){ body += src; },
         end: function(){
+            console.log('Registry Updated');
             self.setRegistry(JSON.parse(body.replace('undefined', '').replace('null', '')));
             body = null;
         },
