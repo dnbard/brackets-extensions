@@ -19,7 +19,12 @@ block content
         if keywords
             div.keywords
                 each keyword in keywords
-                    a.keyword(href="/tag/#{keyword}", title="#{keyword} tag") #{keyword}
+                    if (tags[keyword] > 2)
+                        a.keyword(href="/tag/#{keyword}", title="#{tags[keyword] - 1} more extensions for #{keyword} tag") #{keyword} #{tags[keyword]}
+                    else if (tags[keyword] === 2)
+                        a.keyword(href="/tag/#{keyword}", title="One more extension for #{keyword} tag") #{keyword} #{tags[keyword]}
+                    else
+                        a.keyword(href="/tag/#{keyword}", title="#{keyword} tag") #{keyword}
 
         div.share.addthis_sharing_toolbox
 

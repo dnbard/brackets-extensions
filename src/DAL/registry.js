@@ -58,6 +58,21 @@ RegistryDAL.prototype.getPiper = function(){
     };
 }
 
+RegistryDAL.prototype.getExtensionsByTag = function(tag){
+    var self = this,
+        defer = Q.defer();
+
+    self.getRegistry().then(function(registry){
+        var extensions = _.filter(registry, function(ext){
+            return (ext.metadata.keywords || []).indexOf(tag) !== -1;
+        });
+
+        defer.resolve(extensions || []);
+    });
+
+    return defer.promise;
+}
+
 RegistryDAL.prototype.getTags = function(){
     var self = this;
 
@@ -90,9 +105,27 @@ RegistryDAL.prototype.getTags = function(){
 
             tags = _.toArray(tags);
 
-            tags = _.first(tags, 25);
-
             defer.resolve(tags);
+        });
+
+        return defer.promise;
+    });
+}
+
+RegistryDAL.prototype.getTagsAsObject = function(){
+    var self = this;
+
+    return this.cached('extensionTagsAsObject', function(){
+        var defer = Q.defer();
+
+        self.getTags().then(function(tags){
+            var formatedTags = {};
+
+            _.each(tags, function(tag){
+                formatedTags[tag.name] = tag.count;
+            });
+
+            defer.resolve(formatedTags);
         });
 
         return defer.promise;

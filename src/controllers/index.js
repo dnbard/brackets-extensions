@@ -3,7 +3,7 @@ var winston = require('winston'),
     ExtensionDAL = require('../DAL/extension'),
     RegistryDAL = require('../DAL/registry'),
     OnlineDAL = require('../DAL/online'),
-    ApplicationDAL = require('../DAL/application')
+    ApplicationDAL = require('../DAL/application'),
     Q = require('q');
 
 function IndexController(){}

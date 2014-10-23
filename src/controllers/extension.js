@@ -16,10 +16,12 @@ ExtensionController.prototype.default = function(req, res, next){
 
     Q.all([
         ExtensionDAL.getExtension(extensionId),
-        RegistryDAL.getExtension(extensionId)
+        RegistryDAL.getExtension(extensionId),
+        RegistryDAL.getTagsAsObject()
     ]).then(function(result){
         var extension = result[0],
-            registryEntry = result[1];
+            registryEntry = result[1],
+            tags = result[2];
 
         res.render('extension', {
             id: extension._id,
@@ -43,7 +45,8 @@ ExtensionController.prototype.default = function(req, res, next){
             license: registryEntry.metadata.license,
             engines: registryEntry.metadata.engines || null,
             keywords: registryEntry.metadata.keywords || null,
-            versions: registryEntry.versions ? _.clone(registryEntry.versions).reverse() : null
+            versions: registryEntry.versions ? _.clone(registryEntry.versions).reverse() : null,
+            tags: tags
         });
     }, function(){
         res.render('extension__not-found',{

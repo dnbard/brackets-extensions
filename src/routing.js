@@ -6,7 +6,8 @@ function Routing(app){
     var index = require('./controllers/index'),
         extension = require('./controllers/extension'),
         downloads = require('./controllers/downloads'),
-        author = require('./controllers/author');
+        author = require('./controllers/author'),
+        tag = require('./controllers/tag');
 
     app.get('/', index.default);
 
@@ -14,6 +15,8 @@ function Routing(app){
     app.get('/extension/:id/downloads', downloads.default);
 
     app.get('/author/:id', author.default);
+
+    app.get('/tag/:id', tag.default);
 }
 
 module.exports = Routing;

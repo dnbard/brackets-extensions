@@ -19,8 +19,8 @@ AuthorController.prototype.default = function(req, res){
         var extensions = results[0];
 
         res.render('author',{
-            title: authorId + ' extensions',
-            author: authorId,
+            title: 0 + ' extensions',
+            author: 0,
             extensions: extensions
         });
     });
