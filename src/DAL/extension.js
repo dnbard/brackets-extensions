@@ -70,4 +70,31 @@ ExtensionDAL.prototype.getExtensionsByAuthor = function(id){
     return defer.promise;
 }
 
+ExtensionDAL.prototype.getExtensionByTitle = function(id, exact){
+    var defer = Q.defer(),
+        query;
+
+    if (exact === undefined){
+        exact = false;
+    } else {
+        exact = !!exact;
+    }
+
+    if (exact){
+        query = id;
+    } else {
+        query = new RegExp(id, 'i');
+    }
+
+    Extension.find({title: query}).sort({totalDownloads: -1}).lean().exec().then(function(extension){
+        if (extension){
+            defer.resolve(extension);
+        } else {
+            defer.reject();
+        }
+    });
+
+    return defer.promise;
+}
+
 module.exports = new ExtensionDAL();

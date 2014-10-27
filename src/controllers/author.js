@@ -19,8 +19,8 @@ AuthorController.prototype.default = function(req, res){
         var extensions = results[0];
 
         res.render('author',{
-            title: 0 + ' extensions',
-            author: 0,
+            title: authorId.replace(/\b(\w)+\@(\w)+\.(\w)+\b/g, '').replace(',', '').trim() + ' extensions',
+            author: authorId.replace(/\b(\w)+\@(\w)+\.(\w)+\b/g, '').replace(',', '').trim(),
             extensions: extensions
         });
     });

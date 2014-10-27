@@ -8,7 +8,7 @@ block content
             span by&nbsp;
             span.name
                 span.icon-torso
-                a(href="/author/#{author.name}", title="#{author.name}") #{author.name}
+                a(href="/author/#{author.link}", title="#{author.name}") #{author.name}
             if engines
                 span &nbsp;for&nbsp;
                 each version, engine in engines
@@ -74,7 +74,7 @@ block content
             div.versions
                 div.caption.icon-versions &nbsp;Versions
                 each release in versions
-                    div.version
+                    div.version(title="#{title} v#{release.version} - #{release.downloads} downloads")
                         div.name #{release.version}
                         div.date #{release.published}
                         div.number #{release.downloads}

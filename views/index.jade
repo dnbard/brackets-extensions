@@ -5,8 +5,8 @@ block content
         span The extension that let you know about most popular and trending extensions for Brackets IDE
         a.install(href="https://github.com/dnbard/brackets-extension-rating") Learn more
 
-    div.search(style="display: none;")
-        input(placeholder="Search for extension")
+    div.search
+        input.search-input(placeholder="Search for extension")
 
 
     div.center
@@ -41,7 +41,7 @@ block content
             div.separator
             each author in authors
                 p.author
-                    a(href="/author/#{author.name}", title="#{author.name}") #{author.name}
+                    a(href="/author/#{author.link}", title="#{author.name}") #{author.name}
                     span.downloads &nbsp; #{author.count}
 
         div.widget

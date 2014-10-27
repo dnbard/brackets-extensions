@@ -28,6 +28,7 @@ ExtensionController.prototype.default = function(req, res, next){
             title : extension.title || extension.name,
             author: {
                 name: extension.author.replace(/\b(\w)+\@(\w)+\.(\w)+\b/g, '').replace(',', '').trim(),
+                link: extension.author,
                 avatar: extension.authorAvatar || null,
                 homepage: registryEntry.metadata.author.url || null
             },

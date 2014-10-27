@@ -32,4 +32,8 @@ block content
                     span.forks.icon-code-fork #{extension.forks}
                 if (extension.totalDownloads)
                     span.downloads.icon-download #{extension.totalDownloads}
+            div
+                span by
+                span.icon-torso
+                a(href="/author/#{extension.author}") #{extension.author}
             div.description #{extension.description}

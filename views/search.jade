@@ -1,0 +1,45 @@
+extend layout
+
+block content
+    h2.center
+        span.bold #{search}
+        span &nbsp;extensions
+
+    - var stars = 0, forks = 0, downloads = 0;
+    - for (var i = 0; i < extensions.length; i++) {
+    -   forks += (extensions[i].forks || 0);
+    -   stars += (extensions[i].stars || 0);
+    -   downloads += (extensions[i].totalDownloads || 0)
+    - }
+
+    if (!notFound)
+        div.overal
+            if (extensions.length > 1)
+                span(title="Total number of extensions released") #{extensions.length} extensions
+            else
+                span(title="Total number of extensions released") One extension
+            span.stars.icon-star-two(title="Number of stars on GitHub") #{stars}
+            span.forks.icon-code-fork(title="Number of forks on GitHub") #{forks}
+            span.downloads.icon-download(title="Total number of downloads") #{downloads}
+
+        each extension in extensions
+            div.query
+                div
+                    a.name(href="/extension/#{extension._id}") #{extension.title}
+                    span.version #{extension.version}
+                    if (extension.stars)
+                        span.stars.icon-star-two #{extension.stars}
+                    if (extension.forks)
+                        span.forks.icon-code-fork #{extension.forks}
+                    if (extension.totalDownloads)
+                        span.downloads.icon-download #{extension.totalDownloads}
+                div
+                    span by
+                    span.icon-torso
+                    a(href="/author/#{extension.author}") #{extension.author}
+                div.description #{extension.description}
+    else
+        div.center No extensions found for "#{search}" query
+        div.center
+            span Back to the&nbsp;
+            a(href="/") Main page

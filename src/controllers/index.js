@@ -40,6 +40,7 @@ IndexController.prototype.default = function(req, res, next){
             }),
             tags: _.first(tags, 12),
             authors: _.map(_.first(authors, 12),function(author){
+                author.link = author.name;
                 author.name = author.name.replace(/\b(\w)+\@(\w)+\.(\w)+\b/g, '').replace(',', '').trim();
                 return author;
             }),
