@@ -13,7 +13,7 @@ SearchController.prototype.default = function(req, res){
     }
 
     Q.all([
-        ExtensionDAL.getExtensionByRegex(extensionId)
+        ExtensionDAL.getExtensionByTitle(extensionId)
     ]).then(function(results){
         var extensions = results[0];
 
