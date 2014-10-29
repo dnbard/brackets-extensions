@@ -50,8 +50,9 @@ ExtensionController.prototype.default = function(req, res, next){
             tags: tags
         });
     }, function(){
-        res.render('extension__not-found',{
+        res.render('not-found',{
             title: 'Extension not found',
+            type: 'Extension',
             id: extensionId
         });
     });

@@ -8,8 +8,16 @@ function TagController(){}
 TagController.prototype.default = function(req, res, next){
     var tagId = req.params.id;
 
+    function NotFoundResponse(){
+        res.render('not-found',{
+            title: 'Tag not found',
+            type: 'Tag',
+            id: tagId
+        });
+    }
+
     if (!tagId){
-        res.status(500).send();
+        NotFoundResponse();
         return;
     }
 
@@ -26,10 +34,8 @@ TagController.prototype.default = function(req, res, next){
                 tag: tagId,
                 extensions: extensions
             });
-        }, function(){
-            res.status(500).send();
-        });
-    });
+        }, NotFoundResponse);
+    }, NotFoundResponse);
 }
 
 module.exports = new TagController();
