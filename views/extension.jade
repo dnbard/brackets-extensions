@@ -75,7 +75,9 @@ block content
                 div.caption.icon-versions &nbsp;Versions
                 each release in versions
                     div.version(title="#{title} v#{release.version} - #{release.downloads} downloads")
-                        div.name #{release.version}
+                        div.name
+                            span #{release.version}
+                            a(href="https://s3.amazonaws.com/extend.brackets/#{id}/#{id}-#{release.version}.zip", title="Download #{title} v.#{release.version}").icon-download
                         div.date #{release.published}
                         div.number #{release.downloads}
                         div.bar(current="#{release.downloads}")
