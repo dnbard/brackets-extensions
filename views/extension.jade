@@ -60,7 +60,7 @@ block content
                     div.content #{github.forks}
             div.row
                 div.label downloads
-                div.content.number #{totalDownloads}
+                div.content.number #{totalDownloads || 'no data available'}
             if license
                 div.row(style="display: none;")
                     div.label license
