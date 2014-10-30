@@ -169,17 +169,7 @@ ExtensionPageViewModel.prototype.formatMarkdown = function(content, element){
     return markdown;
 }
 
-ExtensionPageViewModel.prototype.initNumbers = function(element){
-    element.find('.number').text(function(index, initial){
-        var result = initial;
-
-        if (initial > 1000){
-            result = Math.floor(parseInt(initial) / 1000) + 'k';
-        }
-
-        return result;
-    });
-}
+ExtensionPageViewModel.prototype.initNumbers = require('./helpers/formatNumbers');
 
 ExtensionPageViewModel.prototype.initReadme = function(element){
     var self = this;

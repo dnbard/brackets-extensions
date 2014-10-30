@@ -8,19 +8,7 @@ IndexPageViewModel.prototype.init = function(element){
     this.initNumbers(element);
 }
 
-IndexPageViewModel.prototype.initNumbers = function(element){
-    element.find('.number').text(function(index, initial){
-        var result = initial;
-
-        if (initial > 1000){
-            result = Math.floor(parseInt(initial) / 1000) + 'k';
-        } else if (initial < 1000){
-            result = Math.floor(initial / 10) * 10;
-        }
-
-        return result;
-    });
-}
+IndexPageViewModel.prototype.initNumbers = require('./helpers/formatNumbers');
 
 IndexPageViewModel.prototype.initSearch = function(element){
     element.find('.search-input').on('keydown', function(event){
