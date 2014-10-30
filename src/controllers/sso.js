@@ -43,7 +43,11 @@ exports.github = function(req, res){
 
         var githubUser = body;
 
-        User.findOne({email: githubUser.email}).exec(function(user){
+        User.findOne({email: githubUser.email}).exec(function(err, user){
+            if (err){
+                return status500Response(err);
+            }
+
             if (user === null){
                 user = new User({
                     login: githubUser.login,
