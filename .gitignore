@@ -3,3 +3,5 @@ src/config/local.js
 public/style*
 build
 npm-debug*
+public/js/index.js
+public/js/extension.js
