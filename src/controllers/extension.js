@@ -47,7 +47,8 @@ ExtensionController.prototype.default = function(req, res, next){
             engines: registryEntry.metadata.engines || null,
             keywords: registryEntry.metadata.keywords || null,
             versions: registryEntry.versions ? _.clone(registryEntry.versions).reverse() : null,
-            tags: tags
+            tags: tags,
+            user: req.user
         });
     }, function(){
         res.render('not-found',{

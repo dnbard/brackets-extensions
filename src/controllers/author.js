@@ -21,13 +21,15 @@ AuthorController.prototype.default = function(req, res){
         res.render('author',{
             title: authorId.replace(/\b(\w)+\@(\w)+\.(\w)+\b/g, '').replace(',', '').trim() + ' extensions',
             author: authorId.replace(/\b(\w)+\@(\w)+\.(\w)+\b/g, '').replace(',', '').trim(),
-            extensions: extensions
+            extensions: extensions,
+            user: req.user
         });
     }, function(){
         res.render('not-found',{
             title: 'Author not found',
             type: 'Author',
-            id: authorId
+            id: authorId,
+            user: req.user
         });
     });
 }

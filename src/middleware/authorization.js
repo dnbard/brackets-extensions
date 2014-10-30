@@ -8,6 +8,7 @@ function authorization(req, res, next){
     var cookie = req.cookies[cookieName],
         token,
         user = null,
+        userEntity,
         twoDaysTimeout = 172800000;
 
     if (!User){
@@ -21,13 +22,24 @@ function authorization(req, res, next){
 
         userDirectory.add(cookie, null);
         req.user = null;
+        req.token = token;
         next();
     } else {
-        User.findOne({ token: cookie }).lean().exec().then(function(user){
-            userDirectory.add(cookie, user);
-            req.user = user;
+        userEntity = userDirectory.get(cookie);
+        if (!userEntity || !userEntity.user){
+            User.findOne({ token: cookie }).lean().exec().then(function(user){
+                userDirectory.add(cookie, user);
+                req.user = user;
+                req.token = cookie;
+                console.log(req.user);
+                next();
+            });
+        } else {
+            req.user = userEntity.user;
+            req.token = cookie;
+            console.log(req.user);
             next();
-        });
+        }
     }
 }
 

@@ -17,13 +17,12 @@ SearchController.prototype.default = function(req, res){
     ]).then(function(results){
         var extensions = results[0];
 
-        console.log(_.first(extensions));
-
         res.render('search',{
             title: extensionId + ' extensions',
             extensions: extensions,
             search: extensionId,
-            notFound: _.size(extensions) === 0
+            notFound: _.size(extensions) === 0,
+            user: req.user
         });
     });
 }

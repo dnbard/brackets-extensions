@@ -12,7 +12,8 @@ TagController.prototype.default = function(req, res, next){
         res.render('not-found',{
             title: 'Tag not found',
             type: 'Tag',
-            id: tagId
+            id: tagId,
+            user: req.user
         });
     }
 
@@ -32,7 +33,8 @@ TagController.prototype.default = function(req, res, next){
             res.render('tag',{
                 title: tagId + ' tag',
                 tag: tagId,
-                extensions: extensions
+                extensions: extensions,
+                user: req.user
             });
         }, NotFoundResponse);
     }, NotFoundResponse);

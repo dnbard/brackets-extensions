@@ -46,7 +46,8 @@ IndexController.prototype.default = function(req, res, next){
             }),
             authorsCount: authorsCount,
             online: usersOnline,
-            extensionsOnline: _.first(extensionsOnline, 12)
+            extensionsOnline: _.first(extensionsOnline, 12),
+            user: req.user
         });
     }, this), function(){
         res.status(500).send();

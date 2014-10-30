@@ -4,7 +4,10 @@ var _ = require('lodash'),
         database: process.env.MONGO_URL,
         env: process.env.STAGING || 'dev',
         registryPath: 'http://s3.amazonaws.com/extend.brackets/registry.json',
-        herokuDeploy: 'http://brackets-extensions.herokuapp.com'
+        herokuDeploy: 'http://brackets-extensions.herokuapp.com',
+        githubAppName: 'Brackets Extensions',
+        githubClientId: '20424fe39882a6b99f90',
+        githubClientSecret: process.env.GH_SECRET
 }, config, localConfig;
 
 try{

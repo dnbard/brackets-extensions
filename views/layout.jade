@@ -15,6 +15,15 @@ html
                 a(href="/")
                     span.logo
                     span Brackets Extensions
+                if (user !== undefined)
+                    if (!user)
+                        a.right(href="https://github.com/login/oauth/authorize?client_id=20424fe39882a6b99f90") Sign in via GitHub
+                    else
+                        span.right
+                            if (user.avatar_url)
+                                img(src="#{user.avatar_url}&s=16", width="16")
+                                span &nbsp;
+                            span.name #{user.login}
 
         .container-wrapper
             .container
