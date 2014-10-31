@@ -21,7 +21,7 @@ html
                     else
                         span.right
                             if (user.avatar_url)
-                                img(src="#{user.avatar_url}&s=16", width="16")
+                                img.image(src="#{user.avatar_url}&s=16")
                                 span &nbsp;
                             span.name #{user.login}
 
