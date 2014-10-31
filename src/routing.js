@@ -9,7 +9,8 @@ function Routing(app){
         author = require('./controllers/author'),
         tag = require('./controllers/tag'),
         search = require('./controllers/search'),
-        sso = require('./controllers/sso');
+        sso = require('./controllers/sso'),
+        user = require('./controllers/user');
 
     app.get('/', index.default);
 
@@ -23,6 +24,8 @@ function Routing(app){
     app.get('/search/:id', search.default);
 
     app.get('/loggedin', sso.github);
+
+    app.get('/user', user.default);
 }
 
 module.exports = Routing;
