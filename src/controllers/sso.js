@@ -1,6 +1,7 @@
 var request = require('request'),
     mongoose = require('mongoose'),
     config = require('../config'),
+    events = require('../services/events'),
     User;
 
 exports.github = function(req, res){
@@ -58,6 +59,8 @@ exports.github = function(req, res){
                     name: githubUser.name,
                     githubToken: token
                 });
+
+                events.emit(events.list.USER.NEW, user);
             } else {
                 user.login = githubUser.login;
                 user.token = req.token;
@@ -67,7 +70,7 @@ exports.github = function(req, res){
                 user.githubToken = token;
             }
 
-            user.save(function(err){
+            user.save(function(err, user){
                 if (err){
                     return status500Response(err);
                 }

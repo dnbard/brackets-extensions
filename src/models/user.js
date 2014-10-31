@@ -9,7 +9,8 @@ var UserSchema = new Schema({
     email: { type: String, index: true },
     avatar_url: String,
     name: String,
-    githubToken: String
+    githubToken: String,
+    extensions: [{type: String}]
 });
 
 mongoose.model('User', UserSchema);

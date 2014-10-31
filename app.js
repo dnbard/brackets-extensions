@@ -7,6 +7,7 @@ if (config.env === 'prod'){
 var express = require('express'),
     middleware = require('./src/bootstrapMiddleware'),
     models = require('./src/bootstrapModels'),
+    services = require('./src/bootstrapServices'),
     routing = require('./src/routing'),
     winston = require('winston'),
     mongoose = require('mongoose'),
@@ -20,6 +21,7 @@ mongoose.connect(config.database, function(){
     winston.info('Connected to database');
 
     middleware(app);
+    services();
     routing(app);
 
     app.listen(config.port, function(){

@@ -25,7 +25,7 @@ function Routing(app){
 
     app.get('/loggedin', sso.github);
 
-    app.get('/user', user.default);
+    app.get('/dashboard', user.default);
 }
 
 module.exports = Routing;
