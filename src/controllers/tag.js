@@ -1,7 +1,8 @@
 var _ = require('lodash'),
     ExtensionDAL = require('../DAL/extension'),
     RegistryDAL = require('../DAL/registry'),
-    Q = require('q');
+    Q = require('q'),
+    Response = require('../response');
 
 function TagController(){}
 
@@ -30,12 +31,12 @@ TagController.prototype.default = function(req, res, next){
         Q.all(exts).then(function(results){
             var extensions = results;
 
-            res.render('tag',{
+            res.render('tag', new Response(req, {
                 title: tagId + ' tag',
                 tag: tagId,
                 extensions: extensions,
                 user: req.user
-            });
+            }));
         }, NotFoundResponse);
     }, NotFoundResponse);
 }

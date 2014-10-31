@@ -2,7 +2,8 @@ var winston = require('winston'),
     _ = require('lodash'),
     ExtensionDAL = require('../DAL/extension'),
     RegistryDAL = require('../DAL/registry'),
-    Q = require('q');
+    Q = require('q'),
+    Response = require('../response');
 
 function ExtensionController(){}
 
@@ -23,7 +24,7 @@ ExtensionController.prototype.default = function(req, res, next){
             registryEntry = result[1],
             tags = result[2];
 
-        res.render('extension', {
+        res.render('extension', new Response(req, {
             id: extension._id,
             title : extension.title || extension.name,
             author: {
@@ -49,7 +50,7 @@ ExtensionController.prototype.default = function(req, res, next){
             versions: registryEntry.versions ? _.clone(registryEntry.versions).reverse() : null,
             tags: tags,
             user: req.user
-        });
+        }));
     }, function(){
         res.render('not-found',{
             title: 'Extension not found',

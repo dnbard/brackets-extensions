@@ -4,7 +4,8 @@ var winston = require('winston'),
     RegistryDAL = require('../DAL/registry'),
     OnlineDAL = require('../DAL/online'),
     ApplicationDAL = require('../DAL/application'),
-    Q = require('q');
+    Q = require('q'),
+    Response = require('../response');
 
 function IndexController(){}
 
@@ -30,7 +31,7 @@ IndexController.prototype.default = function(req, res, next){
             usersOnline = result[7],
             extensionsOnline = result[8];
 
-        res.render('index', {
+        res.render('index', new Response(req, {
             title : 'Home',
             count: count,
             newestExtension: newestExtension,
@@ -46,9 +47,8 @@ IndexController.prototype.default = function(req, res, next){
             }),
             authorsCount: authorsCount,
             online: usersOnline,
-            extensionsOnline: _.first(extensionsOnline, 12),
-            user: req.user
-        });
+            extensionsOnline: _.first(extensionsOnline, 12)
+        }));
     }, this), function(){
         res.status(500).send();
     });

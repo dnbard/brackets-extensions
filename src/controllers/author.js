@@ -1,7 +1,8 @@
 var winston = require('winston'),
     _ = require('lodash'),
     ExtensionDAL = require('../DAL/extension'),
-    Q = require('q');
+    Q = require('q'),
+    Response = require('../response');
 
 function AuthorController(){}
 
@@ -18,12 +19,11 @@ AuthorController.prototype.default = function(req, res){
     ]).then(function(results){
         var extensions = results[0];
 
-        res.render('author',{
+        res.render('author', new Response(req, {
             title: authorId.replace(/\b(\w)+\@(\w)+\.(\w)+\b/g, '').replace(',', '').trim() + ' extensions',
             author: authorId.replace(/\b(\w)+\@(\w)+\.(\w)+\b/g, '').replace(',', '').trim(),
-            extensions: extensions,
-            user: req.user
-        });
+            extensions: extensions
+        }));
     }, function(){
         res.render('not-found',{
             title: 'Author not found',

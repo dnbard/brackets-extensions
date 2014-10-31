@@ -1,6 +1,7 @@
 var _ = require('lodash'),
     DownloadsDAL = require('../DAL/downloads'),
-    Q = require('q');
+    Q = require('q'),
+    Response = require('../response');
 
 function DownloadsController(){}
 
@@ -17,10 +18,10 @@ DownloadsController.prototype.default = function(req, res, next){
     ]).then(function(result){
         var downloads = result[0];
 
-        res.send({
+        res.send(new Response(req, {
             extension: extensionId,
             downloads: downloads
-        });
+        }));
     }, function(err){
         res.status(500).send(err);
     });
