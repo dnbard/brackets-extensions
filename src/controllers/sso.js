@@ -55,7 +55,8 @@ exports.github = function(req, res){
                     role: 'user',
                     email: githubUser.email,
                     avatar_url: githubUser.avatar_url,
-                    name: githubUser.name
+                    name: githubUser.name,
+                    githubToken: token
                 });
             } else {
                 user.login = githubUser.login;
@@ -63,6 +64,7 @@ exports.github = function(req, res){
                 user.email = githubUser.email;
                 user.avatar_url = githubUser.avatar_url;
                 user.name = githubUser.name;
+                user.githubToken = token;
             }
 
             user.save(function(err){

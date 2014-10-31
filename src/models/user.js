@@ -8,7 +8,8 @@ var UserSchema = new Schema({
     role: { type: String, default: 'user' },
     email: { type: String, index: true },
     avatar_url: String,
-    name: String
+    name: String,
+    githubToken: String
 });
 
 mongoose.model('User', UserSchema);
