@@ -25,12 +25,11 @@ AuthorController.prototype.default = function(req, res){
             extensions: extensions
         }));
     }, function(){
-        res.render('not-found',{
+        res.render('not-found', new Response(req, {
             title: 'Author not found',
             type: 'Author',
-            id: authorId,
-            user: req.user
-        });
+            id: authorId
+        }));
     });
 }
 

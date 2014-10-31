@@ -52,11 +52,11 @@ ExtensionController.prototype.default = function(req, res, next){
             user: req.user
         }));
     }, function(){
-        res.render('not-found',{
+        res.render('not-found', new Response(req, {
             title: 'Extension not found',
             type: 'Extension',
             id: extensionId
-        });
+        }));
     });
 }
 

@@ -10,12 +10,12 @@ TagController.prototype.default = function(req, res, next){
     var tagId = req.params.id;
 
     function NotFoundResponse(){
-        res.render('not-found',{
+        res.render('not-found', new Response(req, {
             title: 'Tag not found',
             type: 'Tag',
             id: tagId,
             user: req.user
-        });
+        }));
     }
 
     if (!tagId){
