@@ -9,7 +9,9 @@ UserController.prototype.default = function(req, res, next){
         return res.redirect('/');
     }
 
-    res.render('user', new Response(req, {}));
+    res.render('user', new Response(req, {
+        title: 'Dashboard'
+    }));
 }
 
 module.exports = new UserController();

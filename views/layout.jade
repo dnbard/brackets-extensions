@@ -19,7 +19,7 @@ html
                     if (!user)
                         a.right(href="#{githubOAuthPath}?client_id=#{githubClient}") Sign in via GitHub
                     else
-                        a.right(href="/user")
+                        a.right(href="/dashboard")
                             if (user.avatar_url)
                                 img.image(src="#{user.avatar_url}&s=16")
                                 span &nbsp;
