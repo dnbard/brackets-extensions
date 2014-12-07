@@ -16,6 +16,10 @@ try{
     localConfig = {};
 }
 
+if (defaultConfig.env === 'prod'){
+    localConfig = {};
+}
+
 if (_.isEmpty(defaultConfig)){
     throw new Error('Default config cannot be empty');
 }
