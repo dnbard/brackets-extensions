@@ -10,8 +10,50 @@ ExtensionPageViewModel.prototype.init = function(element){
     this.initNumbers(element);
     this.initVersions(element);
     this.initBars(element);
+    this.initDailyUsers(element);
 
     this.getDownloads(element);
+}
+
+ExtensionPageViewModel.prototype.initDailyUsers = function(element){
+    function getData(){
+        return $('#dailyUsers').val();
+    }
+
+    var dailyUsersdata = getData(),
+        dates = [];
+
+    if (dailyUsersdata){
+        var data = dailyUsersdata.split(','),
+            graph = new Rickshaw.Graph({
+                element: document.querySelector("#chart-users"),
+                renderer: 'bar',
+                series: [{
+                        data: _.map(data, function(usersCount, index){
+                            if (index === data.length - 1){
+                                dates[index] = 'Now';
+                            } else if (index === data.length - 2){
+                                dates[index] = '1 hour ago';
+                            } else {
+                                dates[index] = (data.length - index - 1) + ' hours ago';
+                            }
+                            return { x: index, y: +usersCount }
+                        }),
+                        color: '#a8bacf',
+                        name: 'Daily users'
+                }]
+            });
+
+        graph.render();
+
+        var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+            graph: graph,
+            xFormatter: function(x) { return dates[x]; },
+            yFormatter: function(y) { return y; }
+        });
+    } else {
+        element.find('.dailyUsers').hide();
+    }
 }
 
 ExtensionPageViewModel.prototype.getDownloads = function(element){

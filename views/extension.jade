@@ -1,6 +1,8 @@
 extend layout
 
 block content
+    input#dailyUsers(type="hidden", value="#{dailyUsers}")
+
     div.extension-single
         h1.name #{title}
 
@@ -69,6 +71,12 @@ block content
         div.downloads
             div.caption.icon-download &nbsp;Downloads
             div#chart
+
+        div.dailyUsers
+            div.caption.icon-torso &nbsp;Daily Users
+            div#chart-users
+            div
+                a(target="_blank", href="https://github.com/dnbard/brackets-extension-rating/wiki/Online-and-max-users-counters-in-this-extension") Enable this graphs for your extension
 
         if versions
             div.versions

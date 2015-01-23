@@ -2,8 +2,10 @@ var winston = require('winston'),
     _ = require('lodash'),
     ExtensionDAL = require('../DAL/extension'),
     RegistryDAL = require('../DAL/registry'),
+    OnlineDAL = require('../DAL/online'),
     Q = require('q'),
-    Response = require('../response');
+    Response = require('../response'),
+    converters = require('../services/converters');
 
 function ExtensionController(){}
 
@@ -18,11 +20,15 @@ ExtensionController.prototype.default = function(req, res, next){
     Q.all([
         ExtensionDAL.getExtension(extensionId),
         RegistryDAL.getExtension(extensionId),
-        RegistryDAL.getTagsAsObject()
+        RegistryDAL.getTagsAsObject(),
+        OnlineDAL.get()
     ]).then(function(result){
         var extension = result[0],
             registryEntry = result[1],
-            tags = result[2];
+            tags = result[2],
+            dailyUsers = converters.dailyUsers(_.find(result[3], function(app){
+                return app.name === extensionId;
+            }));
 
         res.render('extension', new Response(req, {
             id: extension._id,
@@ -49,7 +55,8 @@ ExtensionController.prototype.default = function(req, res, next){
             keywords: registryEntry.metadata.keywords || null,
             versions: registryEntry.versions ? _.clone(registryEntry.versions).reverse() : null,
             tags: tags,
-            user: req.user
+            user: req.user,
+            dailyUsers: dailyUsers
         }));
     }, function(){
         res.render('not-found', new Response(req, {
