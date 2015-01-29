@@ -40,7 +40,7 @@ ExtensionPageViewModel.prototype.initDailyUsers = function(element){
                             return { x: index, y: +usersCount }
                         }),
                         color: '#a8bacf',
-                        name: 'Daily users'
+                        name: 'Users online'
                 }]
             });
 

@@ -1,6 +1,6 @@
 {
-  "name": "MySite",
-  "version": "0.0.1",
+  "name": "BracketsExtensions",
+  "version": "1.0.0",
   "private": "true",
   "main": "app.js",
   "dependencies": {
