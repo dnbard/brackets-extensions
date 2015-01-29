@@ -27,8 +27,20 @@ ExtensionDAL.prototype.getMostDownloadsExtension = function(){
 }
 
 ExtensionDAL.prototype.getMostDownloadsExtensionList = function(){
-    return this.cached('extensionDownloadsLIst', function(){
+    return this.cached('extensionDownloadsList', function(){
         return Extension.find({}).sort({totalDownloads: -1}).limit(100).lean().exec();
+    }, function(extensions){
+        var i = 0;
+
+        return _.each(extensions, function(extension){
+            extension.position = ++i;
+        });
+    });
+}
+
+ExtensionDAL.prototype.getMostStaredExtensionList = function(){
+    return this.cached('extensionStarsList', function(){
+        return Extension.find({}).sort({stars: -1}).limit(12).lean().exec();
     }, function(extensions){
         var i = 0;
 

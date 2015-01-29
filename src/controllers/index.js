@@ -19,7 +19,8 @@ IndexController.prototype.default = function(req, res, next){
         RegistryDAL.getAuthors(),
         RegistryDAL.getAuthorsCount(),
         ApplicationDAL.usersCount(),
-        OnlineDAL.get()
+        OnlineDAL.get(),
+        ExtensionDAL.getMostStaredExtensionList()
     ]).then(_.bind(function(result){
         var count = result[0],
             newestExtension = result[1],
@@ -29,7 +30,8 @@ IndexController.prototype.default = function(req, res, next){
             authors = result[5],
             authorsCount = result[6],
             usersOnline = result[7],
-            extensionsOnline = result[8];
+            extensionsOnline = result[8],
+            extensionsStars = result[9];
 
         res.render('index', new Response(req, {
             title : 'Home',
@@ -47,7 +49,8 @@ IndexController.prototype.default = function(req, res, next){
             }),
             authorsCount: authorsCount,
             online: usersOnline,
-            extensionsOnline: _.first(extensionsOnline, 12)
+            extensionsOnline: _.first(extensionsOnline, 12),
+            extensionsStars: _.first(extensionsStars, 12)
         }));
     }, this), function(){
         res.status(500).send();

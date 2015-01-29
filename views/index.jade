@@ -36,6 +36,17 @@ block content
                             span.number #{extension.maxUsers}
 
         div.widget
+            h2.center.icon-star-two &nbsp;Extensions
+            p.center by number of stars at GitHub
+            div.separator
+            each extension in extensionsStars
+                p.extension
+                    a(href="/extension/#{extension._id}")
+                        span.name #{extension.title || extension._id}
+                    span.downloads &nbsp;
+                        span(title="#{extension.title || extension._id} stars") #{extension.stars}
+
+        div.widget
             h2.center.icon-torso &nbsp;Authors
             p.center by number of released extensions
             div.separator

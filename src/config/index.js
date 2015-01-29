@@ -8,7 +8,7 @@ var _ = require('lodash'),
         githubAppName: 'Brackets Extensions',
         githubClientId: '20424fe39882a6b99f90',
         githubClientSecret: process.env.GH_SECRET
-}, config, localConfig;
+}, config, localConfig = {};
 
 try{
     localConfig = require('./local');
