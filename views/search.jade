@@ -25,7 +25,10 @@ block content
         each extension in extensions
             div.query
                 div
-                    a.name(href="/extension/#{extension._id}") #{extension.position + ' ' + extension.title}
+                    if (extension.position)
+                        a.name(href="/extension/#{extension._id}") #{extension.position + ' ' + extension.title}
+                    else
+                        a.name(href="/extension/#{extension._id}") #{extension.title}
                     span.version #{extension.version}
                     if (extension.stars)
                         span.stars.icon-star-two #{extension.stars}
