@@ -31,13 +31,11 @@ function authorization(req, res, next){
                 userDirectory.add(cookie, user);
                 req.user = user;
                 req.token = cookie;
-                console.log(req.user);
                 next();
             });
         } else {
             req.user = userEntity.user;
             req.token = cookie;
-            console.log(req.user);
             next();
         }
     }
