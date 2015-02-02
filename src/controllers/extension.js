@@ -56,7 +56,8 @@ ExtensionController.prototype.default = function(req, res, next){
             versions: registryEntry.versions ? _.clone(registryEntry.versions).reverse() : null,
             tags: tags,
             user: req.user,
-            dailyUsers: dailyUsers
+            dailyUsers: dailyUsers,
+            isFaked: !!extension.faked
         }));
     }, function(){
         res.render('not-found', new Response(req, {
