@@ -22,13 +22,13 @@ ExtensionDAL.prototype.getNewestExtension = function(){
 
 ExtensionDAL.prototype.getMostDownloadsExtension = function(){
     return this.cached('extensionDownloads', function(){
-        return Extension.findOne({}).sort({totalDownloads: -1}).lean().exec();
+        return Extension.findOne({ faked: undefined }).sort({totalDownloads: -1}).lean().exec();
     });
 }
 
 ExtensionDAL.prototype.getMostDownloadsExtensionList = function(){
     return this.cached('extensionDownloadsList', function(){
-        return Extension.find({}).sort({totalDownloads: -1}).limit(100).lean().exec();
+        return Extension.find({ faked: undefined }).sort({totalDownloads: -1}).limit(100).lean().exec();
     }, function(extensions){
         var i = 0;
 
