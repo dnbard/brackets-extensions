@@ -12,7 +12,9 @@ block content
     div.center
         div.widget
             h2.center.icon-graph-trend &nbsp;Extensions
-            p.center randomly selected from the top 100
+            p.center
+                span randomly selected from the&nbsp;
+                a(href="/extensions", title="Top 100 extensions by download count").bold Top 100
             div.separator
             each extension in downloadsExtensionList
                 p.extension

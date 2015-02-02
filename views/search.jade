@@ -25,7 +25,7 @@ block content
         each extension in extensions
             div.query
                 div
-                    a.name(href="/extension/#{extension._id}") #{extension.title}
+                    a.name(href="/extension/#{extension._id}") #{extension.position + ' ' + extension.title}
                     span.version #{extension.version}
                     if (extension.stars)
                         span.stars.icon-star-two #{extension.stars}
@@ -33,10 +33,11 @@ block content
                         span.forks.icon-code-fork #{extension.forks}
                     if (extension.totalDownloads)
                         span.downloads.icon-download #{extension.totalDownloads}
-                div
-                    span by
-                    span.icon-torso
-                    a(href="/author/#{extension.author}") #{extension.author}
+                if (extension.author)
+                    div
+                        span by
+                        span.icon-torso
+                        a(href="/author/#{extension.author}") #{extension.author}
                 div.description #{extension.description}
     else
         div.center No extensions found for "#{search}" query
