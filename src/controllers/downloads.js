@@ -21,7 +21,7 @@ DownloadsController.prototype.default = function(req, res, next){
         res.send({
             extension: extensionId,
             downloads: downloads
-        }));
+        });
     }, function(err){
         res.status(500).send(err);
     });
