@@ -5,7 +5,7 @@ var BaseDAL = require('./base'),
     Q = require('q'),
     mongoose = require('mongoose'),
     Service = null,
-    mins15 = 1000 * 60 * 30,
+    dataRequireInterval = 1000 * 60 * 10,
     RegistryDAL = require('./registry');
 
 function OnlineDAL(){
@@ -82,7 +82,7 @@ OnlineDAL.prototype.init = function(){
         });
     });
 
-    setTimeout(_.bind(this.init, this), mins15);
+    setTimeout(_.bind(this.init, this), dataRequireInterval);
 }
 
 OnlineDAL.prototype.trackingServiceHandler = function(service){
