@@ -18,7 +18,7 @@ DownloadsController.prototype.default = function(req, res, next){
     ]).then(function(result){
         var downloads = result[0];
 
-        res.send(new Response(req, {
+        res.send({
             extension: extensionId,
             downloads: downloads
         }));
