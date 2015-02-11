@@ -8,8 +8,32 @@ block content
     div.search
         input.search-input(placeholder="Search for extension")
 
-
     div.center
+        div.widget-big.highlight
+            div.widget-big_left
+                div.center
+                    a(href="/extension/#{highlighted.extension._id}").highlight-name #{highlighted.extension.title}
+                    span &nbsp;by&nbsp;
+                    a(href="/author/#{highlighted.extension.author}").highlight-author
+                        if(highlighted.extension.authorAvatar)
+                            img.highlight-avatar(src="#{highlighted.extension.authorAvatar}")
+                        else
+                            span.icon-torso
+                        span #{highlighted.extension.author}
+                div.separator
+                div.center
+                    span.icon-download &nbsp;#{highlighted.extension.totalDownloads}
+                    span &nbsp;&nbsp;&nbsp;
+                    span.icon-star-two &nbsp;#{highlighted.extension.stars}
+                    span &nbsp;&nbsp;&nbsp;
+                    span.icon-code-fork &nbsp;#{highlighted.extension.forks}
+                div.highlight-desc.first #{highlighted.extension.description}
+                div.highlight-desc #{highlighted.data.description}
+                div.highlight-links
+                    a(href="/extension/#{highlighted.extension._id}", title="Learn more about #{highlighted.extension.title}") Learn more
+            div.widget-big_right
+                img.highlight-img(src="#{highlighted.data.screenshot}", alt="#{highlighted.extension.title} preview", title="#{highlighted.extension.title}")
+
         div.widget
             h2.center.icon-graph-trend &nbsp;Extensions
             p.center

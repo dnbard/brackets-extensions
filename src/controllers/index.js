@@ -4,6 +4,7 @@ var winston = require('winston'),
     RegistryDAL = require('../DAL/registry'),
     OnlineDAL = require('../DAL/online'),
     ApplicationDAL = require('../DAL/application'),
+    HightlightDAL = require('../DAL/highlight'),
     Q = require('q'),
     Response = require('../response');
 
@@ -20,7 +21,8 @@ IndexController.prototype.default = function(req, res, next){
         RegistryDAL.getAuthorsCount(),
         ApplicationDAL.usersCount(),
         OnlineDAL.get(),
-        ExtensionDAL.getMostStaredExtensionList()
+        ExtensionDAL.getMostStaredExtensionList(),
+        HightlightDAL.getCurrent()
     ]).then(_.bind(function(result){
         var count = result[0],
             newestExtension = result[1],
@@ -31,7 +33,8 @@ IndexController.prototype.default = function(req, res, next){
             authorsCount = result[6],
             usersOnline = result[7],
             extensionsOnline = result[8],
-            extensionsStars = result[9];
+            extensionsStars = result[9],
+            highlightedExtension = result[10];
 
         res.render('index', new Response(req, {
             title : 'Home',
@@ -50,7 +53,8 @@ IndexController.prototype.default = function(req, res, next){
             authorsCount: authorsCount,
             online: usersOnline,
             extensionsOnline: _.first(extensionsOnline, 12),
-            extensionsStars: _.first(extensionsStars, 12)
+            extensionsStars: _.first(extensionsStars, 12),
+            highlighted: highlightedExtension
         }));
     }, this), function(){
         res.status(500).send();

@@ -106,7 +106,7 @@ header {
     width: 350px;
 }
 
-.widget {
+.widget, .widget-big {
     margin: 5px 5px;
     width: 310px;
     display: inline-block;
@@ -132,6 +132,72 @@ header {
         padding-bottom: 5px;
         border-bottom: 1px dotted #aaa;
         margin-bottom: 5px;
+    }
+}
+
+.widget-big {
+    width: 950px;
+    display: block;
+    margin: 5px auto;
+    min-height: 0;
+    position: relative;
+    height: 100%;
+
+    .widget-big_left{
+        display: inline-block;
+        width: 590px;
+        margin: 4px 5px;
+        vertical-align: top;
+    }
+
+    .widget-big_right{
+        display: inline-block;
+        width: 320px;
+        margin: 4px 5px;
+        vertical-align: top;
+    }
+}
+
+.highlight{
+    .highlight-name{
+        text-align: center;
+        font-size: 20px;
+        font-family: 'Quicksand';
+        font-weight: bold;
+    }
+
+    .highlight-desc{
+        text-align: center;
+        font-size: 12pt;
+        margin-bottom: 8px;
+        display: block;
+
+        &.first{
+            margin-top: 20px;
+        }
+    }
+
+    .highlight-img{
+        border-radius: 4px;
+        width: 320px;
+    }
+
+    .highlight-avatar{
+        width: 16px;
+        margin-right: 2px;
+        display: inline-block;
+    }
+
+    .highlight-links{
+        font-family: 'Quicksand';
+        text-align: center;
+        font-size: 12pt;
+        margin: 10px 0;
+        font-weight: bold;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 590px;
     }
 }
 
