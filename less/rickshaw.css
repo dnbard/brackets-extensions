@@ -18,7 +18,7 @@
 	opacity: 1;
 }
 .rickshaw_graph .detail .x_label {
-	font-family: Arial, sans-serif;
+	font-family: source-sans-pro, Arial, sans-serif;
 	border-radius: 3px;
 	padding: 6px;
 	opacity: 0.5;
