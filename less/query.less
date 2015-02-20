@@ -1,7 +1,8 @@
 .query{
-    margin: 10px 0;
-    padding: 5px 10px;
+    margin: 10px 0 0.7em 0;
     background: white;
+    border-radius: 3px;
+    padding: 1.5em;
 
     .name{
         font-size: 18px;
@@ -23,9 +24,21 @@
             margin-right: 2px;
         }
     }
+
+    .description{
+        color: #8a8b8c;
+        margin-top: 1em;
+
+        &:first-letter{
+            text-transform: capitalize;
+        }
+    }
 }
 
 .overal{
+    margin-bottom: 2em;
+    text-align: center;
+
     .stars, .forks, .downloads{
         margin-left: 8px;
         &:before{
