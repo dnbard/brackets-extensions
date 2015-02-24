@@ -7,7 +7,7 @@ function ExtensionPageViewModel(elementSelector){
 ExtensionPageViewModel.prototype.init = function(element){
     this.initDates(element);
     this.initReadme(element);
-    this.initNumbers(element);
+    this.initNumbers(element, true);
     this.initVersions(element);
     this.initBars(element);
     this.initDailyUsers(element);
