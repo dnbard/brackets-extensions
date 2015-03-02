@@ -30,7 +30,9 @@ block content
                 div.highlight-desc.first #{highlighted.extension.description}
                 div.highlight-desc #{highlighted.data.description}
                 div.highlight-links
-                    a(href="/extension/#{highlighted.extension._id}", title="Learn more about #{highlighted.extension.title}") Learn more
+                    a(href="/extension/#{highlighted.extension._id}", title="Learn more about #{highlighted.extension.title}") Learn more about #{highlighted.extension.title}
+                    span &nbsp;&#8226;&nbsp;
+                    a(href="/extensions/featured", title="Learn more about highlighted extensions") All featured extensions
             div.widget-big_right
                 img.highlight-img(src="#{highlighted.data.screenshot}", alt="#{highlighted.extension.title} preview", title="#{highlighted.extension.title}")
 

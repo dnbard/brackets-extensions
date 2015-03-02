@@ -25,4 +25,8 @@ ExtensionsController.prototype.default = function(req, res){
     });
 }
 
+ExtensionsController.prototype.featured = function(req, res){
+
+}
+
 module.exports = new ExtensionsController();

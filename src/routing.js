@@ -16,6 +16,7 @@ function Routing(app){
     app.get('/', index.default);
 
     app.get('/extensions', extensions.default);
+    app.get('/extensions/featured', extensions.default);
 
     app.get('/extension/:id', extension.default);
     app.get('/extension/:id/downloads', downloads.default);
