@@ -1,0 +1,29 @@
+extend layout
+
+block content
+    h2.center Featured Extensions
+
+    div.center
+        each highlighted in extensions
+            div.widget-big.highlight
+                div.widget-big_left
+                    div.center
+                        a(href="/extension/#{highlighted.extension._id}").highlight-name #{highlighted.extension.title}
+                        span &nbsp;by&nbsp;
+                        a(href="/author/#{highlighted.extension.author}").highlight-author
+                            if(highlighted.extension.authorAvatar)
+                                img.highlight-avatar(src="#{highlighted.extension.authorAvatar}")
+                            else
+                                span.icon-torso
+                            span #{highlighted.extension.author}
+                    div.separator
+                    div.center
+                        span.icon-download &nbsp;#{highlighted.extension.totalDownloads}
+                        span &nbsp;&nbsp;&nbsp;
+                        span.icon-star-two &nbsp;#{highlighted.extension.stars}
+                        span &nbsp;&nbsp;&nbsp;
+                        span.icon-code-fork &nbsp;#{highlighted.extension.forks}
+                    div.highlight-desc.first #{highlighted.extension.description}
+                    div.highlight-desc #{highlighted.data.description}
+                div.widget-big_right
+                    img.highlight-img(src="#{highlighted.data.screenshot}", alt="#{highlighted.extension.title} preview", title="#{highlighted.extension.title}")
