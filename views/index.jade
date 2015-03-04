@@ -89,6 +89,9 @@ block content
             p
                 span.bold In registry:
                 span &nbsp;#{count} extensions, #{authorsCount} authors
+            p
+                span.bold Registry JSON served:&nbsp;
+                span #{transferedFormatted} / month
             p.bold Newest extension:
                 div
                     a(href="/extension/#{newestExtension._id}", title="#{newestExtension.description}") #{newestExtension.title}

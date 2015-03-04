@@ -5,6 +5,7 @@ var winston = require('winston'),
     OnlineDAL = require('../DAL/online'),
     ApplicationDAL = require('../DAL/application'),
     HightlightDAL = require('../DAL/highlight'),
+    CounterDAL = require('../DAL/counter'),
     Q = require('q'),
     Response = require('../response');
 
@@ -22,7 +23,8 @@ IndexController.prototype.default = function(req, res, next){
         ApplicationDAL.usersCount(),
         OnlineDAL.get(),
         ExtensionDAL.getMostStaredExtensionList(),
-        HightlightDAL.getCurrent()
+        HightlightDAL.getCurrent(),
+        CounterDAL.getLatestMonthTransfered()
     ]).then(_.bind(function(result){
         var count = result[0],
             newestExtension = result[1],
@@ -34,7 +36,8 @@ IndexController.prototype.default = function(req, res, next){
             usersOnline = result[7],
             extensionsOnline = result[8],
             extensionsStars = result[9],
-            highlightedExtension = result[10];
+            highlightedExtension = result[10],
+            transferedData = result[11];
 
         res.render('index', new Response(req, {
             title : 'Home',
@@ -54,7 +57,8 @@ IndexController.prototype.default = function(req, res, next){
             online: usersOnline,
             extensionsOnline: _.first(extensionsOnline, 12),
             extensionsStars: _.first(extensionsStars, 12),
-            highlighted: highlightedExtension
+            highlighted: highlightedExtension,
+            transferedFormatted: (transferedData.transfered / 1000000000).toFixed(1) + ' GB',
         }));
     }, this), function(){
         res.status(500).send();

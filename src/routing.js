@@ -4,6 +4,7 @@ function Routing(app){
     }
 
     var index = require('./controllers/index'),
+        about = require('./controllers/about'),
         extension = require('./controllers/extension'),
         extensions = require('./controllers/extensions'),
         downloads = require('./controllers/downloads'),
@@ -14,6 +15,8 @@ function Routing(app){
         user = require('./controllers/user');
 
     app.get('/', index.default);
+
+    app.get('/about', about.default);
 
     app.get('/extensions', extensions.default);
     app.get('/extensions/featured', extensions.featured);

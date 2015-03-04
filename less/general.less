@@ -71,6 +71,16 @@ header {
         }
     }
 
+    .link{
+        text-decoration: none;
+        color: #8d8e8e;
+        margin: 0 0 0 40px;
+
+        &:hover{
+            color: #3d3d3d;
+        }
+    }
+
     .buttons{
         li{
             display: inline-block;
@@ -109,7 +119,7 @@ header {
     width: 350px;
 }
 
-.widget, .widget-big {
+.widget, .widget-big, .widget-medium {
     margin: 5px 5px;
     width: 310px;
     display: inline-block;
@@ -147,6 +157,21 @@ header {
     }
 }
 
+.widget-medium{
+    width: 620px;
+    margin: 5px;
+
+    .details{
+        margin: 5px 0;
+        text-align: justify;
+        color: darkgray;
+    }
+
+    .details:first-letter{
+        margin: 0 0 0 45px;
+    }
+}
+
 .widget-big {
     width: 950px;
     display: block;
@@ -180,13 +205,18 @@ header {
     }
 
     .highlight-desc{
-        text-align: center;
-        font-size: 12pt;
-        margin-bottom: 8px;
         display: block;
+        color: #4d4d4d;
+        font-size: 21px;
+        font-weight: 300;
+        margin: 0 auto 50px;
+        text-align: justify;
 
         &.first{
-            margin-top: 20px;
+            margin: 20px auto 8px;
+            text-align: center;
+            color: gray;
+            font-weight: 400;
         }
     }
 
@@ -228,6 +258,10 @@ footer {
 
 .center{
     text-align: center;
+}
+
+.justify{
+    text-align: justify;
 }
 
 [class*=" icon-"]:before, [class^=icon-]:before{
