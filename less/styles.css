@@ -86,3 +86,12 @@
 .icon-code-fork:before {
   content: "p";
 }
+.icon-fontawesome-webfont:before {
+  content: "q";
+}
+.icon-facebook-square:before {
+  content: "r";
+}
+.icon-linkedin-square:before {
+  content: "s";
+}
