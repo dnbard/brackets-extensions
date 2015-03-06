@@ -40,7 +40,7 @@ block content
             h2.center.icon-graph-trend &nbsp;Extensions
             p.details
                 span randomly selected from the&nbsp;
-                a(href="/extensions", title="Top 100 extensions by download count").bold Top 100
+                a(href="/extensions", title="Top 100 extensions by download count") Top 100
             div.separator
             each extension in downloadsExtensionList
                 p.extension
@@ -87,17 +87,17 @@ block content
             h2.center.icon-chart-line &nbsp;Stats
             div.separator
             p
-                span.bold In registry:
+                span In registry:
                 span.impact &nbsp;#{count} extensions, #{authorsCount} authors
             p
-                span.bold Registry JSON served:&nbsp;
+                span Registry JSON served:&nbsp;
                 span.impact #{todayTransferedFormatted}(today), #{transferedFormatted}(month), #{overallTransferedFormatted}(overall)
-            p.bold Newest extension:
+            p Newest extension:
                 div
                     a(href="/extension/#{newestExtension._id}", title="#{newestExtension.description}") #{newestExtension.title}
                     span &nbsp;by&nbsp;
                     a(href="/author/#{newestExtension.author}") #{newestExtension.author}
-            p.bold Extension with most downloads:
+            p Extension with most downloads:
                 div
                     a(href="/extension/#{downloadsExtension._id}", title="#{downloadsExtension.description}") #{downloadsExtension.title}
                     span &nbsp;by&nbsp;

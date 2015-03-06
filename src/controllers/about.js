@@ -1,13 +1,21 @@
 var Response = require('../response'),
-    CounterDAL = require('../DAL/counter');
+    CounterDAL = require('../DAL/counter'),
+    Q = require('q'),
+    package = require('../../package.json');
 
 exports.default = function(req, res){
-    CounterDAL.getLatestMonthTransfered().then(function(result){
+    Q.all([
+        CounterDAL.getLatestMonthTransfered
+    ]).then(function(result){
+        var transfered = result[0].transfered,
+            version = package.version;
+
         res.render('about', new Response(req, {
             title: 'Extensions Rating',
-            transfered: result.transfered,
-            transferedFormatted: (result.transfered / 1000000000).toFixed(1),
-            transferedType: 'GB'
+            transfered: transfered,
+            transferedFormatted: (transfered / 1000000000).toFixed(1),
+            transferedType: 'GB',
+            version: version
         }));
     });
 }
