@@ -22,7 +22,7 @@ CounterDAL.prototype.getLatestMonthTransfered = function(){
                 var transfered = 0;
 
                 _.each(counters, function(counter){
-                    transfered += parseInt(counter.count) * JSONSize;
+                    transfered += (parseInt(counter.count) || 0) * JSONSize;
                 });
 
                 return {
