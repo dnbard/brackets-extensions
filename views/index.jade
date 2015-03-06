@@ -88,10 +88,10 @@ block content
             div.separator
             p
                 span.bold In registry:
-                span &nbsp;#{count} extensions, #{authorsCount} authors
+                span.impact &nbsp;#{count} extensions, #{authorsCount} authors
             p
                 span.bold Registry JSON served:&nbsp;
-                span #{transferedFormatted} / month
+                span.impact #{todayTransferedFormatted}(today), #{transferedFormatted}(month), #{overallTransferedFormatted}(overall)
             p.bold Newest extension:
                 div
                     a(href="/extension/#{newestExtension._id}", title="#{newestExtension.description}") #{newestExtension.title}
@@ -102,9 +102,6 @@ block content
                     a(href="/extension/#{downloadsExtension._id}", title="#{downloadsExtension.description}") #{downloadsExtension.title}
                     span &nbsp;by&nbsp;
                     a(href="/author/#{downloadsExtension.author}") #{downloadsExtension.author}
-            p
-                span.bold Users online:
-                span &nbsp;#{online}
             p
                 a(href="//www.liveinternet.ru/click",target="_blank")
                     img(src="//counter.yadro.ru/logo?14.11",title="LiveInternet: number of pageviews for 24 hours, of visitors for 24 hours and for today is shown",alt="",border="0",width="88",height="31")

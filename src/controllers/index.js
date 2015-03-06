@@ -20,11 +20,12 @@ IndexController.prototype.default = function(req, res, next){
         RegistryDAL.getTags(),
         RegistryDAL.getAuthors(),
         RegistryDAL.getAuthorsCount(),
-        ApplicationDAL.usersCount(),
         OnlineDAL.get(),
         ExtensionDAL.getMostStaredExtensionList(),
         HightlightDAL.getCurrent(),
-        CounterDAL.getLatestMonthTransfered()
+        CounterDAL.getLatestMonthTransfered(),
+        CounterDAL.getTransfered(),
+        CounterDAL.getTodayTransfered()
     ]).then(_.bind(function(result){
         var count = result[0],
             newestExtension = result[1],
@@ -33,11 +34,12 @@ IndexController.prototype.default = function(req, res, next){
             tags = result[4],
             authors = result[5],
             authorsCount = result[6],
-            usersOnline = result[7],
-            extensionsOnline = result[8],
-            extensionsStars = result[9],
-            highlightedExtension = result[10],
-            transferedData = result[11];
+            extensionsOnline = result[7],
+            extensionsStars = result[8],
+            highlightedExtension = result[9],
+            transferedData = result[10],
+            overallTransferedData = result[11],
+            todayTransferedData = result[12];
 
         res.render('index', new Response(req, {
             title : 'Home',
@@ -54,11 +56,12 @@ IndexController.prototype.default = function(req, res, next){
                 return author;
             }),
             authorsCount: authorsCount,
-            online: usersOnline,
             extensionsOnline: _.first(extensionsOnline, 12),
             extensionsStars: _.first(extensionsStars, 12),
             highlighted: highlightedExtension,
             transferedFormatted: (transferedData.transfered / 1000000000).toFixed(1) + ' GB',
+            overallTransferedFormatted: (overallTransferedData.transfered / 1000000000000).toFixed(2) + ' TB',
+            todayTransferedFormatted: (todayTransferedData.transfered / 1000000000).toFixed(1) + ' GB',
         }));
     }, this), function(){
         res.status(500).send();

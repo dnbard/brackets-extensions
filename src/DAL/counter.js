@@ -32,4 +32,49 @@ CounterDAL.prototype.getLatestMonthTransfered = function(){
     });
 }
 
+CounterDAL.prototype.getTodayTransfered = function(){
+    return this.cached('todayTransfered', function(){
+        return Counter.find({})
+            .sort({
+                timestamp: -1
+            })
+            .limit(24)
+            .lean()
+            .exec()
+            .then(function(counters){
+                var transfered = 0;
+
+                _.each(counters, function(counter){
+                    transfered += (parseInt(counter.count) || 0) * JSONSize;
+                });
+
+                return {
+                    transfered: transfered
+                };
+            });
+    });
+}
+
+CounterDAL.prototype.getTransfered = function(){
+    return this.cached('overallTransfered', function(){
+        return Counter.find({})
+            .sort({
+                timestamp: -1
+            })
+            .lean()
+            .exec()
+            .then(function(counters){
+                var transfered = 0;
+
+                _.each(counters, function(counter){
+                    transfered += (parseInt(counter.count) || 0) * JSONSize;
+                });
+
+                return {
+                    transfered: transfered
+                };
+            });
+    });
+}
+
 module.exports = new CounterDAL();
