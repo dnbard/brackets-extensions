@@ -5,9 +5,11 @@ var Response = require('../response'),
 
 exports.default = function(req, res){
     Q.all([
-        CounterDAL.getLatestMonthTransfered
-    ]).then(function(result){
-        var transfered = result[0].transfered,
+        CounterDAL.getLatestMonthTransfered()
+    ]).then(function(results){
+        console.log(results);
+
+        var transfered = results[0].transfered,
             version = package.version;
 
         res.render('about', new Response(req, {
