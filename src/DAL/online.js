@@ -22,34 +22,21 @@ OnlineDAL.prototype.set = function(registry){
         return ext.name;
     });
 
-    //console.log('New registry size - ', _.size(registry));
-    //console.log('Online size before removing - %s', _.size(this.registry));
-
-    _.remove(this.registry, function(ext){
-        return _.contains(registryIds, ext.name);
-    });
-
-    //console.log('Online size after removing - %s', _.size(this.registry));
+    _.remove(this.registry, ext => _.contains(registryIds, ext.name));
 
     this.registry = _(registry)
         .extend(this.registry)
-        .sortBy(function(ext){
-        return - ext.online;
-    }).value();
+        .sortBy(ext => -ext.online)
+        .value();
 
-    //console.log('Online size after concatenating - %s', _.size(this.registry));
-
-    _.each(this.registry, function(extensionOnlineInfo){
+    _.each(this.registry, extensionOnlineInfo => {
         if (!extensionOnlineInfo.title){
-            RegistryDAL.getExtension(extensionOnlineInfo.name).then(function(extension){
-                extensionOnlineInfo.title = extension.metadata.title;
-            });
+            RegistryDAL.getExtension(extensionOnlineInfo.name)
+                .then(extension => extensionOnlineInfo.title = extension.metadata.title );
         }
     });
 
-    _.each(this.defers, function(defer){
-        defer.resolve(this.registry);
-    });
+    _.each(this.defers, defer => defer.resolve(this.registry) );
 
     this.defers = [];
 }
@@ -67,28 +54,27 @@ OnlineDAL.prototype.get = function(){
 }
 
 OnlineDAL.prototype.init = function(){
-    var registryPath = config.registryPath,
-        self = this;
+    var registryPath = config.registryPath;
 
     if (!Service){
         Service = mongoose.model('Service');
     }
 
-    Service.find({type: 'tracking'}).lean().exec().then(function(services){
-        _.each(services, function(service){
-            self.trackingServiceHandler(service).then(function(data){
-                self.set(data);
-            });
-        });
-    });
+    Service.find({type: 'tracking'})
+        .lean()
+        .exec()
+        .then( services => _.each(services, service => {
+            this.trackingServiceHandler(service)
+                .then(data => this.set(data) );
+        }));
 
-    setTimeout(_.bind(this.init, this), dataRequireInterval);
+    setTimeout(() => this.init, dataRequireInterval);
 }
 
 OnlineDAL.prototype.trackingServiceHandler = function(service){
     var defer = Q.defer();
 
-    request(service.url + 'stats', function(error, response, body){
+    request(service.url + 'stats', (error, response, body) => {
         if (error){
             console.error(error);
             defer.reject({});
@@ -97,7 +83,7 @@ OnlineDAL.prototype.trackingServiceHandler = function(service){
         var stats = JSON.parse(body),
             statsReg = {};
 
-        _.each(stats, function(stat){
+        _.each(stats, stat => {
             if (stat.online && stat.maxUsers){
                 statsReg[stat.name] = stat;
             }

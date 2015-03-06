@@ -9,9 +9,7 @@ var winston = require('winston'),
     Q = require('q'),
     Response = require('../response');
 
-function IndexController(){}
-
-IndexController.prototype.default = function(req, res, next){
+exports.default = function(req, res, next){
     Q.all([
         ExtensionDAL.getExtensionsCount(),
         ExtensionDAL.getNewestExtension(),
@@ -41,6 +39,12 @@ IndexController.prototype.default = function(req, res, next){
             overallTransferedData = result[11],
             todayTransferedData = result[12];
 
+        var transferedDataFormated = {
+            month: (transferedData.transfered / 1000000000).toFixed(1),
+            overall: (overallTransferedData.transfered / 1000000000000).toFixed(2),
+            today: (todayTransferedData.transfered / 1000000000).toFixed(1)
+        };
+
         res.render('index', new Response(req, {
             title : 'Home',
             count: count,
@@ -59,13 +63,11 @@ IndexController.prototype.default = function(req, res, next){
             extensionsOnline: _.first(extensionsOnline, 12),
             extensionsStars: _.first(extensionsStars, 12),
             highlighted: highlightedExtension,
-            transferedFormatted: (transferedData.transfered / 1000000000).toFixed(1) + ' GB',
-            overallTransferedFormatted: (overallTransferedData.transfered / 1000000000000).toFixed(2) + ' TB',
-            todayTransferedFormatted: (todayTransferedData.transfered / 1000000000).toFixed(1) + ' GB',
+            transferedFormatted: `${transferedDataFormated.month} GB`,
+            overallTransferedFormatted: `${transferedDataFormated.overall} TB`,
+            todayTransferedFormatted: `${transferedDataFormated.today} GB`,
         }));
     }, this), function(){
         res.status(500).send();
     });
 }
-
-module.exports = new IndexController();

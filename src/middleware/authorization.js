@@ -27,12 +27,15 @@ function authorization(req, res, next){
     } else {
         userEntity = userDirectory.get(cookie);
         if (!userEntity || !userEntity.user){
-            User.findOne({ token: cookie }).lean().exec().then(function(user){
-                userDirectory.add(cookie, user);
-                req.user = user;
-                req.token = cookie;
-                next();
-            });
+            User.findOne({ token: cookie })
+                .lean()
+                .exec()
+                .then(user => {
+                    userDirectory.add(cookie, user);
+                    req.user = user;
+                    req.token = cookie;
+                    next();
+                });
         } else {
             req.user = userEntity.user;
             req.token = cookie;

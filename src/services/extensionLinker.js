@@ -20,8 +20,8 @@ events.on(events.list.USER.NEW, function(user){
         url: 'https://api.github.com/user/repos',
         headers: getGithubHeaders(token),
         json: true
-    }, function(error, response, body){
-        var extensions = _(body).map(function(extension){
+    }, (error, response, body) => {
+        var extensions = _(body).map(extension => {
             if (extension.fork){
                 return null;
             }
@@ -35,15 +35,11 @@ events.on(events.list.USER.NEW, function(user){
             };
         }).compact().value();
 
-        RegistryDAL.getRegistry().then(function(registry){
-            var owner = _.find(extensions,function(ext){
-                    return ext.owner.indexOf('NULL') === -1;
-                }).owner,
-                result = _(registry).filter(function(ext){
-                    return ext.owner === owner;
-                }).map(function(ext){
-                    return ext.metadata.name;
-                }).value();
+        RegistryDAL.getRegistry().then(registry => {
+            var owner = _.find(extensions, ext => ext.owner.indexOf('NULL') === -1).owner,
+                result = _.chain(registry).filter(ext => ext.owner === owner)
+                    .map(ext => ext.metadata.name)
+                    .value();
 
             if (!User){
                 User = mongoose.model('User');

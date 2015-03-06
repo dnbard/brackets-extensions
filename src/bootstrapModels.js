@@ -3,7 +3,7 @@ var path = require('path'),
 
 function BootstrapModels(){
     var modelsPath = path.join(__dirname, 'models');
-    fs.readdirSync(modelsPath).forEach(function (file) {
+    fs.readdirSync(modelsPath).forEach(file => {
         if (/(.*)\.(js$|coffee$)/.test(file)) {
             require(modelsPath + '/' + file);
         }

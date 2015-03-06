@@ -1,11 +1,8 @@
 var _ = require('lodash'),
     DownloadsDAL = require('../DAL/downloads'),
-    Q = require('q'),
-    Response = require('../response');
+    Q = require('q');
 
-function DownloadsController(){}
-
-DownloadsController.prototype.default = function(req, res, next){
+exports.default = function(req, res, next){
     var extensionId = req.params.id;
 
     if (!extensionId){
@@ -15,16 +12,14 @@ DownloadsController.prototype.default = function(req, res, next){
 
     Q.all([
         DownloadsDAL.getDownloads(extensionId)
-    ]).then(function(result){
+    ]).then(result => {
         var downloads = result[0];
 
         res.send({
             extension: extensionId,
             downloads: downloads
         });
-    }, function(err){
+    }, err => {
         res.status(500).send(err);
     });
 }
-
-module.exports = new DownloadsController();

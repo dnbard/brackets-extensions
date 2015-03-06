@@ -1,7 +1,7 @@
 var Response = require('../response'),
     CounterDAL = require('../DAL/counter'),
     Q = require('q'),
-    package = require('../../package.json');
+    packageJSON = require('../../package.json');
 
 exports.default = function(req, res){
     Q.all([
@@ -10,7 +10,7 @@ exports.default = function(req, res){
         console.log(results);
 
         var transfered = results[0].transfered,
-            version = package.version;
+            version = packageJSON.version;
 
         res.render('about', new Response(req, {
             title: 'Extensions Rating',

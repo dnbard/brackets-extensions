@@ -32,9 +32,7 @@ ExtensionDAL.prototype.getMostDownloadsExtensionList = function(){
     }, function(extensions){
         var i = 0;
 
-        return _.each(extensions, function(extension){
-            extension.position = ++i;
-        });
+        return _.each(extensions, (extension) => extension.position = ++i );
     });
 }
 
@@ -44,9 +42,7 @@ ExtensionDAL.prototype.getMostStaredExtensionList = function(){
     }, function(extensions){
         var i = 0;
 
-        return _.each(extensions, function(extension){
-            extension.position = ++i;
-        });
+        return _.each(extensions, (extension) => extension.position = ++i );
     });
 }
 

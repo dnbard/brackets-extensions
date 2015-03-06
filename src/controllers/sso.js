@@ -44,7 +44,7 @@ exports.github = function(req, res){
 
         var githubUser = body;
 
-        User.findOne({email: githubUser.email}).exec(function(err, user){
+        User.findOne({email: githubUser.email}).exec((err, user) => {
             if (err){
                 return status500Response(err);
             }
@@ -70,7 +70,7 @@ exports.github = function(req, res){
                 user.githubToken = token;
             }
 
-            user.save(function(err, user){
+            user.save((err, user) => {
                 if (err){
                     return status500Response(err);
                 }

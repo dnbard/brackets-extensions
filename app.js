@@ -1,3 +1,6 @@
+//initialize babeljs.io require hook
+require("babel/register");
+
 var config = require('./src/config');
 
 if (config.env === 'prod'){

@@ -7,9 +7,7 @@ var winston = require('winston'),
     Response = require('../response'),
     converters = require('../services/converters');
 
-function ExtensionController(){}
-
-ExtensionController.prototype.default = function(req, res, next){
+exports.default = function(req, res, next){
     var extensionId = req.params.id;
 
     if (!extensionId){
@@ -22,13 +20,11 @@ ExtensionController.prototype.default = function(req, res, next){
         RegistryDAL.getExtension(extensionId),
         RegistryDAL.getTagsAsObject(),
         OnlineDAL.get()
-    ]).then(function(result){
+    ]).then(result => {
         var extension = result[0],
             registryEntry = result[1],
             tags = result[2],
-            dailyUsers = converters.dailyUsers(_.find(result[3], function(app){
-                return app.name === extensionId;
-            }));
+            dailyUsers = converters.dailyUsers(_.find(result[3], app => app.name === extensionId));
 
         res.render('extension', new Response(req, {
             id: extension._id,
@@ -59,7 +55,7 @@ ExtensionController.prototype.default = function(req, res, next){
             dailyUsers: dailyUsers,
             isFaked: !!extension.faked
         }));
-    }, function(){
+    }, () => {
         res.render('not-found', new Response(req, {
             title: 'Extension not found',
             type: 'Extension',
@@ -67,5 +63,3 @@ ExtensionController.prototype.default = function(req, res, next){
         }));
     });
 }
-
-module.exports = new ExtensionController();

@@ -23,9 +23,7 @@ RegistryDAL.prototype.setRegistry = function(registry){
 
     this.registry = registry;
 
-    _.each(this.defers, function(defer){
-        defer.resolve(registry);
-    });
+    _.each(this.defers, defer => defer.resolve(registry) );
 
     this.defers = [];
 }
@@ -43,15 +41,13 @@ RegistryDAL.prototype.getRegistry = function(){
 }
 
 RegistryDAL.prototype.getPiper = function(){
-    var self = this;
-
     return {
         on: function(){},
         once: function(){},
-        write: function(src){ body += src; },
-        end: function(){
+        write: src => body += src,
+        end: () => {
             console.log('Registry Updated');
-            self.setRegistry(JSON.parse(body.replace('undefined', '').replace('null', '')));
+            this.setRegistry(JSON.parse(body.replace('undefined', '').replace('null', '')));
             body = null;
         },
         emit: function(){}
@@ -59,10 +55,9 @@ RegistryDAL.prototype.getPiper = function(){
 }
 
 RegistryDAL.prototype.getExtensionsByTag = function(tag){
-    var self = this,
-        defer = Q.defer();
+    var defer = Q.defer();
 
-    self.getRegistry().then(function(registry){
+    this.getRegistry().then( registry => {
         var extensions = _.filter(registry, function(ext){
             return (ext.metadata.keywords || []).indexOf(tag) !== -1;
         });
@@ -74,36 +69,29 @@ RegistryDAL.prototype.getExtensionsByTag = function(tag){
 }
 
 RegistryDAL.prototype.getTags = function(){
-    var self = this;
-
-    return this.cached('extensionTags', function(){
+    return this.cached('extensionTags', () => {
         var defer = Q.defer(),
             extensionsWithTags,
             tags = {};
 
-        self.getRegistry().then(function(registry){
-            extensionsWithTags = _.filter(registry, function(ext){
-                return ext.metadata.keywords;
-            });
+        this.getRegistry().then(registry => {
+            extensionsWithTags = _.filter(registry, ext => ext.metadata.keywords);
 
-            _.each(extensionsWithTags, function(ext){
-                _.each(ext.metadata.keywords, function(tag){
-                    if (tags[tag]){
-                        tags[tag].count ++;
-                    } else {
-                        tags[tag] = {
-                            name:  tag,
-                            count: 1
-                        };
-                    }
-                });
-            });
+            _.each(extensionsWithTags, ext => _.each(ext.metadata.keywords, tag => {
+                if (tags[tag]){
+                    tags[tag].count ++;
+                } else {
+                    tags[tag] = {
+                        name:  tag,
+                        count: 1
+                    };
+                }
+            }));
 
-            tags = _.sortBy(tags, function(tag){
-                return -tag.count;
-            });
-
-            tags = _.toArray(tags);
+            tags = _.chain(tags)
+                .sortBy(tag => -tag.count)
+                .toArray()
+                .value();
 
             defer.resolve(tags);
         });
@@ -113,17 +101,13 @@ RegistryDAL.prototype.getTags = function(){
 }
 
 RegistryDAL.prototype.getTagsAsObject = function(){
-    var self = this;
-
-    return this.cached('extensionTagsAsObject', function(){
+    return this.cached('extensionTagsAsObject', () => {
         var defer = Q.defer();
 
-        self.getTags().then(function(tags){
+        this.getTags().then(tags => {
             var formatedTags = {};
 
-            _.each(tags, function(tag){
-                formatedTags[tag.name] = tag.count;
-            });
+            _.each(tags, tag => formatedTags[tag.name] = tag.count);
 
             defer.resolve(formatedTags);
         });
@@ -133,16 +117,14 @@ RegistryDAL.prototype.getTagsAsObject = function(){
 }
 
 RegistryDAL.prototype.getAuthors = function(){
-    var self = this;
-
-    return this.cached('extensionAuthors', function(){
+    return this.cached('extensionAuthors', () => {
         var defer = Q.defer(),
             authors = {};
 
         //TODO: add `id` field to author model and calculate it's value
         //TODO: remove mail adress from author name
-        self.getRegistry().then(function(registry){
-            _.each(registry, function(ext){
+        this.getRegistry().then(registry => {
+            _.each(registry, ext => {
                 if (!ext.metadata || !ext.metadata.author || !ext.metadata.author.name){
                     return true;
                 }
@@ -158,13 +140,10 @@ RegistryDAL.prototype.getAuthors = function(){
                 }
             });
 
-            authors = _.sortBy(authors, function(author){
-                return -author.count;
-            });
-
-            authors = _.toArray(authors);
-
-            authors = _.first(authors, 25);
+            authors = _.chain(authors).sortBy(author => -author.count)
+                .toArray()
+                .first(25)
+                .value();
 
             defer.resolve(authors);
         });
@@ -174,14 +153,13 @@ RegistryDAL.prototype.getAuthors = function(){
 }
 
 RegistryDAL.prototype.getAuthorsCount = function(){
-    var self = this;
+    return this.cached('extensionAuthorsCount', () => {
+        var defer = Q.defer();
 
-    return this.cached('extensionAuthorsCount', function(){
-        var defer = Q.defer(),
-            authors = {};
+        this.getRegistry().then(registry => {
+            var authors = {};
 
-        self.getRegistry().then(function(registry){
-            _.each(registry, function(ext){
+            _.each(registry, ext => {
                 if (!ext.metadata || !ext.metadata.author || !ext.metadata.author.name){
                     return true;
                 }
@@ -211,16 +189,14 @@ RegistryDAL.prototype.init = function(){
         .pipe(zlib.createGunzip())
         .pipe(this.getPiper());
 
-    setTimeout(_.bind(this.init, this), halfHour);
+    setTimeout(() => this.init, halfHour);
 }
 
 RegistryDAL.prototype.getExtension = function(id){
     var defer = Q.defer();
 
-    this.getRegistry().then(function(registry){
-        defer.resolve(_.find(registry, function(ext){
-            return ext.metadata.name === id;
-        }));
+    this.getRegistry().then(registry => {
+        defer.resolve(_.find(registry, ext => ext.metadata.name === id));
     });
 
     return defer.promise;
@@ -229,10 +205,8 @@ RegistryDAL.prototype.getExtension = function(id){
 RegistryDAL.prototype.getThemeOfDay = function(){
      var defer = Q.defer();
 
-    this.getRegistry().then(function(registry){
-        defer.resolve(_.sample(_.filter(registry, function(extension){
-            return extension.metadata && extension.metadata.theme;
-        })));
+    this.getRegistry().then(registry => {
+        defer.resolve(_.sample(_.filter(registry, extension => extension.metadata && extension.metadata.theme)));
     });
 
     return defer.promise;

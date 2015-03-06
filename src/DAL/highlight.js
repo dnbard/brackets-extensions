@@ -19,10 +19,11 @@ HightlightDAL.prototype.getCurrent = function(){
             .limit(1)
             .lean()
             .exec()
-            .then(function(data){
+            .then(data => {
                 highlightedExtension = _.first(data);
                 return ExtensionDAL.getExtension(highlightedExtension._id);
-            }).then(function(extension){
+            })
+            .then(extension => {
                 return {
                     extension: extension,
                     data: highlightedExtension
@@ -37,7 +38,7 @@ HightlightDAL.prototype.getAll = function(){
         .sort({ timestamp: -1 })
         .lean()
         .exec()
-        .then(function(data){
+        .then(data => {
             var getExtensionPromises;
             highlightedExtensions = data;
 
@@ -46,14 +47,12 @@ HightlightDAL.prototype.getAll = function(){
             });
 
             return Q.all(getExtensionPromises);
-        }).then(function(extensions){
-            return _.map(extensions, function(extension, index){
-                return {
-                    extension: extension,
-                    data: highlightedExtensions[index]
-                }
-            });
-        });
+        }).then(extensions => _.map(extensions, (extension, index) => {
+            return {
+                extension: extension,
+                data: highlightedExtensions[index]
+            }
+        }));
 }
 
 module.exports = new HightlightDAL();

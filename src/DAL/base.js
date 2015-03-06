@@ -28,7 +28,7 @@ BaseDAL.prototype.cached = function(){
     if (cachedValue){
         defer.resolve(cachedValue);
     } else {
-        handler().then(function(value){
+        handler().then(value => {
             if (typeof afterHandler === 'function'){
                 afterHandler(value);
             }

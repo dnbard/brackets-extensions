@@ -3,9 +3,7 @@ var _ = require('lodash'),
     Q = require('q'),
     Response = require('../response');
 
-function SearchController(){}
-
-SearchController.prototype.default = function(req, res){
+exports.default = function(req, res){
     var extensionId = req.params.id;
 
     if (!extensionId){
@@ -19,7 +17,7 @@ SearchController.prototype.default = function(req, res){
         var extensions = results[0];
 
         res.render('search', new Response(req, {
-            title: extensionId + ' extensions',
+            title: `${extensionId} extensions`,
             extensions: extensions,
             search: extensionId,
             notFound: _.size(extensions) === 0,
@@ -27,5 +25,3 @@ SearchController.prototype.default = function(req, res){
         }));
     });
 }
-
-module.exports = new SearchController();

@@ -4,7 +4,7 @@ var _ = require('lodash'),
 function UserDirectory(){
     this.storage = {};
 
-    setTimeout(_.bind(this.clean, this), timeout);
+    setTimeout(() => this.clean, timeout);
 }
 
 UserDirectory.prototype.add = function(id, user){
@@ -16,16 +16,15 @@ UserDirectory.prototype.add = function(id, user){
 }
 
 UserDirectory.prototype.clean = function(){
-    var now = new Date().getTime(),
-        self = this;
+    var now = new Date().getTime();
 
-    _.each(this.storage, function(userInfo){
+    _.each(this.storage, userInfo => {
         if (now - userInfo.timestamp >= timeout){
-            delete self.storage[userInfo.token];
+            this.storage[userInfo.token] = null;
         }
     });
 
-    setTimeout(_.bind(this.clean, this), timeout);
+    setTimeout(() => this.clean, timeout);
 }
 
 UserDirectory.prototype.get = function(id){

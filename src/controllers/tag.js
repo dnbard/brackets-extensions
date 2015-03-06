@@ -4,9 +4,7 @@ var _ = require('lodash'),
     Q = require('q'),
     Response = require('../response');
 
-function TagController(){}
-
-TagController.prototype.default = function(req, res, next){
+exports.default = function(req, res, next){
     var tagId = req.params.id;
 
     function NotFoundResponse(){
@@ -23,22 +21,17 @@ TagController.prototype.default = function(req, res, next){
         return;
     }
 
-    RegistryDAL.getExtensionsByTag(tagId).then(function(rawExts){
-        var exts = _.map(rawExts, function(rawExt){
-            return ExtensionDAL.getExtension(rawExt.metadata.name);
-        });
+    RegistryDAL.getExtensionsByTag(tagId)
+        .then(function(rawExts){
+            var exts = _.map(rawExts, rawExt => ExtensionDAL.getExtension(rawExt.metadata.name));
 
-        Q.all(exts).then(function(results){
-            var extensions = results;
-
-            res.render('tag', new Response(req, {
-                title: tagId + ' tag',
-                tag: tagId,
-                extensions: extensions,
-                user: req.user
-            }));
+            Q.all(exts).then(extensions => {
+                res.render('tag', new Response(req, {
+                    title: `${tagId} tag`,
+                    tag: tagId,
+                    extensions: extensions,
+                    user: req.user
+                }));
+            }, NotFoundResponse);
         }, NotFoundResponse);
-    }, NotFoundResponse);
 }
-
-module.exports = new TagController();

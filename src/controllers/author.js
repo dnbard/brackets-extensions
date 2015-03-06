@@ -4,9 +4,7 @@ var winston = require('winston'),
     Q = require('q'),
     Response = require('../response');
 
-function AuthorController(){}
-
-AuthorController.prototype.default = function(req, res){
+exports.default = function (req, res){
     var authorId = req.params.id;
 
     if (!authorId){
@@ -16,7 +14,7 @@ AuthorController.prototype.default = function(req, res){
 
     Q.all([
         ExtensionDAL.getExtensionsByAuthor(authorId)
-    ]).then(function(results){
+    ]).then(results => {
         var extensions = results[0];
 
         res.render('author', new Response(req, {
@@ -24,7 +22,7 @@ AuthorController.prototype.default = function(req, res){
             author: authorId.replace(/\b(\w)+\@(\w)+\.(\w)+\b/g, '').replace(',', '').trim(),
             extensions: extensions
         }));
-    }, function(){
+    }, () => {
         res.render('not-found', new Response(req, {
             title: 'Author not found',
             type: 'Author',
@@ -32,5 +30,3 @@ AuthorController.prototype.default = function(req, res){
         }));
     });
 }
-
-module.exports = new AuthorController();

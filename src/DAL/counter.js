@@ -21,9 +21,7 @@ CounterDAL.prototype.getLatestMonthTransfered = function(){
             .then(function(counters){
                 var transfered = 0;
 
-                _.each(counters, function(counter){
-                    transfered += (parseInt(counter.count) || 0) * JSONSize;
-                });
+                _.each(counters, (counter) => transfered += (parseInt(counter.count) || 0) * JSONSize );
 
                 return {
                     transfered: transfered
@@ -44,9 +42,7 @@ CounterDAL.prototype.getTodayTransfered = function(){
             .then(function(counters){
                 var transfered = 0;
 
-                _.each(counters, function(counter){
-                    transfered += (parseInt(counter.count) || 0) * JSONSize;
-                });
+                _.each(counters, (counter) => transfered += (parseInt(counter.count) || 0) * JSONSize );
 
                 return {
                     transfered: transfered
@@ -66,9 +62,7 @@ CounterDAL.prototype.getTransfered = function(){
             .then(function(counters){
                 var transfered = 0;
 
-                _.each(counters, function(counter){
-                    transfered += (parseInt(counter.count) || 0) * JSONSize;
-                });
+                _.each(counters, (counter) => transfered += (parseInt(counter.count) || 0) * JSONSize );
 
                 return {
                     transfered: transfered
