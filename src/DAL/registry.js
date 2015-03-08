@@ -182,6 +182,8 @@ RegistryDAL.prototype.getAuthorsCount = function(){
     });
 }
 
+var a = false;
+
 RegistryDAL.prototype.init = function(){
     var registryPath = config.registryPath;
 
@@ -189,7 +191,9 @@ RegistryDAL.prototype.init = function(){
         .pipe(zlib.createGunzip())
         .pipe(this.getPiper());
 
-    setTimeout(() => this.init, halfHour);
+    setTimeout(() => this.init(), halfHour);
+
+    a = true;
 }
 
 RegistryDAL.prototype.getExtension = function(id){

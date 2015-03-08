@@ -4,7 +4,7 @@ var _ = require('lodash'),
 function UserDirectory(){
     this.storage = {};
 
-    setTimeout(() => this.clean, timeout);
+    setTimeout(() => this.clean(), timeout);
 }
 
 UserDirectory.prototype.add = function(id, user){
@@ -24,7 +24,7 @@ UserDirectory.prototype.clean = function(){
         }
     });
 
-    setTimeout(() => this.clean, timeout);
+    setTimeout(() => this.clean(), timeout);
 }
 
 UserDirectory.prototype.get = function(id){

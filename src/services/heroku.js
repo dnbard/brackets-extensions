@@ -14,7 +14,7 @@ HerokuUnsleep.prototype.handler = function(){
             timeout = 60 * 1000 * 30;
         }
 
-        setTimeout(() => this.handler, timeout);
+        setTimeout(() => this.handler(), timeout);
     });
 }
 

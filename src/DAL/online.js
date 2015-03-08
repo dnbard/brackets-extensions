@@ -68,7 +68,7 @@ OnlineDAL.prototype.init = function(){
                 .then(data => this.set(data) );
         }));
 
-    setTimeout(() => this.init, dataRequireInterval);
+    setTimeout(() => this.init(), dataRequireInterval);
 }
 
 OnlineDAL.prototype.trackingServiceHandler = function(service){
