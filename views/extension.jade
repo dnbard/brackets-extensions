@@ -68,7 +68,11 @@ block content
                 if isFaked
                     div.content Faked data, don't do it in future
                 else
-                    div.content.number #{totalDownloads || 'no data available'}
+                    div.content
+                        span.number #{totalDownloads || 'no data available'}
+                        if position
+                            span.muted &nbsp;&nbsp;##{position} in&nbsp;
+                            a(href="/extensions", title="Extension's rating") rating
             if license
                 div.row(style="display: none;")
                     div.label license
