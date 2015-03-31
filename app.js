@@ -12,25 +12,30 @@ var express = require('express'),
     models = require('./src/bootstrapModels'),
     services = require('./src/bootstrapServices'),
     routing = require('./src/routing'),
-    winston = require('winston'),
     mongoose = require('mongoose'),
-    HerokuUnsleep = require('./src/services/heroku');
+    HerokuUnsleep = require('./src/services/heroku'),
+    WebSocketServer = require('ws').Server,
+    WebSocketService = require('./src/services/websockets');
 
 var app = express();
 
 models();
 
 mongoose.connect(config.database, function(){
-    winston.info('Connected to database');
+    console.info('Connected to database');
 
     middleware(app);
     services();
     routing(app);
 
-    app.listen(config.port, function(){
-        var herokuUnsleep;
+    var server = app.listen(config.port, function(){
+        var herokuUnsleep, wss;
 
-        winston.info('Application started at port %d', config.port);
+        console.log('Application started at port %d', config.port);
+
+        wss = new WebSocketServer({server: server});
+        WebSocketService.init(wss);
+        console.log('WebSocket Server Started at top of Express');
 
         herokuUnsleep = new HerokuUnsleep();
     });

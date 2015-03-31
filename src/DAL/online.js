@@ -5,10 +5,14 @@ var BaseDAL = require('./base'),
     Q = require('q'),
     mongoose = require('mongoose'),
     Service = null,
-    dataRequireInterval = 1000 * 60 * 10,
-    RegistryDAL = require('./registry');
+    dataRequireInterval = 1000 * 10,
+    RegistryDAL = require('./registry'),
+    EventEmitter = require('events').EventEmitter,
+    util = require('util');
 
 function OnlineDAL(){
+    EventEmitter.call(this);
+
     this.registry = {};
     this.defers = [];
 
@@ -16,6 +20,7 @@ function OnlineDAL(){
 }
 
 OnlineDAL.prototype = new BaseDAL();
+util.inherits(OnlineDAL, EventEmitter);
 
 OnlineDAL.prototype.set = function(registry){
     var registryIds = _.map(registry, function(ext){
@@ -63,10 +68,15 @@ OnlineDAL.prototype.init = function(){
     Service.find({type: 'tracking'})
         .lean()
         .exec()
-        .then( services => _.each(services, service => {
-            this.trackingServiceHandler(service)
-                .then(data => this.set(data) );
-        }));
+        .then( services => {
+            _.each(services, service => {
+                this.trackingServiceHandler(service)
+                    .then(data => this.set(data) );
+            });
+
+            console.log('Online data updated');
+            this.emit('updated', this.registry);
+        });
 
     setTimeout(() => this.init(), dataRequireInterval);
 }
