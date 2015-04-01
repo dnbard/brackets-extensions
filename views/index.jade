@@ -49,19 +49,22 @@ block content
                         span.name #{extension.title || extension._id}
                     span.downloads.number &nbsp; #{extension.totalDownloads}
 
-        div.widget
+        div#onlineWidget.widget
+            div.progress
+                div.progress-inner
             h2.center.icon-graph-trend &nbsp;Extensions
             p.details by number of online users
             div.separator
-            each extension in extensionsOnline
-                p.extension
-                    a(href="/extension/#{extension.name}")
-                        span.name #{extension.title}
-                    span.downloads &nbsp;
-                        span(title="Online users of #{extension.title}") #{extension.online}
-                        span.muted(title="Overall number of users for #{extension.title}")
-                            span &nbsp/&nbsp
-                            span.number #{extension.maxUsers}
+            div.holder
+                each extension in extensionsOnline
+                    p.extension(data-ext="#{extension.name}", data-online="#{extension.online}")
+                        a(href="/extension/#{extension.name}")
+                            span.name #{extension.title}
+                        span.downloads &nbsp;
+                            span.onlineValue(title="Online users of #{extension.title}") #{extension.online}
+                            span.muted(title="Overall number of users for #{extension.title}")
+                                span &nbsp/&nbsp
+                                span.number #{extension.maxUsers}
 
         div.widget
             h2.center.icon-star-two &nbsp;Extensions

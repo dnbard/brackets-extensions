@@ -1,5 +1,6 @@
 var wsClients = [],
-    _ = require('lodash');
+    _ = require('lodash'),
+    lastUpdated = null;
 
 exports.init = function(wss){
     var OnlineDAL = require('../DAL/online');
@@ -14,19 +15,30 @@ exports.init = function(wss){
 
             console.log('Websocket client disconnected');
         });
+
+        ws.send(JSON.stringify({
+            message: 'hello',
+            data: {
+                lastUpdate: lastUpdated,
+                interval: 10000
+            }
+        }));
     });
 
     OnlineDAL.on('updated', registry => {
+        lastUpdated = new Date();
+
         if (_.isEmpty(registry) || _.isEmpty(wsClients)){
             return;
         }
 
-        var data = JSON.stringify(_.map(registry, r => { return {
-            name: r.name, online: r.online
-        }}) || []);
+        var payload = JSON.stringify({
+            data: _.map(registry, r => { return {
+                name: r.name, online: r.online
+            }}) || [],
+            message: 'online'
+        });
 
-        console.log('Websocket data: %s bytes', data.length);
-
-        _.each(wsClients, ws => ws.send(data));
+        _.each(wsClients, ws => ws.send(payload));
     });
 }
