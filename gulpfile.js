@@ -23,13 +23,13 @@ gulp.task('build-js', function(){
         .pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('default', function(){
+gulp.task('default', ['build'], function(){
     function onChange(event) {
         console.log('File ' + event.path + ' was ' + event.type);
     }
 
     var lessWatcher = gulp.watch('less/**/*.less', ['build-less']);
-    var jsWatcher = gulp.watch('viewmodels/*.js', ['build-js']);
+    var jsWatcher = gulp.watch('viewmodels/**/*.js', ['build-js']);
 
     lessWatcher.on('change', onChange);
     jsWatcher.on('change', onChange);
