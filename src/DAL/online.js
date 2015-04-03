@@ -71,7 +71,8 @@ OnlineDAL.prototype.init = function(){
         .then( services => {
             _.each(services, service => {
                 this.trackingServiceHandler(service)
-                    .then(data => this.set(data) );
+                    .then(data => this.set(data),
+                          e => console.log(e));
             });
 
             console.log('Online data updated');
@@ -90,16 +91,20 @@ OnlineDAL.prototype.trackingServiceHandler = function(service){
             defer.reject({});
         }
 
-        var stats = JSON.parse(body),
-            statsReg = {};
+        try{
+            var stats = JSON.parse(body),
+                statsReg = {};
 
-        _.each(stats, stat => {
-            if (stat.online && stat.maxUsers){
-                statsReg[stat.name] = stat;
-            }
-        });
+            _.each(stats, stat => {
+                if (stat.online && stat.maxUsers){
+                    statsReg[stat.name] = stat;
+                }
+            });
 
-        defer.resolve(statsReg);
+            defer.resolve(statsReg);
+        }catch(e){
+            defer.reject(e);
+        }
     });
 
     return defer.promise;
