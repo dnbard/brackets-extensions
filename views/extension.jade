@@ -1,23 +1,28 @@
 extend layout
 
+block head
+    meta(name='keywords', content='#{(keywords || []).join(" ")}')
+    meta(name='description', content='Brackets extensions - #{description}')
+
 block content
     input#dailyUsers(type="hidden", value="#{dailyUsers}")
 
     div.extension-single
         h1.name #{title}
 
-        div.author
-            span by&nbsp;
-            span.name
-                if (author.avatar)
-                    img(src="#{author.avatar}")
-                else
-                    span.icon-torso
-                a(href="/author/#{author.link}", title="#{author.name}") #{author.name}
-            if engines
-                span &nbsp;for&nbsp;
-                each version, engine in engines
-                    span.engine #{engine} #{version}&nbsp;
+        if author.name
+            div.author
+                span by&nbsp;
+                span.name
+                    if (author.avatar)
+                        img(src="#{author.avatar}")
+                    else
+                        span.icon-torso
+                    a(href="/author/#{author.link}", title="#{author.name}") #{author.name}
+                if engines
+                    span &nbsp;for&nbsp;
+                    each version, engine in engines
+                        span.engine #{engine} #{version}&nbsp;
 
         div.description #{description}
 
