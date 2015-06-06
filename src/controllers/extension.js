@@ -20,7 +20,8 @@ exports.default = function(req, res, next){
         RegistryDAL.getExtension(extensionId),
         RegistryDAL.getTagsAsObject(),
         OnlineDAL.get(),
-        ExtensionDAL.getMostDownloadsExtensionList()
+        ExtensionDAL.getMostDownloadsExtensionList(),
+        ExtensionDAL.getReadmeFile(extensionId)
     ]).then(result => {
         var extension = result[0],
             registryEntry = result[1],
@@ -28,7 +29,8 @@ exports.default = function(req, res, next){
             dailyUsers = converters.dailyUsers(_.find(result[3], app => app.name === extensionId)),
             topExtensions = result[4],
             thisExtensionInTopList = _.find(topExtensions, (ext) => ext._id === extension._id),
-            position = thisExtensionInTopList && thisExtensionInTopList.position ? thisExtensionInTopList.position : null;
+            position = thisExtensionInTopList && thisExtensionInTopList.position ? thisExtensionInTopList.position : null,
+            readmeFile = result[5];
 
         res.render('extension', new Response(req, {
             id: extension._id,
@@ -58,7 +60,8 @@ exports.default = function(req, res, next){
             user: req.user,
             dailyUsers: dailyUsers,
             isFaked: !!extension.faked,
-            position: position
+            position: position,
+            readme: readmeFile
         }));
     }, () => {
         res.render('not-found', new Response(req, {

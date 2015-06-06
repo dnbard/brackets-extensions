@@ -214,48 +214,17 @@ ExtensionPageViewModel.prototype.formatMarkdown = function(content, element){
 ExtensionPageViewModel.prototype.initNumbers = require('./helpers/formatNumbers');
 
 ExtensionPageViewModel.prototype.initReadme = function(element){
-    var self = this;
+    var content = element.find('.readme .content').text() || '';
 
-    function makeAjax(url){
-        $.ajax(url).success(function(data){
-            var content = atob(data.content),
-                markdown = self.formatMarkdown(content, element);
-
-            element.find('.readme .content').html(markdown);
-
-            setTimeout(function(){
-                element.find('.readme').show();
-            }, 100);
-        }).error(function(){
-            var ending;
-
-            endingIndex ++;
-            ending = readmePathEndings[endingIndex];
-
-            if (ending){
-                makeAjax(readmePathBase + ending);
-            } else {
-                console.log('Can\'t get readme file for this extension');
-            }
-        });
+    if (content.length < 10){
+        return;
     }
 
-    var repository = element.find('input#repository').val(),
-        readmePathBase,
-        readmePathEndings = ['/contents/README.md', '/contents/Readme.md', '/contents/readme.md'],
-        endingIndex = 0;
-
-    if (repository.indexOf('https://github.com/') !== -1){
-        readmePathBase = repository.replace('https://github.com/', 'https://api.github.com/repos/');
-
-        if (readmePathBase[readmePathBase.length - 1] === '/'){
-            readmePathBase = readmePathBase.substring(0, readmePathBase.length - 1);
-        }
-
-        makeAjax(readmePathBase + readmePathEndings[endingIndex]);
-    } else {
-        console.log('Can\'t get readme file for this extension');
-    }
+    var markdown = this.formatMarkdown(content, element);
+    element.find('.readme .content').html(markdown);
+    setTimeout(function(){
+        element.find('.readme').show();
+    }, 100);
 }
 
 $(document).ready(function(){

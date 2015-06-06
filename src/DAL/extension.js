@@ -2,7 +2,8 @@ var mongoose = require('mongoose'),
     Extension = mongoose.model('Extension'),
     BaseDAL = require('./base'),
     _ = require('lodash'),
-    Q = require('q');
+    Q = require('q'),
+    request = require('request');
 
 function ExtensionDAL(){}
 
@@ -58,6 +59,47 @@ ExtensionDAL.prototype.getExtension = function(id){
     });
 
     return defer.promise;
+}
+
+//https://raw.githubusercontent.com/dnbard/brackets-documents-toolbar/master/readme.md
+ExtensionDAL.prototype.getReadmeFile = function(id){
+    return this.getExtension(id).then((extension) => {
+        var repository = extension.homepage,
+            readmePathEndings = ['/master/README.md', '/master/Readme.md', '/master/readme.md'],
+            endingIndex = 0,
+            readmePathBase;
+
+        if (!repository || repository.indexOf('https://github.com/') === -1){
+            return Promise.resolve(null);
+        }
+
+        readmePathBase = repository.replace('https://github.com/', 'https://raw.githubusercontent.com/');
+
+        if (readmePathBase[readmePathBase.length - 1] === '/'){
+            readmePathBase = readmePathBase.substring(0, readmePathBase.length - 1);
+        }
+
+        return new Promise((resolve, reject) => {
+            function makeReadmeRequest(url){
+                request(url, (err, response, body) =>{
+                    if (err || body === 'Not Found'){
+                        endingIndex ++;
+
+                        if (endingIndex === readmePathEndings.length){
+                            return resolve(null);
+                        }
+
+                        return makeReadmeRequest(readmePathBase + readmePathEndings[endingIndex]);
+                    }
+
+                    console.log('%s - %s', url, err);
+                    return resolve(body);
+                });
+            }
+
+            makeReadmeRequest(readmePathBase + readmePathEndings[endingIndex]);
+        });
+    });
 }
 
 ExtensionDAL.prototype.getExtensionsByAuthor = function(id){
