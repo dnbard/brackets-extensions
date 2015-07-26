@@ -18,7 +18,8 @@ var ExtensionSchema = new Schema({
         count: Number,
         timestamp: { type: Date, default: Date.now }
     }],
-    repository: String
+    repository: String,
+    dailyDownloads: { type: Number, default: 0, index: true }
 });
 
 mongoose.model('Extension', ExtensionSchema);

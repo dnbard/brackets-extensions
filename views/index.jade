@@ -9,33 +9,6 @@ block content
         input.search-input(placeholder="Search for extension")
 
     div.center
-        div.widget-big.highlight
-            div.widget-big_left
-                div.center
-                    a(href="/extension/#{highlighted.extension._id}").highlight-name #{highlighted.extension.title}
-                    span &nbsp;by&nbsp;
-                    a(href="/author/#{highlighted.extension.author}").highlight-author
-                        if(highlighted.extension.authorAvatar)
-                            img.highlight-avatar(src="#{highlighted.extension.authorAvatar}")
-                        else
-                            span.icon-torso
-                        span #{highlighted.extension.author}
-                div.separator
-                div.center
-                    span.icon-download &nbsp;#{highlighted.extension.totalDownloads}
-                    span &nbsp;&nbsp;&nbsp;
-                    span.icon-star-two &nbsp;#{highlighted.extension.stars}
-                    span &nbsp;&nbsp;&nbsp;
-                    span.icon-code-fork &nbsp;#{highlighted.extension.forks}
-                div.highlight-desc.first #{highlighted.extension.description}
-                div.highlight-desc #{highlighted.data.description}
-                div.highlight-links
-                    a(href="/extension/#{highlighted.extension._id}", title="Learn more about #{highlighted.extension.title}") Learn more about #{highlighted.extension.title}
-                    span &nbsp;&#8226;&nbsp;
-                    a(href="/extensions/featured", title="Learn more about highlighted extensions") All featured extensions
-            div.widget-big_right
-                img.highlight-img(src="#{highlighted.data.screenshot}", alt="#{highlighted.extension.title} preview", title="#{highlighted.extension.title}")
-
         div.widget
             h2.center.icon-graph-trend &nbsp;Extensions
             p.details
@@ -67,6 +40,17 @@ block content
                                 span.number #{extension.maxUsers}
 
         div.widget
+            h2.center.icon-download &nbsp;Extensions
+            p.details downloads during last 24 hours
+            div.separator
+            each extension in downloadsCounter
+                p.extension
+                    a(href="/extension/#{extension._id}")
+                        span.name #{extension.title || extension._id}
+                    span.downloads &nbsp;
+                        span(title="#{extension.title || extension._id} daily downloads") #{extension.dailyDownloads}
+
+        div.widget
             h2.center.icon-star-two &nbsp;Extensions
             p.details by number of stars at GitHub
             div.separator
@@ -87,6 +71,15 @@ block content
                     span.downloads &nbsp; #{author.count}
 
         div.widget
+            h2.center.icon-tag-2 &nbsp;Keywords
+            p.details keywords with the biggest selection
+            div.separator
+            each tag in tags
+                p.tag
+                    a(href="/tag/#{tag.name}", title="#{tag.name}") #{tag.name}
+                    span.downloads &nbsp; #{tag.count}
+
+        div.widget-big.highlight
             h2.center.icon-chart-line &nbsp;Stats
             div.separator
             p
@@ -108,15 +101,6 @@ block content
             p
                 a(href="//www.liveinternet.ru/click",target="_blank")
                     img(src="//counter.yadro.ru/logo?14.11",title="LiveInternet: number of pageviews for 24 hours, of visitors for 24 hours and for today is shown",alt="",border="0",width="88",height="31")
-
-        div.widget
-            h2.center.icon-tag-2 &nbsp;Keywords
-            p.details keywords with the biggest selection
-            div.separator
-            each tag in tags
-                p.tag
-                    a(href="/tag/#{tag.name}", title="#{tag.name}") #{tag.name}
-                    span.downloads &nbsp; #{tag.count}
 
 block scripts
     script(type='text/javascript', src='../js/index.js')

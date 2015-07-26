@@ -29,14 +29,13 @@ mongoose.connect(config.database, function(){
     routing(app);
 
     var server = app.listen(config.port, function(){
-        var herokuUnsleep, wss;
-
         console.log('Application started at port %d', config.port);
 
-        wss = new WebSocketServer({server: server});
+        var wss = new WebSocketServer({server: server});
+        var DownloadsCounter = require('./src/services/downloadsCounter');
+        DownloadsCounter.calculate();
+
         WebSocketService.init(wss);
         console.log('WebSocket Server Started at top of Express');
-
-        herokuUnsleep = new HerokuUnsleep();
     });
 });
