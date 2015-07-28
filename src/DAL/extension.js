@@ -10,12 +10,12 @@ function ExtensionDAL() {}
 ExtensionDAL.prototype = new BaseDAL();
 
 ExtensionDAL.prototype.setDailyDownloadCounter = function(ext, count){
-    if (count === undefined || count == "NaN"){
+    if (count === undefined || count == NaN){
         return console.log("Wrong DailyDownloadCounter calculation for %s", ext);
     }
 
     Extension.findOne({ _id: ext }, function(err, extension){
-        extension.dailyDownloads = count;
+        extension.dailyDownloads = count || 0;
         extension.save();
     });
 }
