@@ -19,7 +19,7 @@ UserDirectory.prototype.clean = function(){
     var now = new Date().getTime();
 
     _.each(this.storage, userInfo => {
-        if (now - userInfo.timestamp >= timeout){
+        if (userInfo && (now - userInfo.timestamp >= timeout)){
             this.storage[userInfo.token] = null;
         }
     });
