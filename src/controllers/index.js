@@ -42,8 +42,6 @@ exports.default = function(req, res, next){
             todayTransferedData = result[12],
             downloadsCounter = result[13];
 
-        console.log(downloadsCounter);
-
         var transferedDataFormated = {
             month: (transferedData.transfered / 1000000000).toFixed(1),
             overall: (overallTransferedData.transfered / 1000000000000).toFixed(2),
