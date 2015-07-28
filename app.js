@@ -3,10 +3,6 @@ require("babel/register");
 
 var config = require('./src/config');
 
-if (config.env === 'prod'){
-    require('newrelic');
-}
-
 var express = require('express'),
     middleware = require('./src/bootstrapMiddleware'),
     models = require('./src/bootstrapModels'),
