@@ -62,6 +62,15 @@ block content
                         span(title="#{extension.title || extension._id} stars") #{extension.stars}
 
         div.widget
+            h2.center.icon-plus-circled &nbsp;Newest Extensions
+            p.details recently added to registry
+            div.separator
+            each extension in newestExtensions
+                p.extension
+                    a(href="/extension/#{extension._id}")
+                        span.name #{extension.title || extension._id}
+
+        div.widget
             h2.center.icon-torso &nbsp;Authors
             p.details by number of released extensions
             div.separator
@@ -69,15 +78,6 @@ block content
                 p.author
                     a(href="/author/#{author.link}", title="#{author.name}") #{author.name}
                     span.downloads &nbsp; #{author.count}
-
-        div.widget
-            h2.center.icon-tag-2 &nbsp;Keywords
-            p.details keywords with the biggest selection
-            div.separator
-            each tag in tags
-                p.tag
-                    a(href="/tag/#{tag.name}", title="#{tag.name}") #{tag.name}
-                    span.downloads &nbsp; #{tag.count}
 
         div.widget-big.highlight
             h2.center.icon-chart-line &nbsp;Stats
@@ -89,15 +89,13 @@ block content
                 span Registry JSON served:&nbsp;
                 span.impact #{todayTransferedFormatted}(today), #{transferedFormatted}(month), #{overallTransferedFormatted}(overall)
             p Newest extension:
-                div
-                    a(href="/extension/#{newestExtension._id}", title="#{newestExtension.description}") #{newestExtension.title}
-                    span &nbsp;by&nbsp;
-                    a(href="/author/#{newestExtension.author}") #{newestExtension.author}
+                a(href="/extension/#{newestExtension._id}", title="#{newestExtension.description}") &nbsp;#{newestExtension.title}
+                span &nbsp;by&nbsp;
+                a(href="/author/#{newestExtension.author}") #{newestExtension.author}
             p Extension with most downloads:
-                div
-                    a(href="/extension/#{downloadsExtension._id}", title="#{downloadsExtension.description}") #{downloadsExtension.title}
-                    span &nbsp;by&nbsp;
-                    a(href="/author/#{downloadsExtension.author}") #{downloadsExtension.author}
+                a(href="/extension/#{downloadsExtension._id}", title="#{downloadsExtension.description}") &nbsp;#{downloadsExtension.title}
+                span &nbsp;by&nbsp;
+                a(href="/author/#{downloadsExtension.author}") #{downloadsExtension.author}
             p
                 a(href="//www.liveinternet.ru/click",target="_blank")
                     img(src="//counter.yadro.ru/logo?14.11",title="LiveInternet: number of pageviews for 24 hours, of visitors for 24 hours and for today is shown",alt="",border="0",width="88",height="31")

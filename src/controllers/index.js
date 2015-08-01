@@ -16,7 +16,6 @@ exports.default = function(req, res, next){
         ExtensionDAL.getNewestExtension(),
         ExtensionDAL.getMostDownloadsExtension(),
         ExtensionDAL.getMostDownloadsExtensionList(),
-        RegistryDAL.getTags(),
         RegistryDAL.getAuthors(),
         RegistryDAL.getAuthorsCount(),
         OnlineDAL.get(),
@@ -25,22 +24,23 @@ exports.default = function(req, res, next){
         CounterDAL.getLatestMonthTransfered(),
         CounterDAL.getTransfered(),
         CounterDAL.getTodayTransfered(),
-        ExtensionDAL.getDailyDownloads()
+        ExtensionDAL.getDailyDownloads(),
+        ExtensionDAL.getNewestExtensions()
     ]).then(_.bind(function(result){
         var count = result[0],
             newestExtension = result[1],
             downloadsExtension = result[2],
             downloadsExtensionList = result[3],
-            tags = result[4],
-            authors = result[5],
-            authorsCount = result[6],
-            extensionsOnline = result[7],
-            extensionsStars = result[8],
-            highlightedExtension = result[9],
-            transferedData = result[10],
-            overallTransferedData = result[11],
-            todayTransferedData = result[12],
-            downloadsCounter = result[13];
+            authors = result[4],
+            authorsCount = result[5],
+            extensionsOnline = result[6],
+            extensionsStars = result[7],
+            highlightedExtension = result[8],
+            transferedData = result[9],
+            overallTransferedData = result[10],
+            todayTransferedData = result[11],
+            downloadsCounter = result[12],
+            newestExtensions = result[13];
 
         var transferedDataFormated = {
             month: (transferedData.transfered / 1000000000).toFixed(1),
@@ -56,7 +56,6 @@ exports.default = function(req, res, next){
             downloadsExtensionList: _.sortBy(_.sample(_.shuffle(downloadsExtensionList), 12), function(el){
                 return -el.totalDownloads;
             }),
-            tags: _.first(tags, 12),
             authors: _.map(_.first(authors, 12),function(author){
                 author.link = author.name;
                 author.name = author.name.replace(/\b(\w)+\@(\w)+\.(\w)+\b/g, '').replace(',', '').trim();
@@ -69,7 +68,8 @@ exports.default = function(req, res, next){
             transferedFormatted: `${transferedDataFormated.month} GB`,
             overallTransferedFormatted: `${transferedDataFormated.overall} TB`,
             todayTransferedFormatted: `${transferedDataFormated.today} GB`,
-            downloadsCounter: downloadsCounter
+            downloadsCounter: downloadsCounter,
+            newestExtensions: newestExtensions
         }));
     }, this), function(){
         res.status(500).send();

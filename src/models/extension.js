@@ -11,7 +11,7 @@ var ExtensionSchema = new Schema({
     version: String,
     stars: { type: Number, default: 0 },
     forks: { type: Number, default: 0 },
-    timestamp: { type: Date, default: Date.now },
+    timestamp: { type: Date, default: Date.now, index: true },
     githubTimestamp: Date,
     totalDownloads: Number,
     downloads: [{

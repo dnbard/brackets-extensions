@@ -45,6 +45,16 @@ ExtensionDAL.prototype.getNewestExtension = function () {
     });
 }
 
+ExtensionDAL.prototype.getNewestExtensions = function () {
+    return this.cached('extensionsNewest', function () {
+        return Extension.find({})
+            .limit(12)
+            .sort({ timestamp: -1 })
+            .lean()
+            .exec();
+    });
+}
+
 ExtensionDAL.prototype.getMostDownloadsExtension = function () {
     return this.cached('extensionDownloads', function () {
         return Extension.findOne({
