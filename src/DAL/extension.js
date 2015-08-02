@@ -81,7 +81,9 @@ ExtensionDAL.prototype.getMostDownloadsExtensionList = function () {
 
 ExtensionDAL.prototype.getMostStaredExtensionList = function () {
     return this.cached('extensionStarsList', function () {
-        return Extension.find({}).sort({
+        return Extension.find({
+            faked: undefined
+        }).sort({
             stars: -1
         }).limit(12).lean().exec();
     }, function (extensions) {
