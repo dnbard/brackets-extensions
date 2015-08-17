@@ -29,7 +29,7 @@ OnlineDAL.prototype.set = function(registry){
 
     _.remove(this.registry, ext => _.contains(registryIds, ext.name));
 
-    this.registry = _(registry)
+    this.registry = _.chain(registry)
         .extend(this.registry)
         .sortBy(ext => -ext.online)
         .value();
@@ -96,7 +96,7 @@ OnlineDAL.prototype.trackingServiceHandler = function(service){
                 statsReg = {};
 
             _.each(stats, stat => {
-                if (stat.online && stat.maxUsers){
+                if (stat.online && typeof stat.maxUsers === 'number'){
                     statsReg[stat.name] = stat;
                 }
             });
