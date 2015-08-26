@@ -1,6 +1,6 @@
 {
-  "name": "BracketsExtensions",
-  "version": "1.9.2",
+  "name": "brackets-extensions",
+  "version": "1.9.3",
   "private": "true",
   "main": "app.js",
   "dependencies": {

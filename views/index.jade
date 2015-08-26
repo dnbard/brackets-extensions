@@ -35,7 +35,7 @@ block content
                             span.name #{extension.title}
                         span.downloads &nbsp;
                             span.onlineValue(title="Online users of #{extension.title}") #{extension.online}
-                            span.muted(title="Overall number of users for #{extension.title}")
+                            span.muted.maxUsers(title="Overall number of users for #{extension.title}", data-users="#{extension.maxUsers}")
                                 span &nbsp/&nbsp
                                 span.number #{extension.maxUsers}
 

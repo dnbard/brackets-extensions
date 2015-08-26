@@ -5,6 +5,7 @@ function IndexPageViewModel(elementSelector){
 
     this.init(element);
     this.initSearch(element);
+    this.hideZeroMaxUsers(element);
 
     websocket.connect();
     websocket.subscribe('*', function(message, data){
@@ -72,6 +73,14 @@ IndexPageViewModel.prototype.initSearch = function(element){
             }
 
             $target.val('');
+        }
+    });
+}
+
+IndexPageViewModel.prototype.hideZeroMaxUsers = function(element){
+    element.find('.maxUsers').each(function(index, el){
+        if (el.getAttribute('data-users') === '0'){
+            el.style.visibility = 'hidden';
         }
     });
 }
