@@ -12,7 +12,8 @@ function Routing(app){
         tag = require('./controllers/tag'),
         search = require('./controllers/search'),
         sso = require('./controllers/sso'),
-        user = require('./controllers/user');
+        user = require('./controllers/user'),
+        articles = require('./controllers/articles');
 
     app.get('/', index.default);
 
@@ -33,6 +34,8 @@ function Routing(app){
     app.get('/loggedin', sso.github);
 
     app.get('/dashboard', user.default);
+
+    app.get('/articles/:alias', articles.default);
 }
 
 module.exports = Routing;
