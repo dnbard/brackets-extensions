@@ -21,7 +21,7 @@ exports.default = function(req, res, next){
             }));
         }
 
-        res.render(article.layout, new Response(req, article));
+        res.render(article.layout, new Response(req, article.toObject()));
     }, function(){
         res.render('not-found', new Response(req, {
             title: 'Article not found',
