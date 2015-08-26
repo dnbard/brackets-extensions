@@ -141,7 +141,7 @@ ExtensionDAL.prototype.getReadmeFile = function (id) {
                     }
 
                     console.log('%s - %s', url, err);
-                    return resolve(body);
+                    return resolve(body.replace(/\/blob\//g, '/raw/'));
                 });
             }
 
