@@ -1,5 +1,6 @@
 var Response = require('../response'),
-    ArticlesDAL = require('../DAL/articles');
+    ArticlesDAL = require('../DAL/articles'),
+    ArticleViews = require('../services/articleViews');
 
 exports.default = function(req, res, next){
     var alias = req.params.alias;
@@ -20,6 +21,8 @@ exports.default = function(req, res, next){
                 id: alias
             }));
         }
+
+        ArticleViews.add(article.id);
 
         res.render(article.layout, new Response(req, article.toObject()));
     }, function(){
