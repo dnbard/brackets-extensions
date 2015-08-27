@@ -35,7 +35,8 @@ function Routing(app){
 
     app.get('/dashboard', user.default);
 
-    app.get('/articles/:alias', articles.default);
+    app.get('/blog', articles.all);
+    app.get('/article/:alias', articles.default);
 }
 
 module.exports = Routing;

@@ -14,4 +14,12 @@ ArticlesDAL.prototype.getArticle = function(alias){
     return Articles.findOne({ alias: alias }).exec();
 }
 
+ArticlesDAL.prototype.getArticles = function(alias){
+    return Articles.find({
+        published: true
+    }).sort({
+        createdAt: -1
+    }).exec();
+}
+
 module.exports = new ArticlesDAL();

@@ -33,3 +33,18 @@ exports.default = function(req, res, next){
         }));
     });
 }
+
+exports.all = function(req, res){
+    ArticlesDAL.getArticles().then(articles => {
+        res.render('blog', new Response(req, {
+            title: 'Blog',
+            articles: articles
+        }));
+    }, () => {
+        res.render('not-found', new Response(req, {
+            title: 'Articles not found',
+            type: 'Articles',
+            id: undefined
+        }));
+    });
+}

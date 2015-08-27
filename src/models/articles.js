@@ -6,7 +6,8 @@ var ArticlesSchema = new Schema({
     title: String,
     layout: String,
     views: Number,
-    createdAt: { type: Date, index: true, default: Date.now }
+    createdAt: { type: Date, index: true, default: Date.now },
+    published: { type: Boolean, index: true }
 });
 
 mongoose.model('Articles', ArticlesSchema);

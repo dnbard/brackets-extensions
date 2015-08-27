@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    div.articles
+        each article in articles
+            div.article.row
+                div.article-date.date #{article.createdAt}
+                div.article-main
+                    a(href="/article/#{article.alias}").article-title #{article.title}
+                    span.article-views (views: #{article.views})
+
+block scripts
+    script(type='text/javascript', src='http://cdn.jsdelivr.net/momentjs/2.8.3/moment.min.js')
+    script(type='text/javascript', src='/js/blog.js')
