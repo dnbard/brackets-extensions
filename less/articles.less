@@ -1,10 +1,19 @@
 .articles{
-    margin-top: 15px;
+    margin: 15px 0;
 }
 
 .article-body{
     font-size: 14pt;
-    margin: 5px 0;
+    margin: 5px 0 15px 0;
+
+    p{
+        text-align: justify;
+        margin: 5px 0;
+
+        &::first-letter{
+            margin-left: 35px;
+        }
+    }
 }
 
 .article-title{
@@ -27,4 +36,15 @@
 
 .article-views{
     color: grey;
+}
+
+.image-left{
+    float: left;
+    margin: 0 5px 0 0;
+    border-radius: 20px;
+}
+
+.image-center{
+    display: block;
+    margin: 0 auto;
 }
