@@ -4,6 +4,7 @@ var winston = require('winston'),
     RegistryDAL = require('../DAL/registry'),
     OnlineDAL = require('../DAL/online'),
     ApplicationDAL = require('../DAL/application'),
+    ArticlesDAL = require('../DAL/articles'),
     HightlightDAL = require('../DAL/highlight'),
     CounterDAL = require('../DAL/counter'),
     Q = require('q'),
@@ -25,7 +26,8 @@ exports.default = function(req, res, next){
         CounterDAL.getTransfered(),
         CounterDAL.getTodayTransfered(),
         ExtensionDAL.getDailyDownloads(),
-        ExtensionDAL.getNewestExtensions()
+        ExtensionDAL.getNewestExtensions(),
+        ArticlesDAL.getLast()
     ]).then(_.bind(function(result){
         var count = result[0],
             newestExtension = result[1],
@@ -40,7 +42,8 @@ exports.default = function(req, res, next){
             overallTransferedData = result[10],
             todayTransferedData = result[11],
             downloadsCounter = result[12],
-            newestExtensions = result[13];
+            newestExtensions = result[13],
+            lastArticle = result[14];
 
         var transferedDataFormated = {
             month: (transferedData.transfered / 1000000000).toFixed(1),
@@ -69,7 +72,8 @@ exports.default = function(req, res, next){
             overallTransferedFormatted: `${transferedDataFormated.overall} TB`,
             todayTransferedFormatted: `${transferedDataFormated.today} GB`,
             downloadsCounter: downloadsCounter,
-            newestExtensions: newestExtensions
+            newestExtensions: newestExtensions,
+            lastArticle: lastArticle
         }));
     }, this), function(){
         res.status(500).send();

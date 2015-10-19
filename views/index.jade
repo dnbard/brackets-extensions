@@ -5,6 +5,11 @@ block head
     meta(name='description', content='Brackets IDE extensions')
 
 block content
+    a.last-article(href="/article/#{lastArticle.alias}")
+        div.letter #{lastArticle.title[0]}
+        div #{lastArticle.title}
+        div.views #{lastArticle.views} views
+
     div.search
         input.search-input(placeholder="Search for extension")
 
