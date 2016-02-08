@@ -14,6 +14,12 @@ block content
         input.search-input(placeholder="Search for extension")
 
     div.center
+        div.widget-big.highlight.no-height
+            h2.center &nbsp;Info
+            div.separator
+            p
+                span Brackets Registry stopped to send the actual number of downloads per version recently. Unfortunatelly, I cannot display such information anymore at this web-site.
+    
         div.widget
             h2.center.icon-graph-trend &nbsp;Extensions
             p.details
@@ -26,34 +32,6 @@ block content
                         span.position #{extension.position}
                         span.name #{extension.title || extension._id}
                     span.downloads.number &nbsp; #{extension.totalDownloads}
-
-        div#onlineWidget.widget
-            div.progress
-                div.progress-inner
-            h2.center.icon-graph-trend &nbsp;Extensions
-            p.details by number of online users
-            div.separator
-            div.holder
-                each extension in extensionsOnline
-                    p.extension(data-ext="#{extension.name}", data-online="#{extension.online}")
-                        a(href="/extension/#{extension.name}")
-                            span.name #{extension.title}
-                        span.downloads &nbsp;
-                            span.onlineValue(title="Online users of #{extension.title}") #{extension.online}
-                            span.muted.maxUsers(title="Overall number of users for #{extension.title}", data-users="#{extension.maxUsers}")
-                                span &nbsp/&nbsp
-                                span.number #{extension.maxUsers}
-
-        div.widget
-            h2.center.icon-download &nbsp;Extensions
-            p.details downloads during last 24 hours
-            div.separator
-            each extension in downloadsCounter
-                p.extension
-                    a(href="/extension/#{extension._id}")
-                        span.name #{extension.title || extension._id}
-                    span.downloads &nbsp;
-                        span(title="#{extension.title || extension._id} daily downloads") #{extension.dailyDownloads}
 
         div.widget
             h2.center.icon-star-two &nbsp;Extensions

@@ -59,27 +59,27 @@ OnlineDAL.prototype.get = function(){
 }
 
 OnlineDAL.prototype.init = function(){
-    var registryPath = config.registryPath;
-
-    if (!Service){
-        Service = mongoose.model('Service');
-    }
-
-    Service.find({type: 'tracking'})
-        .lean()
-        .exec()
-        .then( services => {
-            _.each(services, service => {
-                this.trackingServiceHandler(service)
-                    .then(data => this.set(data),
-                          e => console.log(e));
-            });
-
-            console.log('Online data updated');
-            this.emit('updated', this.registry);
-        });
-
-    setTimeout(() => this.init(), dataRequireInterval);
+//    var registryPath = config.registryPath;
+//
+//    if (!Service){
+//        Service = mongoose.model('Service');
+//    }
+//
+//    Service.find({type: 'tracking'})
+//        .lean()
+//        .exec()
+//        .then( services => {
+//            _.each(services, service => {
+//                this.trackingServiceHandler(service)
+//                    .then(data => this.set(data),
+//                          e => console.log(e));
+//            });
+//
+//            console.log('Online data updated');
+//            this.emit('updated', this.registry);
+//        });
+//
+//    setTimeout(() => this.init(), dataRequireInterval);
 }
 
 OnlineDAL.prototype.trackingServiceHandler = function(service){
