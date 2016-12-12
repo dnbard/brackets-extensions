@@ -9,16 +9,17 @@ var express = require('express'),
     services = require('./src/bootstrapServices'),
     routing = require('./src/routing'),
     mongoose = require('mongoose'),
-    HerokuUnsleep = require('./src/services/heroku'),
     WebSocketServer = require('ws').Server,
     WebSocketService = require('./src/services/websockets');
 
 var app = express();
 
-models();
+//models();
 
-mongoose.connect(config.database, function(){
-    console.info('Connected to database');
+console.log(config);
+
+// mongoose.connect(config.database, function(){
+//     console.info('Connected to database');
 
     middleware(app);
     services();
@@ -27,11 +28,11 @@ mongoose.connect(config.database, function(){
     var server = app.listen(config.port, function(){
         console.log('Application started at port %d', config.port);
 
-        var wss = new WebSocketServer({server: server});
-        var DownloadsCounter = require('./src/services/downloadsCounter');
-        DownloadsCounter.calculate();
+        // var wss = new WebSocketServer({server: server});
+        // var DownloadsCounter = require('./src/services/downloadsCounter');
+        // DownloadsCounter.calculate();
 
-        WebSocketService.init(wss);
-        console.log('WebSocket Server Started at top of Express');
+        // WebSocketService.init(wss);
+        // console.log('WebSocket Server Started at top of Express');
     });
-});
+// });

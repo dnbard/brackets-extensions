@@ -110,43 +110,40 @@ ExtensionDAL.prototype.getExtension = function (id) {
 }
 
 //https://raw.githubusercontent.com/dnbard/brackets-documents-toolbar/master/readme.md
-ExtensionDAL.prototype.getReadmeFile = function (id) {
-    return this.getExtension(id).then((extension) => {
-        var repository = extension.homepage,
-            readmePathEndings = ['/master/README.md', '/master/Readme.md', '/master/readme.md'],
-            endingIndex = 0,
-            readmePathBase;
+ExtensionDAL.prototype.getReadmeFile = function (repository) {
+    var readmePathEndings = ['/master/README.md', '/master/Readme.md', '/master/readme.md'],
+        endingIndex = 0,
+        readmePathBase;
 
-        if (!repository || repository.indexOf('https://github.com/') === -1) {
-            return Promise.resolve(null);
-        }
+    if (!repository || repository.indexOf('https://github.com/') === -1) {
+        return Promise.resolve(null);
+    }
 
-        readmePathBase = repository.replace('https://github.com/', 'https://raw.githubusercontent.com/');
+    readmePathBase = repository.replace('https://github.com/', 'https://raw.githubusercontent.com/');
 
-        if (readmePathBase[readmePathBase.length - 1] === '/') {
-            readmePathBase = readmePathBase.substring(0, readmePathBase.length - 1);
-        }
+    if (readmePathBase[readmePathBase.length - 1] === '/') {
+        readmePathBase = readmePathBase.substring(0, readmePathBase.length - 1);
+    }
 
-        return new Promise((resolve, reject) => {
-            function makeReadmeRequest(url) {
-                request(url, (err, response, body) => {
-                    if (err || body === 'Not Found') {
-                        endingIndex++;
+    return new Promise((resolve, reject) => {
+        function makeReadmeRequest(url) {
+            request(url, (err, response, body) => {
+                if (err || body === 'Not Found') {
+                    endingIndex++;
 
-                        if (endingIndex === readmePathEndings.length) {
-                            return resolve(null);
-                        }
-
-                        return makeReadmeRequest(readmePathBase + readmePathEndings[endingIndex]);
+                    if (endingIndex === readmePathEndings.length) {
+                        return resolve(null);
                     }
 
-                    console.log('%s - %s', url, err);
-                    return resolve(body.replace(/\/blob\//g, '/raw/'));
-                });
-            }
+                    return makeReadmeRequest(readmePathBase + readmePathEndings[endingIndex]);
+                }
 
-            makeReadmeRequest(readmePathBase + readmePathEndings[endingIndex]);
-        });
+                console.log('%s - %s', url, err);
+                return resolve(body.replace(/\/blob\//g, '/raw/'));
+            });
+        }
+
+        makeReadmeRequest(readmePathBase + readmePathEndings[endingIndex]);
     });
 }
 

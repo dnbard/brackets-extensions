@@ -5,83 +5,13 @@ block head
     meta(name='description', content='Brackets IDE extensions')
 
 block content
-    a.last-article(href="/article/#{lastArticle.alias}")
-        div.letter #{lastArticle.title[0]}
-        div #{lastArticle.title}
-        div.views #{lastArticle.views} views
-
-    div.search
-        input.search-input(placeholder="Search for extension")
-
     div.center
         div.widget-big.highlight.no-height
             h2.center &nbsp;Info
             div.separator
             p
-                span Brackets Registry stopped to send the actual number of downloads per version recently. Unfortunatelly, I cannot display such information anymore at this web-site.
-    
-        div.widget
-            h2.center.icon-graph-trend &nbsp;Extensions
-            p.details
-                span randomly selected from the&nbsp;
-                a(href="/extensions", title="Top 100 extensions by download count") Top 100
-            div.separator
-            each extension in downloadsExtensionList
-                p.extension
-                    a(href="/extension/#{extension._id}", title="#{extension.description}")
-                        span.position #{extension.position}
-                        span.name #{extension.title || extension._id}
-                    span.downloads.number &nbsp; #{extension.totalDownloads}
+                span Hello. Unfortunatelly, recently compose.io declined to provide the database services for this website. I'm working on migrations, coding and reverting everything that was lost at the moment. Some functionality already restored and everything else are going to be restored in next several days.
 
-        div.widget
-            h2.center.icon-star-two &nbsp;Extensions
-            p.details by number of stars at GitHub
-            div.separator
-            each extension in extensionsStars
-                p.extension
-                    a(href="/extension/#{extension._id}")
-                        span.name #{extension.title || extension._id}
-                    span.downloads &nbsp;
-                        span(title="#{extension.title || extension._id} stars") #{extension.stars}
-
-        div.widget
-            h2.center.icon-plus-circled &nbsp;Newest Extensions
-            p.details recently added to registry
-            div.separator
-            each extension in newestExtensions
-                p.extension
-                    a(href="/extension/#{extension._id}")
-                        span.name #{extension.title || extension._id}
-
-        div.widget
-            h2.center.icon-torso &nbsp;Authors
-            p.details by number of released extensions
-            div.separator
-            each author in authors
-                p.author
-                    a(href="/author/#{author.link}", title="#{author.name}") #{author.name}
-                    span.downloads &nbsp; #{author.count}
-
-        div.widget-big.highlight
-            h2.center.icon-chart-line &nbsp;Stats
-            div.separator
-            p
-                span In registry:
-                span.impact &nbsp;#{count} extensions, #{authorsCount} authors
-            p
-                span Registry JSON served:&nbsp;
-                span.impact #{todayTransferedFormatted}(today), #{transferedFormatted}(month), #{overallTransferedFormatted}(overall)
-            p Newest extension:
-                a(href="/extension/#{newestExtension._id}", title="#{newestExtension.description}") &nbsp;#{newestExtension.title}
-                span &nbsp;by&nbsp;
-                a(href="/author/#{newestExtension.author}") #{newestExtension.author}
-            p Extension with most downloads:
-                a(href="/extension/#{downloadsExtension._id}", title="#{downloadsExtension.description}") &nbsp;#{downloadsExtension.title}
-                span &nbsp;by&nbsp;
-                a(href="/author/#{downloadsExtension.author}") #{downloadsExtension.author}
-            p
-                a(href="//www.liveinternet.ru/click",target="_blank")
-                    img(src="//counter.yadro.ru/logo?14.11",title="LiveInternet: number of pageviews for 24 hours, of visitors for 24 hours and for today is shown",alt="",border="0",width="88",height="31")
 
 block scripts
     script(type='text/javascript', src='../js/index.js')

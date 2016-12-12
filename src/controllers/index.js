@@ -1,34 +1,56 @@
 var winston = require('winston'),
     _ = require('lodash'),
-    ExtensionDAL = require('../DAL/extension'),
-    RegistryDAL = require('../DAL/registry'),
-    OnlineDAL = require('../DAL/online'),
-    ApplicationDAL = require('../DAL/application'),
-    ArticlesDAL = require('../DAL/articles'),
-    HightlightDAL = require('../DAL/highlight'),
-    CounterDAL = require('../DAL/counter'),
+    // ExtensionDAL = require('../DAL/extension'),
+    // RegistryDAL = require('../DAL/registry'),
+    // OnlineDAL = require('../DAL/online'),
+    // ApplicationDAL = require('../DAL/application'),
+    // ArticlesDAL = require('../DAL/articles'),
+    // HightlightDAL = require('../DAL/highlight'),
+    // CounterDAL = require('../DAL/counter'),
     Q = require('q'),
-    Response = require('../response'),
-    downloadsCounter = require('../services/downloadsCounter');
+    Response = require('../response')/*,*/
+    /*downloadsCounter = require('../services/downloadsCounter')*/;
 
 exports.default = function(req, res, next){
+    return res.render('index', new Response(req, {}));
+
+
     Q.all([
-        ExtensionDAL.getExtensionsCount(),
-        ExtensionDAL.getNewestExtension(),
-        ExtensionDAL.getMostDownloadsExtension(),
-        ExtensionDAL.getMostDownloadsExtensionList(),
-        RegistryDAL.getAuthors(),
-        RegistryDAL.getAuthorsCount(),
-        OnlineDAL.get(),
-        ExtensionDAL.getMostStaredExtensionList(),
-        HightlightDAL.getCurrent(),
-        CounterDAL.getLatestMonthTransfered(),
-        CounterDAL.getTransfered(),
-        CounterDAL.getTodayTransfered(),
-        ExtensionDAL.getDailyDownloads(),
-        ExtensionDAL.getNewestExtensions(),
-        ArticlesDAL.getLast()
+        // ExtensionDAL.getExtensionsCount(),
+        // ExtensionDAL.getNewestExtension(),
+        // ExtensionDAL.getMostDownloadsExtension(),
+        // ExtensionDAL.getMostDownloadsExtensionList(),
+        // RegistryDAL.getAuthors(),
+        // RegistryDAL.getAuthorsCount(),
+        // OnlineDAL.get(),
+        // ExtensionDAL.getMostStaredExtensionList(),
+        // HightlightDAL.getCurrent(),
+        // CounterDAL.getLatestMonthTransfered(),
+        // CounterDAL.getTransfered(),
+        // CounterDAL.getTodayTransfered(),
+        // ExtensionDAL.getDailyDownloads(),
+        // ExtensionDAL.getNewestExtensions(),
+        // ArticlesDAL.getLast()
     ]).then(_.bind(function(result){
+        return res.render('index', new Response(req, {
+            title : 'Home',
+            count: 0,
+            newestExtension: null,
+            downloadsExtension: null,
+            downloadsExtensionList: [],
+            authors: [],
+            authorsCount: 0,
+            extensionsOnline: 0,
+            extensionsStars: 0,
+            highlighted: null,
+            transferedFormatted: 0,
+            overallTransferedFormatted: 0,
+            todayTransferedFormatted: 0,
+            downloadsCounter: 0,
+            newestExtensions: 0,
+            lastArticle: 0
+        }));
+
         var count = result[0],
             newestExtension = result[1],
             downloadsExtension = result[2],
