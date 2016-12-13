@@ -9,11 +9,11 @@ function BootstrapMiddleware(app){
         throw new Error('Invalid argument');
     }
 
-    app.set('views', __dirname + '../views');
+    app.set('views', __dirname + '/../views');
     app.set('view engine', 'jade');
 
     app.use(morgan('dev'));
-    app.use(express.static(__dirname + '../public'));
+    app.use(express.static(__dirname + '/../public'));
 
     // app.use(ready);
     app.use(cookieParser());
