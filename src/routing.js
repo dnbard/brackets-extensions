@@ -5,12 +5,12 @@ function Routing(app){
 
     var index = require('./controllers/index'),
         about = require('./controllers/about'),
-        extension = require('./controllers/extension');
+        extension = require('./controllers/extension'),
+        search = require('./controllers/search');
         /*extensions = require('./controllers/extensions'),
         downloads = require('./controllers/downloads'),
         author = require('./controllers/author'),
         tag = require('./controllers/tag'),
-        search = require('./controllers/search'),
         sso = require('./controllers/sso'),
         user = require('./controllers/user'),
         articles = require('./controllers/articles');*/
@@ -29,7 +29,7 @@ function Routing(app){
     //
     // app.get('/tag/:id', tag.default);
     //
-    // app.get('/search/:id', search.default);
+    app.get('/search/:id', search.default);
     //
     // app.get('/loggedin', sso.github);
     //

@@ -26,10 +26,10 @@ block content
             div.query
                 div
                     if (extension.position)
-                        a.name(href="/extension/#{extension._id}") #{extension.position + ' ' + extension.title}
+                        a.name(href="/extension/#{extension.name}") #{extension.position + ' ' + extension.title}
                     else
-                        a.name(href="/extension/#{extension._id}") #{extension.title}
-                    span.version #{extension.version}
+                        a.name(href="/extension/#{extension.metadata.name}") #{extension.metadata.title || extension.metadata.name}
+                    span.version #{extension.metadata.version}
                     if (extension.stars)
                         span.stars.icon-star-two #{extension.stars}
                     if (extension.forks)
@@ -41,7 +41,7 @@ block content
                         span by
                         span.icon-torso
                         a(href="/author/#{extension.author}") #{extension.author}
-                div.description #{extension.description}
+                div.description #{extension.metadata.description}
     else
         div.center No extensions found for "#{search}" query
         div.center
