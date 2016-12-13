@@ -64,7 +64,7 @@ exports.default = function(req, res, next){
             extension.homepage ? extension.homepage : null;
 
         // getReadmeFile(readMeUrl).then(readme => {
-            console.log(readme);
+            //console.log(readme);
 
             res.render('extension', new Response(req, {
                 id: extension.name,
