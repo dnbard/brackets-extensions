@@ -6,9 +6,9 @@ function Routing(app){
     var index = require('./controllers/index'),
         about = require('./controllers/about'),
         extension = require('./controllers/extension'),
-        search = require('./controllers/search');
-        /*extensions = require('./controllers/extensions'),
-        downloads = require('./controllers/downloads'),
+        search = require('./controllers/search'),
+        extensions = require('./controllers/extensions');
+        /*downloads = require('./controllers/downloads'),
         author = require('./controllers/author'),
         tag = require('./controllers/tag'),
         sso = require('./controllers/sso'),
@@ -19,7 +19,7 @@ function Routing(app){
 
     app.get('/about', about.default);
 
-    // app.get('/extensions', extensions.default);
+    app.get('/extensions', extensions.default);
     // app.get('/extensions/featured', extensions.featured);
     //
     app.get('/extension/:id', extension.default);

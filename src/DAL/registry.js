@@ -216,4 +216,25 @@ RegistryDAL.prototype.getThemeOfDay = function(){
     return defer.promise;
 }
 
+RegistryDAL.prototype.getExtensionsByDownloads = function(){
+    return this.getRegistry().then(registry => {
+        return _.chain(registry)
+            .sortBy(e => -e.totalDownloads)
+            .take(150)
+            .filter(e => {
+                const repository = e.metadata.repository;
+
+                if (!repository){
+                    return true;
+                }
+
+                if (typeof repository === 'object'){
+                    return repository.url.indexOf('lamo') === -1;
+                }
+
+                return true;
+            }).take(100).value();
+    });
+}
+
 module.exports = new RegistryDAL();
