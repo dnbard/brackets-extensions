@@ -6,7 +6,7 @@ var winston = require('winston'),
     converters = require('../services/converters'),
     request = require('request');
 
-function getReadmeFile(repository) {
+function getReadmeFile(repository, cb) {
     var readmePathEndings = ['/master/README.md', '/master/Readme.md', '/master/readme.md'],
         endingIndex = 0,
         readmePathBase;
@@ -21,26 +21,24 @@ function getReadmeFile(repository) {
         readmePathBase = readmePathBase.substring(0, readmePathBase.length - 1);
     }
 
-    return new Promise((resolve, reject) => {
-        function makeReadmeRequest(url) {
-            request(url, (err, response, body) => {
-                if (err || body === 'Not Found') {
-                    endingIndex++;
+    function makeReadmeRequest(url) {
+        request(url, (err, response, body) => {
+            if (err || body.indexOf('Not Found') !== -1) {
+                endingIndex++;
 
-                    if (endingIndex === readmePathEndings.length) {
-                        return resolve(null);
-                    }
-
-                    return makeReadmeRequest(readmePathBase + readmePathEndings[endingIndex]);
+                if (endingIndex === readmePathEndings.length) {
+                    return cb(null);
                 }
 
-                console.log('%s - %s', url, err);
-                return resolve(body.replace(/\/blob\//g, '/raw/'));
-            });
-        }
+                return makeReadmeRequest(readmePathBase + readmePathEndings[endingIndex]);
+            }
 
-        return makeReadmeRequest(readmePathBase + readmePathEndings[endingIndex]);
-    });
+            console.log('%s - %s', url, err);
+            cb(body.replace(/\/blob\//g, '/raw/'));
+        });
+    }
+
+    return makeReadmeRequest(readmePathBase + readmePathEndings[endingIndex]);
 }
 
 exports.default = function(req, res, next){
@@ -63,9 +61,7 @@ exports.default = function(req, res, next){
         const readMeUrl = extension.repository ? extension.repository.url :
             extension.homepage ? extension.homepage : null;
 
-        // getReadmeFile(readMeUrl).then(readme => {
-            //console.log(readme);
-
+        getReadmeFile(readMeUrl, readme => {
             res.render('extension', new Response(req, {
                 id: extension.name,
                 title : extension.title || extension.name,
@@ -94,9 +90,9 @@ exports.default = function(req, res, next){
                 user: req.user,
                 dailyUsers: dailyUsers,
                 isFaked: false,
-                // readme: readme
+                readme: readme
             }));
-        // });
+        });
     }, () => {
         res.render('not-found', new Response(req, {
             title: 'Extension not found',
