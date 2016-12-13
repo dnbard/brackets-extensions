@@ -12,7 +12,7 @@ function getReadmeFile(repository, cb) {
         readmePathBase;
 
     if (!repository || repository.indexOf('https://github.com/') === -1) {
-        return Promise.resolve(null);
+        return cb(null);
     }
 
     readmePathBase = repository.replace('https://github.com/', 'https://raw.githubusercontent.com/');
@@ -22,6 +22,7 @@ function getReadmeFile(repository, cb) {
     }
 
     function makeReadmeRequest(url) {
+        console.log(`Readme retrieve; url=${url}`);
         request(url, (err, response, body) => {
             if (err || body.indexOf('Not Found') !== -1) {
                 endingIndex++;
@@ -42,7 +43,7 @@ function getReadmeFile(repository, cb) {
 }
 
 exports.default = function(req, res, next){
-    var extensionId = req.params.id;
+    const extensionId = req.params.id;
 
     if (!extensionId){
         res.status(500).send();
@@ -53,6 +54,12 @@ exports.default = function(req, res, next){
         RegistryDAL.getExtension(extensionId),
         RegistryDAL.getTagsAsObject()
     ]).then(result => {
+        if (!result[0]){
+            return res.status(404).send();
+        }
+
+        console.log(`Got request to show /extension/${extensionId}`);
+
         var extension = result[0].metadata,
             registryEntry = result[0],
             tags = result[1],
@@ -62,6 +69,7 @@ exports.default = function(req, res, next){
             extension.homepage ? extension.homepage : null;
 
         getReadmeFile(readMeUrl, readme => {
+            console.log(`Readme size: ${readme ? readme.length : readme}`);
             res.render('extension', new Response(req, {
                 id: extension.name,
                 title : extension.title || extension.name,
