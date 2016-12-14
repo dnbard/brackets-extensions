@@ -5,8 +5,8 @@ var config = require('./src/config');
 
 var express = require('express'),
     middleware = require('./src/bootstrapMiddleware'),
-    models = require('./src/bootstrapModels'),
-    services = require('./src/bootstrapServices'),
+    //models = require('./src/bootstrapModels'),
+    //services = require('./src/bootstrapServices'),
     routing = require('./src/routing'),
     WebSocketServer = require('ws').Server,
     WebSocketService = require('./src/services/websockets');
@@ -14,7 +14,7 @@ var express = require('express'),
 const app = express();
 
 middleware(app);
-services();
+//services();
 routing(app);
 
 const server = app.listen(config.port, function(){

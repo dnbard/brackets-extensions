@@ -86,7 +86,7 @@ exports.default = function(req, res, next){
                 },
                 created: _.first(registryEntry.versions).published,
                 latest: _.last(registryEntry.versions).published,
-                totalDownloads: 0,
+                totalDownloads: registryEntry.totalDownloads || 0,
                 version: extension.version,
                 homepage: null,
                 repository: extension.repository ? extension.repository.url : null,
